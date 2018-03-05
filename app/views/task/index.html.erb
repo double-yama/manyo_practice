@@ -1,0 +1,40 @@
+<h1><%= t 'title.index' %></h1>
+<!--<p>Find me in app/views/task/index.html.erb</p>-->
+<% if flash[:notice] %>
+  <div>
+    <p><%= flash[:notice] %></p>
+  </div><br>
+<% end %>
+<table>
+  <tr>
+    <!--<th>ユーザ名</th>-->
+    <th><%= t 'label.task_name' %></th>
+    <!--<th>期限</th>-->
+    <!--<th>優先度</th>-->
+    <!--<th>ステータス</th>-->
+    <th><%= t 'label.description' %></th>
+    <th></th>
+  </tr>
+
+  <% @tasks.each do |task| %>
+    <tr>
+      <td>
+        <%= link_to task.name, task_path(task.id) %>
+        <!--<%= task.name %>-->
+
+      </td>
+      <td>
+        <%= task.detail %>
+
+      </td>
+      <td>
+        <%= link_to "編集", edit_task_path(task.id) %>
+      </td>
+      <td>
+        <%= link_to "削除", task_path(task.id), method: :delete, data: {confirm: "Are you sure you want to delete?"} %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to t('title.add_new_task'), new_task_path %></p>

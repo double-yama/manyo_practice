@@ -1,0 +1,9 @@
+ja:
+  title:
+    edit: "編集"
+    add_new_task: "新規タスク追加"
+    index: "タスク一覧"
+  label:
+    name: "名前"
+    task_name: "タスク名"
+    description: "説明"
