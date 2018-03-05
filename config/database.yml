@@ -55,7 +55,7 @@ test:
 #  password: <%= ENV['MANYO_DATABASE_PASSWORD'] %>
 
 production:
- <<: *default
+# <<: *default
  adapter: postgresql
  encoding: unicode
  pool: 5
