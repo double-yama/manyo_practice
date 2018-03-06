@@ -5,13 +5,16 @@
     <p><%= flash[:notice] %></p>
   </div><br>
 <% end %>
-<table>
+
+<table border="1">
   <tr>
-    <!--<th>ユーザ名</th>-->
+    <th>ユーザ名</th>
     <th><%= t 'label.task_name' %></th>
     <!--<th>期限</th>-->
-    <!--<th>優先度</th>-->
-    <!--<th>ステータス</th>-->
+    <th><%= sort_link(@q, :priority, '優先度') %></th>
+    <th>
+    <%= sort_link(@q, :status, 'ステータス') %>
+    </th>
     <th><%= t 'label.description' %></th>
     <th></th>
   </tr>
@@ -19,13 +22,19 @@
   <% @tasks.each do |task| %>
     <tr>
       <td>
+        <%= task.user.name %>
+      </td>
+      <td>
         <%= link_to task.name, task_path(task.id) %>
-        <!--<%= task.name %>-->
-
+      </td>
+      <td>
+        <%= task.priority %>
+      </td>
+      <td>
+        <%= task.status %>
       </td>
       <td>
         <%= task.detail %>
-
       </td>
       <td>
         <%= link_to "編集", edit_task_path(task.id) %>
@@ -36,5 +45,8 @@
     </tr>
   <% end %>
 </table>
+<br>
+
+<%= paginate @tasks %>
 
 <p><%= link_to t('title.add_new_task'), new_task_path %></p>

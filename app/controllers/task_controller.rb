@@ -1,6 +1,14 @@
 class TaskController < ApplicationController
   def index
-    @tasks = Task.all.order(created_at: :desc)
+    # if params[:p]
+    #   @p = Task.search(params[:p])
+    #   @tasks = @p.result(distinct: true)
+    # else
+      @q = Task.ransack(params[:q])
+      @q.sorts = 'created_at' if @q.sorts.empty?
+      @tasks = Task.all.order(created_at: :desc).joins(:users)
+      @tasks = @q.result.page(params[:page]).per(10)
+    # end
   end
 
   def new
@@ -17,7 +25,7 @@ class TaskController < ApplicationController
   end
 
   def create
-    @task = Task.new(params.require(:task).permit(:name, :detail))
+    @task = Task.new(params.require(:task).permit(:name, :detail, :status, :priority))
     if @task.save
       flash[:notice] = "New Task is added!!"
       redirect_to task_index_path
@@ -44,10 +52,23 @@ class TaskController < ApplicationController
     redirect_to task_index_path
   end
 
+
+
   private
 
   def update_params
     params.require(:task).permit(:name, :detail)
   end
+
+  # def return_status(status)
+  #   case status
+  #     when "yet_complete"
+  #       return "未完了"
+  #     when "under_correspond"
+  #       return "着手中"
+  #     when "complete"
+  #       return "完了"
+  #   end
+  # end
 
 end

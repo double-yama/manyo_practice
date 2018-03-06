@@ -1,0 +1,10 @@
+<h1>ログイン画面</h1>
+
+<%= form_for @login_info, :url => { :controller => :login, :action => :login } do |f| %>
+
+  <%= f.label :email %>
+  <%= f.text_field :email %>
+  <br><br>
+  <%= f.label :password %>
+  <%= f.text_field :password %>
+<% end %>

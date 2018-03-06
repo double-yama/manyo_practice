@@ -1,2 +1,12 @@
-<h1>Task#show</h1>
-<p>Find me in app/views/task/show.html.erb</p>
+<h1><%= t 'title.show' %></h1>
+
+<%= form_for @tasks do |f| %>
+
+  <h4><%= f.label :name, t('label.task_name')%></h4>
+  <h3><%= f.label :name %></h3> <br>
+  <h4><%= f.label :detail, t('label.description')%></h4>
+  <h3><%= f.label :detail %> <br></h3>
+
+  <%= link_to '戻る', :back %>
+
+<% end %>

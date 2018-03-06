@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+
+  resources :login
+  get '/login'  => 'login#index'
+
   resources :task
   root 'task#index'
 
