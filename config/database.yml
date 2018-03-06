@@ -56,6 +56,12 @@ test:
 
 production:
 # <<: *default
-  adapter: pg
-  encoding: unicode
-  pool: 5
+#  adapter: pg
+#  encoding: unicode
+#  pool: 5
+  <<: *default
+  database: d8c7clp3dmvv4u
+  username: ENV['DATABASE_USER']
+  password: ENV['DATABASE_PASSWORD']
+  host: ec2-23-23-222-147.compute-1.amazonaws.com
+  port: 5432
