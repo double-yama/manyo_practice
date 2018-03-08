@@ -9,3 +9,6 @@ ja:
     task_name: "タスク名"
     description: "説明"
     period_end_on: "期限"
+  flash:
+    invalid_password: "ログインできませんでした"
+    invalid_mail: "ログインできませんでした"

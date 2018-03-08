@@ -1,7 +1,5 @@
 class User < ApplicationRecord
-  belongs_to :task
-
-  validates :name, presence: true
-  validates :email, presence: true, uniqueness: true
-
+  has_secure_password
+  validates :username, {presence: true, uniqueness: true}
+  has_many :task
 end

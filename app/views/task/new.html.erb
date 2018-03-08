@@ -1,6 +1,6 @@
 <h1><%= t 'title.add_new_task' %></h1>
 
-<%= form_for @task, :url => { :controller => :task, :action => :create } do |f| %>
+<%= form_for :task, :url => { :controller => :task, :action => :create } do |f| %>
 
 
     <%= f.label :name, t('label.name') %> <br>

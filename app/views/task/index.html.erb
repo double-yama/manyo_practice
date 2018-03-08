@@ -6,14 +6,28 @@
   </div><br>
 <% end %>
 
+<p>タスク名/説明文検索</p>
+<%= form_tag(task_index_path, method: "get") do %>
+  <%= text_field_tag :search %>
+  <%= submit_tag 'Search' %>
+<% end %><br>
+
+<% if @params %>
+  <p>
+    <%= @params %>
+    の検索結果です。</p>
+  <% end %><br>
+
+
 <table border="1">
   <tr>
     <th>ユーザ名</th>
     <th><%= t 'label.task_name' %></th>
     <!--<th>期限</th>-->
-    <th><%= sort_link(@q, :priority, '優先度') %></th>
+    <th><%=  '優先度' %></th>
+    <!--# sort_link(@q, :priority,-->
     <th>
-    <%= sort_link(@q, :status, 'ステータス') %>
+    <%= 'ステータス' %>
     </th>
     <th><%= t 'label.description' %></th>
     <th></th>
@@ -22,7 +36,7 @@
   <% @tasks.each do |task| %>
     <tr>
       <td>
-        <%= task.user.name %>
+        <%= task.user.username %>
       </td>
       <td>
         <%= link_to task.name, task_path(task.id) %>
@@ -50,3 +64,7 @@
 <%= paginate @tasks %>
 
 <p><%= link_to t('title.add_new_task'), new_task_path %></p>
+
+<div>
+  <%= link_to 'ログアウト', logout_path, :method => :delete %>
+</div>
