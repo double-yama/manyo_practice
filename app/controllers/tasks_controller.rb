@@ -1,17 +1,17 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.all
+    # @tasks = Task.all.includes(:user).page(params[:page]).per(10)
+    @q = Task.new(word_params)
+    @tasks = Task.search
     # 以下、プライベートメソッドにする
-    @tasks = Task.search_status(params[:status_word]).page(params[:page]).per(10)
-    @tasks = Task.search_task(params[:task_word]).page(params[:page]).per(10) if params[:task_word]
-    @tasks = Task.search_label(params[:label_word]).page(params[:page]).per(10) if params[:label_word]
-    # search_paramsに名前変更
-    @params = params[:search]
+    # @tasks = @tasks.search_status(@q.status)
+    # @tasks = @tasks.search_task(@q.name)
+    # @tasks = @tasks.search_label(@q.label)
+    @search_params = params[:search]
     # 上の検索と一緒にやりたい
-    @q = Task.new
-    ()
-    @tasks = Task.order(params[:sort]).page(params[:page]).per(10) if params[:sort] == "period"
-    @tasks = Task.all.order(created_at: :desc).includes([:user, task_labels: :label]) unless
+
+    # @tasks = Task.order(params[:sort]).page(params[:page]).per(10) if params[:sort] == "period"
+    # @tasks = Task.all.order(created_at: :desc).includes([:user, task_labels: :label]) unless
     @period_ended_tasks = Task.notice_period_ended_task
     @period_near_tasks = Task.period_near_task
   end
@@ -78,7 +78,23 @@ class TasksController < ApplicationController
     )
   end
 
-  # def word_params
-  #   params.require(:task).permit
-  # end
+  def word_params
+    if @q
+      params.require(:q).permit(
+        :name,
+        :status,
+        :period,
+        :label
+      )
+    end
+  end
+
+  def search
+    @tasks = Task.all.includes(:user).page(params[:page]).per(10)
+    @tasks = Task.where(['name LIKE ?', "%#{params[:search]}%"]).or(where(['detail LIKE ?', "%#{search}%"])) if @q.name
+                                                                                                             .present?
+    @tasks = Task.joins(:labels).where(['labels.name LIKE ?', "%#{search}%"]) if @q.label.present?
+    @tasks = Task.where(['status = ?', search]) if @q.status.present?
+    @tasks
+  end
 end
