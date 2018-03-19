@@ -1,0 +1,10 @@
+h1
+  = t 'title.index'
+
+- if flash[:notice]
+  p
+    = flash[:notice]
+
+= render 'table_all' 
+
+= link_to t('title.add_new_task'), new_task_path

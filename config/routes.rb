@@ -2,25 +2,19 @@ Rails.application.routes.draw do
 
   get 'users/new'
   get "signup" => "users#new"
-  resources :users
+  get "admin/users" => "users#index"
+  resources :users, :except => :index
 
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   delete '/logout' => 'sessions#destroy'
+  get '/tasks/mypage' => 'tasks#mypage'
+  resources :tasks
+  root 'tasks#index'
 
-  # get 'users/index'
-  #
-  # get 'users/create'
-  #
-  # get 'users/new'
-
-  resources :task
-  root 'task#index'
-  # get '/new' => 'task#new'
-  #
-  # get 'task/show'
-  #
-  # get 'task/edit'
+  get '*path', to: 'application#render_404'
+  post '*not_found' => 'application#routing_error'
+  get  '*unmatched_route' => 'application#routing_error', format: false
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

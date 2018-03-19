@@ -1,0 +1,16 @@
+h1
+  = t('title.login')
+
+= form_for :session do |f|
+  = f.label t('label.user_name')
+  = f.text_field :username
+  br
+  br
+  = f.label t('label.password')
+  = f.password_field :password
+  br
+  br
+  = f.submit t('title.login')
+br
+div
+  = link_to t('label.signup'), signup_path

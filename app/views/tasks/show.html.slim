@@ -1,0 +1,13 @@
+h3 
+  = t('title.show')
+p
+  = t('label.task_name')
+  div
+  = @tasks.name
+br
+p
+  = t('label.description')
+  div
+  = @tasks.detail
+br
+  = link_to t('label.back'), :back

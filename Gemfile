@@ -29,6 +29,13 @@ gem 'jbuilder', '~> 2.5'
 gem 'kaminari'
 gem 'ransack'
 gem 'bootstrap-sass','3.2.0.0'
+gem 'autoprefixer-rails'
+gem 'slim-rails'
+gem 'html2slim'
+gem 'rubocop'
+gem 'rails-i18n'
+gem 'carrierwave'
+# gem 'rmagick'
 
 # gem "state_machine"
 # Use Redis adapter to run Action Cable in production
@@ -46,10 +53,14 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  gem 'rspec-rails', '~> 3.6'
+  gem "factory_bot_rails"
+  gem "guard-rspec"
+  gem "spring-commands-rspec"
 end
 
 group :development do
-  gem 'mysql2', '>= 0.3.18', '< 0.5'
+  # gem 'mysql2', '>= 0.3.18', '< 0.5'
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
@@ -64,5 +75,19 @@ group :production do
   gem 'rails_12factor', '0.0.2'
 end
 
+group :test do
+  gem "faker"
+  # gem 'capybara', '~> 2.13'
+  gem "database_cleaner"
+  gem 'database_rewinder'
+  gem "launchy"
+  # gem "selenium-webdriver"
+  gem "shoulda-matchers"
+end
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+# gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+#
+# %w[rspec-core rspec-rails rspec-expectations rspec-mocks rspec-support].each do |lib|
+#   gem lib, :git => "https://github.com/rspec/#{lib}.git", :branch => 'master'
+# end
