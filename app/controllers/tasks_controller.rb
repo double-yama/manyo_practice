@@ -1,32 +1,30 @@
 class TasksController < ApplicationController
+  protect_from_forgery :except => [:put_in_read]
   def index
-    # @tasks = Task.all.includes(:user).page(params[:page]).per(10)
-    @q = Task.new(word_params)
-    @tasks = Task.search
-    # 以下、プライベートメソッドにする
-    # @tasks = @tasks.search_status(@q.status)
-    # @tasks = @tasks.search_task(@q.name)
-    # @tasks = @tasks.search_label(@q.label)
-    @search_params = params[:search]
-    # 上の検索と一緒にやりたい
-
-    # @tasks = Task.order(params[:sort]).page(params[:page]).per(10) if params[:sort] == "period"
-    # @tasks = Task.all.order(created_at: :desc).includes([:user, task_labels: :label]) unless
+    @q = Task.new
+    @tasks = Task.all.order(created_at: :desc).includes([:user, task_labels: :label]).page(params[:page]).per(10)
     @period_ended_tasks = Task.notice_period_ended_task
     @period_near_tasks = Task.period_near_task
   end
 
+  def search
+    @tasks = Task.search(params_word).page(params[:page]).per(10)
+    @period_ended_tasks = Task.notice_period_ended_task
+    @period_near_tasks = Task.period_near_task
+    @params = params[:q]
+  end
+
   def new
-    @task = Task.new
-    # いるのか？
-    # @task.labels.build
+    @task = Task.new(params)
   end
 
   def show
     @tasks = Task.find(params[:id])
+  end
+
+  def put_in_read
+    @tasks = Task.find(params[:id])
     @tasks.read_flg = 1
-    # REST的にまずい、RESTでは、ここはGETであり、保存はしない
-    # jQueryでAjaxでとばす
     @tasks.save
   end
 
@@ -78,23 +76,13 @@ class TasksController < ApplicationController
     )
   end
 
-  def word_params
-    if @q
+  def params_word
+    if :q
       params.require(:q).permit(
-        :name,
-        :status,
-        :period,
-        :label
+          :name,
+          :status,
+          :label
       )
     end
-  end
-
-  def search
-    @tasks = Task.all.includes(:user).page(params[:page]).per(10)
-    @tasks = Task.where(['name LIKE ?', "%#{params[:search]}%"]).or(where(['detail LIKE ?', "%#{search}%"])) if @q.name
-                                                                                                             .present?
-    @tasks = Task.joins(:labels).where(['labels.name LIKE ?', "%#{search}%"]) if @q.label.present?
-    @tasks = Task.where(['status = ?', search]) if @q.status.present?
-    @tasks
   end
 end

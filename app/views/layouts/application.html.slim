@@ -1,0 +1,41 @@
+doctype html
+html
+  head
+    title Manyo
+    = csrf_meta_tags
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track'=> true
+    = javascript_include_tag 'application', 'data-turbolinks-track'=> true
+    = javascript_include_tag 'read', 'data-turbolinks-track'=> true
+
+  body
+    div.center
+      nav.navbar.navbar-default
+        div.container-fluid
+          div.navbar-header
+            button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarEexample1"
+              span class="sr-only"Toggle navigationspan
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+            a.navbar-brand
+              = t('title.task')
+
+          div.collapse.navbar-collapse#navbarEexample1
+            - if logged_in?
+              ul.nav.navbar-nav
+                li
+                  = link_to t('title.all_tasks'), tasks_path
+                li
+                  =  link_to t('label.mypage'), tasks_mypage_path
+                - if current_user.super?
+                  li
+                    =  link_to t('title.user_index'), admin_users_path
+                  li class="navbar-right"
+                    = link_to t('label.logout'), logout_path, method: :delete
+
+              ul
+                p.navbar-text.navbar-right
+                  = 'ようこそ'
+                  = current_user.username
+                  = 'さん'
+      == yield

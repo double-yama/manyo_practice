@@ -18,7 +18,7 @@ module SessionsHelper
   end
 
   # ユーザモデルに書く
-  def super_user?
-    current_user.super?
-  end
+  # def super_user?
+  #   current_user.super?
+  # end
 end

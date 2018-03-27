@@ -1,0 +1,58 @@
+br
+br
+
+  = '期限切れタスク一覧'
+
+table.center_table.table.table-hover.table-striped
+  tr
+    th
+      = t('label.user_name')
+    th
+      = t('label.task_name')
+    th
+      = link_to t('label.period_end_on'), sort: "period"
+    th
+      = t('label.description')
+    th
+
+  - @period_ended_tasks.each do |task|
+    tr
+      td
+        = task.user.username
+      td
+        = link_to task.name, task_path(task.id)
+      td
+        = task.period
+      td
+        = task.detail
+      td
+        = link_to t('label.delete'), task_path(task.id), method: :delete, data: { confirm: 'Are you sure?' }
+
+br
+
+  = '3日以内に期日の切れるタスク一覧'
+
+table.center_table.table.table-hover.table-striped
+  tr
+    th
+      = t('label.user_name')
+    th
+      = t('label.task_name')
+    th
+      = link_to t('label.period_end_on'), sort: "period"
+    th
+      = t('label.description')
+    th
+
+  - @period_near_tasks.each do |task|
+    tr
+      td
+        = task.user.username
+      td
+        = link_to task.name, task_path(task.id)
+      td
+        = task.period
+      td
+        = task.detail
+      td
+        = link_to t('label.delete'), task_path(task.id), method: :delete, data: {confirm: t('flash.cinfirm')}

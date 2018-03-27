@@ -21,12 +21,10 @@
 }
 
 .center_table{
-    /*margin-left: 30px;*/
-    /*margin-right: 30px;*/
     margin-left: auto;
     margin-right: auto;
     align: center;
     border-collapse: collapse;
-    border: 1px solid #ccc;
+    /*border: 1px solid #424242;*/
     line-height: 1.8;
 }

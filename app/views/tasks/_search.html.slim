@@ -1,0 +1,23 @@
+p 検索フォーム
+table.search
+  thead
+    = form_for :q, url: tasks_search_path, html: {method: :get} do |f|
+      tr
+        th
+          = t('label.search_for_task')
+        td
+          = f.text_field :name
+      tr
+        th
+          = t('label.search_for_label')
+        td
+          = f.text_field :label
+      tr
+        th
+          = t('label.search_for_status')
+        td
+          = f.select :status, options_for_select([['', ''], [t('column.status.yet_complete'), 'yet_complete'], [t('column.status.under_correspond'), 'under_correspond'], [t('column.status.complete'), 'complete']], include_blank: true)
+      tr
+        th
+        td
+          = f.submit 'Search', class: "btn btn-default btn-sm"

@@ -5,6 +5,10 @@ h1
   p
     = flash[:notice]
 
+- if @params
+  p
+    = params[:name]
+br
 #inner
   #search
     = render 'search'

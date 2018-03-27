@@ -36,6 +36,7 @@ ja:
     label: "ラベル"
     please_put_in: "入力してください"
     read: "既読済"
+    please_put_in: '入力してください'
 
   flash:
     invalid_password: "ログインできませんでした"
@@ -43,6 +44,7 @@ ja:
     no_authority: "権限がありません"
     new_task_added: "New Task is added!"
     task_updated: "Task is updated!!"
+    cinfirm: 'Are you sure ?'
 
   column:
     priority:
