@@ -1,6 +1,8 @@
 class Task < ApplicationRecord
   validates :name, presence: { message: "入力してください" }, length: { maximum: 15 }
   validates :detail, presence: { message: "入力してください" }, length: { maximum: 50 }
+  validate :check_period, :on => :create
+
   belongs_to :user
 
   has_many :task_labels, dependent: :destroy
@@ -9,12 +11,26 @@ class Task < ApplicationRecord
   attr_accessor :label_text
   after_save :save_labels
 
+  scope :include_relative_models, -> { includes([:user, task_labels: :label]) }
+  scope :period_ended, -> { where("period < ?", Date.today) }
+
+  def check_period
+    if self.period < Date.today
+      errors.add(:period, "過去の日付はダメです。")
+    end if period
+  end
+
+
   def self.notice_period_ended_task
-    where("period < ?", Date.today).includes([:user, task_labels: :label])
+    where("period < ?", Date.today).include_relative_models
+    # scope active record
+    # includes relative models
+    # スコープについて調べる
+    #
   end
 
   def self.period_near_task
-    where("period > ? and period < ?", Date.today, Date.today + 3).includes([:user, task_labels: :label])
+    where("period > ? and period < ?", Date.today, Date.today + 3).include_relative_models
   end
 
   def self.search(params)

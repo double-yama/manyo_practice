@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  protect_from_forgery :except => [:put_in_read]
+  protect_from_forgery :except => [:read]
   def index
     @q = Task.new
     @tasks = Task.all.order(created_at: :desc).includes([:user, task_labels: :label]).page(params[:page]).per(10)
@@ -15,17 +15,18 @@ class TasksController < ApplicationController
   end
 
   def new
-    @task = Task.new(params)
+    @task = Task.new()
   end
 
   def show
-    @tasks = Task.find(params[:id])
+    @task = Task.find(params[:id])
   end
 
-  def put_in_read
-    @tasks = Task.find(params[:id])
-    @tasks.read_flg = 1
-    @tasks.save
+  def read
+    @task = Task.find(params[:id])
+    @task.read_flg = 1
+    @task.save
+    p @task.errors
   end
 
   def edit

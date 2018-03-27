@@ -46,9 +46,11 @@ group :development, :test do
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
   gem 'rspec-rails', '~> 3.6'
-  gem "factory_bot_rails"
+  # gem "factory_bot_rails"
+  gem "factory_girl_rails"
   gem "guard-rspec"
   gem "spring-commands-rspec"
+  gem 'toastr-rails'
 end
 
 group :development do

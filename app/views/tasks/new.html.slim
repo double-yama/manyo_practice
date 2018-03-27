@@ -4,7 +4,7 @@ h1
   br
 = form_for(@task) do |f|
   div.form-group
-    = f.label :name, t('label.name'), class: "control-label col-xs-2"
+    = f.label :name, t('label.name'), class: "control-label col-xs-4"
     div.col-xs-5
       = f.text_field :name, class: "form-control"
     br
@@ -13,34 +13,37 @@ h1
   br
   br
   div.form-group
-    = f.label :detail, t('label.description'), class: "control-label col-xs-2"
+    = f.label :detail, t('label.description'), class: "control-label col-xs-4"
     div.col-xs-5
-      = f.text_area :detail, class: "form-control col-xs-4"
-  br
+      = f.text_area :detail, class: "form-control"
+    br
   - if @task.errors.any?
     = @task.errors.messages[:detail][0]
   br
   br
   br
   div.form-group
-    = f.label t('label.priority'), class: "control-label col-xs-2"
+    = f.label t('label.priority'), class: "control-label col-xs-4"
     = f.select :priority,[%w(高 high), %w(中 middle), %w(下 low)], class: "selectpicker"
   br
   br
   br
   div.form-group
-    = f.label t('label.period_end_on'), class: "control-label col-xs-2"
+    = f.label t('label.period_end_on'), class: "control-label col-xs-4"
     = f.date_select :period, include_blank: true
+    br
+  - if @task.errors.any?
+    = @task.errors.messages[:period][0]
   br
   br
   br
   div.form-group
-    = f.label t('label.status'), class: "control-label col-xs-2"
+    = f.label t('label.status'), class: "control-label col-xs-4"
     = f.select :status, [%w(未完了 yet_complete), %w(着手中 under_correspond), %w(完了 complete)], class: "form-control col-xs-4 dropdown-toggle"
   br
   br
   div.form-group
-    = f.label t('label.label'), class: "control-label col-xs-2"
+    = f.label t('label.label'), class: "control-label col-xs-4"
     div.col-xs-5
       = f.text_field :label_text, class: "form-control"
   br

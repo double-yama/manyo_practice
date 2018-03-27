@@ -13,14 +13,15 @@
 
 #main-content {
   padding: 10px;
-  width: 60%;
-  float:left;
+  width: 75%;
+  float:right;
 }
 
 #side-content {
   padding: 10px;
-  width: 40%;
-  float:right;
+  width: 25%;
+  float:left;
+  border-right: 1px #c0c0c0 solid;
 }
 
 th{
@@ -29,6 +30,14 @@ th{
 
 tr{
   text-align: center;
+
+}
+
+.read{
+  background-color: #66FFFF;
+}
+.unread{
+
 }
 
 .content{

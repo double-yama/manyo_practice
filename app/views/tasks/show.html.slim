@@ -1,19 +1,19 @@
-= javascript_include_tag 'read'
+= javascript_include_tag 'task_read'
 
 h3
   = t('title.show')
 p
   = 'タスクID'
   div#task_id
-    = @tasks.id
+    = @task.id
 p
   = t('label.task_name')
   div
-    = @tasks.name
+    = @task.name
 br
 p
   = t('label.description')
   div
-    = @tasks.detail
+    = @task.detail
 br
   = link_to t('label.back'), :back

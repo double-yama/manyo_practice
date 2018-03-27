@@ -5,7 +5,7 @@ html
     = csrf_meta_tags
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track'=> true
     = javascript_include_tag 'application', 'data-turbolinks-track'=> true
-    = javascript_include_tag 'read', 'data-turbolinks-track'=> true
+    = javascript_include_tag 'task_read', 'data-turbolinks-track'=> true
 
   body
     div.center
@@ -38,4 +38,5 @@ html
                   = 'ようこそ'
                   = current_user.username
                   = 'さん'
+      = render 'layouts/toast'
       == yield

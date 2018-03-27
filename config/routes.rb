@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   delete '/logout' => 'sessions#destroy'
   get '/tasks/mypage' => 'tasks#mypage'
   get '/tasks/search/' => 'tasks#search'
-  post '/tasks/:id/read' => 'tasks#put_in_read'
+  post '/tasks/:id/read' => 'tasks#read'
   resources :tasks
   root 'tasks#index'
 
