@@ -338,7 +338,7 @@ DEPENDENCIES
   mysql2 (>= 0.3.18, < 0.5)
   pg
   pry-rails
-  puma (~> 3.7)
+  puma
   rails (~> 5.1.5)
   rails-i18n
   rails_12factor (= 0.0.2)
@@ -362,4 +362,4 @@ RUBY VERSION
    ruby 2.3.3p222
 
 BUNDLED WITH
-   1.15.2
+   1.16.1
