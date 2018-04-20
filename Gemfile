@@ -71,7 +71,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   # NOTE: generator時にslim対応可能になる
-  gem 'slim-rails'
+  # gem 'slim-rails'
   gem 'view_source_map'
   gem 'activerecord-cause'
   gem 'pry-rails'
