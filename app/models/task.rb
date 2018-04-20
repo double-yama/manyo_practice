@@ -21,7 +21,7 @@ class Task < ApplicationRecord
   end
 
 
-  def self.notice_period_ended_task
+  def self.period_expired
     where("period < ?", Date.today).include_relative_models
     # scope active record
     # includes relative models
@@ -29,7 +29,7 @@ class Task < ApplicationRecord
     #
   end
 
-  def self.period_near_task
+  def self.period_close
     where("period > ? and period < ?", Date.today, Date.today + 3).include_relative_models
   end
 

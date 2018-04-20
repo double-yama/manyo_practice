@@ -53,6 +53,7 @@ group :development, :test do
   gem "guard-rspec"
   gem "spring-commands-rspec"
   gem 'toastr-rails'
+
 end
 
 # group :development do

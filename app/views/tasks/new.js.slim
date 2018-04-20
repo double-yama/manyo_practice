@@ -1,2 +1,17 @@
-$('#task-form').html("<%= j (render 'form') %>");
-$('#task-form').slideDown(350);
+javascript:
+  // $("#product-modal").html("escape_javascript(render 'new')")
+  // $("#product-modal").modal("show")
+
+  $(function () {
+      $("#id1").click(function () {
+          $("#test1").dialog({
+              modal: true, //モーダル表示
+              title: "テストダイアログ1", //タイトル
+              buttons: { //ボタン
+                  "確認": function () {
+                      $(this).dialog("close");
+                  }
+              }
+          });
+      });
+  });

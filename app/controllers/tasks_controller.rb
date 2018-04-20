@@ -3,23 +3,19 @@ class TasksController < ApplicationController
   def index
     @q = Task.new
     @tasks = Task.all.order(created_at: :desc).includes([:user, task_labels: :label]).page(params[:page]).per(10)
-    @period_ended_tasks = Task.notice_period_ended_task
-    @period_near_tasks = Task.period_near_task
+    @period_ended_tasks = Task.period_expired
+    @period_near_tasks = Task.period_close
   end
 
   def search
     @tasks = Task.search(params_word).page(params[:page]).per(10)
-    @period_ended_tasks = Task.notice_period_ended_task
-    @period_near_tasks = Task.period_near_task
+    @period_ended_tasks = Task.period_expired
+    @period_near_tasks = Task.period_close
     @params = params[:q]
   end
 
   def new
     @task = Task.new
-    # respond_to do |format|
-    #   format.html
-    #   format.js
-    # end
   end
 
   def show
@@ -30,7 +26,6 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     @task.read_flg = 1
     @task.save
-    p @task.errors
   end
 
   def edit
