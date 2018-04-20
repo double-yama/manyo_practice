@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  root :to => 'tasks_controller#index'
   get 'users/new'
   get "signup" => "users#new"
   get "admin/users" => "users#index"
