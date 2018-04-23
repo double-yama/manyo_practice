@@ -22,3 +22,11 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+
+###### メモ
+
+* jsでうまう行かなかったら検証→コンソールを見ること
+* capybara　=> test時クリックしたりするやつ
+* 
+

@@ -53,6 +53,9 @@ group :development, :test do
   gem "guard-rspec"
   gem "spring-commands-rspec"
   gem 'toastr-rails'
+  gem 'pry-rails'
+  gem 'pry-byebug'
+  gem 'pry-doc'
 
 end
 

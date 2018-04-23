@@ -1,6 +1,7 @@
 class Task < ApplicationRecord
-  validates :name, presence: { message: "入力してください" }, length: { maximum: 15 }
-  validates :detail, presence: { message: "入力してください" }, length: { maximum: 50 }
+  validates :name, presence: { message: " cannot be blank" }, length: { maximum: 15 }
+  validates :detail, presence: { message: " cannot be blank" }, length: { maximum: 50 }
+  validates :period, presence: { message: " cannot be blank" }
   validate :check_period, :on => :create
 
   belongs_to :user
@@ -16,21 +17,17 @@ class Task < ApplicationRecord
 
   def check_period
     if self.period < Date.today
-      errors.add(:period, "過去の日付はダメです。")
+      errors.add(:period, "有効な日付を入力してください")
     end if period
   end
 
 
   def self.period_expired
-    where("period < ?", Date.today).include_relative_models
-    # scope active record
-    # includes relative models
-    # スコープについて調べる
-    #
+    where("period < ?", Date.today)
   end
 
   def self.period_close
-    where("period > ? and period < ?", Date.today, Date.today + 3).include_relative_models
+    where("period >= ? and period < ?", Date.today, Date.today + 3)
   end
 
   def self.search(params)

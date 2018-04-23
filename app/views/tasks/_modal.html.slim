@@ -8,8 +8,6 @@ h1
     div.col-xs-5
       = f.text_field :name, class: "form-control"
     br
-  - if @task.errors.any?
-    = @task.errors.messages[:name][0]
   br
   br
   div.form-group
@@ -17,8 +15,6 @@ h1
     div.col-xs-5
       = f.text_area :detail, class: "form-control"
     br
-  - if @task.errors.any?
-    = @task.errors.messages[:detail][0]
   br
   br
   br
@@ -30,10 +26,9 @@ h1
   br
   div.form-group
     = f.label t('label.period_end_on'), class: "control-label col-xs-4"
-    = f.date_select :period, include_blank: true
+    / = f.date_select :period, include_blank: true
+    = f.date_select :period, class: 'form-control'
     br
-  - if @task.errors.any?
-    = @task.errors.messages[:period][0]
   br
   br
   br
@@ -49,3 +44,9 @@ h1
   br
   br
   = f.submit t('label.register'), class: "btn btn-primary btn-lg active"
+
+
+  - if @task.errors.any?
+    - @task.errors.full_messages.each do |message|
+      javascript:
+          toastr.info("#{message}");

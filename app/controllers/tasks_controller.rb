@@ -4,7 +4,7 @@ class TasksController < ApplicationController
     @q = Task.new
     @tasks = Task.all.order(created_at: :desc).includes([:user, task_labels: :label]).page(params[:page]).per(10)
     @period_ended_tasks = Task.period_expired
-    @period_near_tasks = Task.period_close
+    @period_near_tasks = Task.all.period_close
   end
 
   def search
@@ -26,6 +26,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     @task.read_flg = 1
     @task.save
+    # ajaxを使うこと
   end
 
   def edit

@@ -2,8 +2,8 @@ h1
   = t 'title.index'
 
 - if flash[:notice]
-  p
-    = flash[:notice]
+  javascript:
+    toastr.success('#{flash[:notice]}');
 
 #inner
   #search

@@ -31,13 +31,12 @@ html
                 - if current_user.super?
                   li
                     =  link_to t('title.user_index'), admin_users_path
-                  li class="navbar-right"
-                    = link_to t('label.logout'), logout_path, method: :delete
+                li class="navbar-right"
+                  = link_to t('label.logout'), logout_path, method: :delete
 
               ul
                 p.navbar-text.navbar-right
                   = 'ようこそ'
                   = current_user.username
                   = 'さん'
-      = render 'layouts/toast'
       == yield

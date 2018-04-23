@@ -60,6 +60,7 @@ production:
 #  encoding: unicode
 #  pool: 5
   <<: *default
+  adapter: pg
   database: d8c7clp3dmvv4u
   username: ENV['DATABASE_USER']
   password: ENV['DATABASE_PASSWORD']
