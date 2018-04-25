@@ -2,12 +2,19 @@ class TasksController < ApplicationController
   protect_from_forgery :except => [:read]
   def index
     @q = Task.new
+
     @tasks = Task.all.order(created_at: :desc).includes([:user, task_labels: :label]).page(params[:page]).per(10)
     @period_ended_tasks = Task.period_expired
     @period_near_tasks = Task.all.period_close
   end
 
   def search
+    @tasks = Task.all
+                 # .search_title_or_detail(params[:q][:name])
+                 # .search_label(params[:q][:label])
+                 # .search_status(params[:q][:status])
+                 # .page(params[:page]).per(10)
+
     @tasks = Task.search(params_word).page(params[:page]).per(10)
     @period_ended_tasks = Task.period_expired
     @period_near_tasks = Task.period_close

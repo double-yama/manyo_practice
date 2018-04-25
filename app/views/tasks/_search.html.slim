@@ -2,22 +2,52 @@ p 検索フォーム
 table.search
   thead
     = form_for :q, url: tasks_search_path, html: {method: :get} do |f|
+      th
+      div.form-group
+        tr
+          td
+            = t('label.search_for_task')
+          td
+            = f.text_field :name, class:"form-control"
+      div.form-group
+        tr
+          td
+            = t('label.search_for_label')
+          td
+            = f.text_field :label, class:"form-control"
+      div.form-group
+        tr
+          td
+            = t('label.search_for_status')
+          td
+            = f.select :status, Task.statuses.keys,{include_blank: true}, class:"form-control"
+      div.form-group
+        tr
+          td
+          td
+            = f.submit 'Search', class: 'btn btn-success'
+            = f.submit 'Clear', type: :reset,  class: 'btn btn-danger'
+
+br
+br
+- if params[:q]
+  table.center_table
+    - unless params[:q][:name].blank?
       tr
         th
-          = t('label.search_for_task')
+          = t('label.search_for_task') + ': '
         td
-          = f.text_field :name
+          = params[:q][:name]
+    - unless params[:q][:label].blank?
       tr
         th
-          = t('label.search_for_label')
+          = t('label.search_for_label') + ': '
         td
-          = f.text_field :label
+          = params[:q][:label]
+    - unless params[:q][:status].blank?
       tr
         th
-          = t('label.search_for_status')
+          = t('label.search_for_status') + ': '
         td
-          = f.select :status, options_for_select([['', ''], [t('column.status.yet_complete'), 'yet_complete'], [t('column.status.under_correspond'), 'under_correspond'], [t('column.status.complete'), 'complete']], include_blank: true)
-      tr
-        th
-        td
-          = f.submit 'Search', class: "btn btn-default btn-sm"
+          = params[:q][:status]
+  = t('label.result_search')

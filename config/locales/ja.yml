@@ -52,9 +52,13 @@ ja:
       middle: "中"
       low: "低"
     status:
-      yet_complete: "未完了"
-      under_correspond: "着手中"
+      0: "未着手"
+      1: "着手中"
+      2: "完了"
+      yet_start: "未着手"
+      doing: "実行中"
       complete: "完了"
+
     role:
       true: "管理者"
       false: ""

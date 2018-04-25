@@ -30,3 +30,37 @@ Things you may want to cover:
 * capybara　=> test時クリックしたりするやつ
 * 
 
+form_forとform_tagの違い
+
+一つのモデルにのみ対応するときform_for
+色々自由にできるのはform_tag
+
+カラム名について、
+on => 日付
+at => 時刻
+
+A server is already running. check server.pidの対処法
+
+パスをコピーし、cat パスで表示
+
+ps aux => プロセス一覧表示
+ps aux | grep puma
+プロセスidを指定し、kill -9 プロセスidで、死ぬ
+
+契約による設計 調べること
+
+検索はスコープにしたほうがいい
+
+bundle installはbundleだけでいける
+
+pryにて、オブジェクト.public_methodsでそのオブジェクトの持つメソッドがわかる
+
+例) user = User.find()
+    user.public_methods
+    
+    
+localでメール送信したい場合は、mailcatcherというGEMを用いる
+   
+Timecop.freeze(Time.now - 6.months)
+
+specにおいて、時間を固定する

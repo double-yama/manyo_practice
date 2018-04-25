@@ -15,12 +15,22 @@ class Task < ApplicationRecord
   scope :include_relative_models, -> { includes([:user, task_labels: :label]) }
   scope :period_ended, -> { where("period < ?", Date.today) }
 
+  scope :search_title_or_detail, -> name { where("tasks.name like ?", "%#{name}%").or(where('detail LIKE ?', "%#{name}%")) }
+  scope :search_label, -> label { joins(:labels).where('labels.name LIKE ?', "%#{label}%") }
+  scope :search_status, -> status { where("status = ?", status) }
+
+  enum status: { yet_start: 0, doing: 1, completed: 2 }
+
+  # メソッドを書く際は事前条件・事後条件を考える
+  # 事前条件 => 引数
+  # 事後条件 => 返り値
+
+
   def check_period
     if self.period < Date.today
-      errors.add(:period, "有効な日付を入力してください")
+      errors[:base] << "有効な日付を入力してください"
     end if period
   end
-
 
   def self.period_expired
     where("period < ?", Date.today)
@@ -32,19 +42,20 @@ class Task < ApplicationRecord
 
   def self.search(params)
     @tasks = all.includes(:user).includes([:user, task_labels: :label])
-    @tasks = @tasks.where(['tasks.name LIKE ?', "%#{params[:name]}%"]).or(@tasks.where(['detail LIKE ?',
-                                                                                   "%#{params[:name]}%"])) if params[:name].present?
+    @tasks = @tasks.where(['tasks.name LIKE ?', "%#{params[:name]}%"]).or(@tasks.where(['detail LIKE ?', "%#{params[:name]}%"])) if params[:name].present?
     @tasks = @tasks.joins(:labels).where(['labels.name LIKE ?', "%#{params[:label]}%"]) if params[:label].present?
     @tasks = @tasks.where(['status = ?', params[:status]]) if params[:status].present?
     @tasks
   end
+
+  # 別のクラスに切り出す
 
   def self.my_task(user_id)
     where('user_id = ?', user_id).includes(:user)
   end
 
   def self.destroy_all_tasks(user_id)
-    where('user_id = ?', user_id).delete_all
+    where('user_id = ?', user_id).destroy_all
   end
 
   def save_labels

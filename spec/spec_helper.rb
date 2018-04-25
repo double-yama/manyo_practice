@@ -15,6 +15,8 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require 'database_cleaner'
 RSpec.configure do |config|
+  # include Warden::Test::Helpers
+  # Warden.test_mode!
   # config.before(:suite) do
   #   # DatabaseCleaner.strategy = :truncation
   #   # DatabaseCleaner.clean_with(:truncation)

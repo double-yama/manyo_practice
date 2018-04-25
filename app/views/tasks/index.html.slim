@@ -8,12 +8,14 @@ h1
 #inner
   #search
     = render 'search'
+    br
+    br
   #side-content
     = render 'side'
 
   #main-content
     = render 'table_all'
     br
-      = link_to t('title.add_new_task'), new_task_path
+    = link_to t('title.add_new_task'), new_task_path, class: "btn btn-primary btn-block btn-lg"
 
   #product-modal

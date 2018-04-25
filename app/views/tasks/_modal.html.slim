@@ -26,15 +26,14 @@ h1
   br
   div.form-group
     = f.label t('label.period_end_on'), class: "control-label col-xs-4"
-    / = f.date_select :period, include_blank: true
     = f.date_select :period, class: 'form-control'
     br
   br
   br
   br
   div.form-group
-    = f.label t('label.status'), class: "control-label col-xs-4"
-    = f.select :status, [%w(未完了 yet_complete), %w(着手中 under_correspond), %w(完了 complete)], class: "form-control col-xs-4 dropdown-toggle"
+    = f.label :status, t('label.status'), class: "control-label col-xs-4"
+    = f.select :status, Task.statuses.keys, class: "form-control col-xs-4 dropdown-toggle"
   br
   br
   div.form-group
@@ -44,7 +43,10 @@ h1
   br
   br
   = f.submit t('label.register'), class: "btn btn-primary btn-lg active"
-
+  br
+  br
+  br
+  br
 
   - if @task.errors.any?
     - @task.errors.full_messages.each do |message|

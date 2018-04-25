@@ -1,27 +1,48 @@
 require 'rails_helper'
 RSpec.describe User, type: :model do
-  it "is valid with a right name and password" do
-    user1 = FactoryGirl.build(:user,
-                            username: "test",
-                            password: "password",
-                            password_confirmation: "password")
-    expect(user1).to be_valid
-  end
+  describe 'バリデーション' do # validation設定してるならいらない
+    context '適切な名前とパスワードを与えると' do
+      before do
+        @user = FactoryGirl.create(:user)
+      end
+      it "バリデーション通過" do
+        expect(@user).to be_valid
+      end
+    end
 
-  it "is invalid without a name" do
-    user1 = FactoryGirl.build(
-        :user,
-         username: nil
-    )
-    user1.valid?
-    expect(user1.errors[:username]).to include("を入力してください")
-  end
+    context '不適切な名前を与えると' do
+      before do
+        @user = FactoryGirl.build(:user,
+                                 username: nil
+        )
+        @user.save
+      end
 
-  it "is invalid without a password" do
-    user1 = FactoryGirl.build(:user, password_digest: nil)
-    user1.valid?
-    expect(user1.errors[:password_digest]).to include("を入力してください")
-  end
+      it "バリデーションエラー" do
+        expect(@user).not_to be_valid
+      end
 
+      it "特定のエラーメッセージが出力される" do
+        expect(@user.errors.full_messages).to include("Usernameを入力してください")
+      end
+    end
+
+    context '不適切なパスワードを与えると' do
+      before do
+        @user = FactoryGirl.build(:user,
+                                 password: nil
+        )
+        @user.save
+      end
+
+      it "バリデーションエラー" do
+        expect(@user).not_to be_valid
+      end
+
+      it "特定のエラーメッセージが出力される" do
+        expect(@user.errors.full_messages).to include("Passwordを入力してください")
+      end
+    end
+  end
 end
 
