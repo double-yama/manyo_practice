@@ -1,7 +1,7 @@
 p 検索フォーム
 table.search
   thead
-    = form_for :q, url: tasks_search_path, html: {method: :get} do |f|
+    = form_for :q, url: search_tasks_path, html: {method: :get} do |f|
       th
       div.form-group
         tr

@@ -64,3 +64,28 @@ localでメール送信したい場合は、mailcatcherというGEMを用いる
 Timecop.freeze(Time.now - 6.months)
 
 specにおいて、時間を固定する
+
+controller spec は事実上非推奨
+
+TDDのほうがいいけどどっちでもいい
+
+複雑なロジックがあるときはTDDのほうがいい
+
+model => TDD
+
+feature => 後から
+
+traitは便利
+
+* let と before の違い
+
+let! と before はほぼ同じ
+
+active Recordを扱う際は、SQL文をちゃんと確認すること
+
+active recordゆえ、whereをつなげたりすることができる
+
+active recordの返り値自体がactive record
+
+
+

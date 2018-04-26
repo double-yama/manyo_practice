@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
 
-  root :to => 'tasks_controller#index'
-  get 'users/new'
+  # collection(集合)はidなし、member(個別)はidあり
+
+  root :to => 'tasks#index'
   get "signup" => "users#new"
   get "admin/users" => "users#index"
   resources :users, :except => :index
@@ -9,11 +10,19 @@ Rails.application.routes.draw do
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   delete '/logout' => 'sessions#destroy'
-  get '/tasks/mypage' => 'tasks#mypage'
-  get '/tasks/search/' => 'tasks#search'
-  post '/tasks/:id/read' => 'tasks#read'
-  resources :tasks
-  root 'tasks#index'
+
+  # resources :tasks
+
+  resources :tasks do
+    collection do
+      get :mypage
+      get :search
+    end
+
+    member do
+      post :read
+    end
+  end
 
   get '*path', to: 'application#render_404'
   post '*not_found' => 'application#routing_error'

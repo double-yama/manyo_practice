@@ -1,4 +1,4 @@
-require 'rails_helper'
+require 'rails_helper_stash'
 
 # itの代わりにscenario
 # describe ... type: :featureの代わりにfeature

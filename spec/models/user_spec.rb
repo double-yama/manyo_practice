@@ -1,4 +1,4 @@
-require 'rails_helper'
+require 'rails_helper_stash'
 RSpec.describe User, type: :model do
   describe 'バリデーション' do # validation設定してるならいらない
     context '適切な名前とパスワードを与えると' do

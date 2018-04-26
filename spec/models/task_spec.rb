@@ -1,4 +1,4 @@
-require 'rails_helper'
+require 'rails_helper_stash'
 RSpec.describe Task, type: :model do
 
   let!(:user) { FactoryGirl.create(:user) }

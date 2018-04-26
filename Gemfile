@@ -56,6 +56,8 @@ group :development, :test do
   gem 'pry-rails'
   gem 'pry-byebug'
   gem 'pry-doc'
+  gem 'chromedriver-helper'
+  # gem "selenium-webdriver'"', '~> 3.0.1'
 
 end
 
