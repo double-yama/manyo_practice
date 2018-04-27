@@ -85,6 +85,8 @@ GEM
     diff-lcs (1.3)
     em-proxy (0.1.9)
       eventmachine
+    enum_help (0.0.17)
+      activesupport (>= 3.0.0)
     erubi (1.7.1)
     eventmachine (1.2.5)
     execjs (2.7.0)
@@ -350,6 +352,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   database_cleaner
   database_rewinder
+  enum_help
   factory_girl_rails
   faker
   guard-rspec

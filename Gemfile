@@ -57,8 +57,7 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'pry-doc'
   gem 'chromedriver-helper'
-  # gem "selenium-webdriver'"', '~> 3.0.1'
-
+  gem 'enum_help'
 end
 
 # group :development do

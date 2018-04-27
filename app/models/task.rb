@@ -17,7 +17,7 @@ class Task < ApplicationRecord
 
   scope :search_title_or_detail, -> name { where("tasks.name like ?", "%#{name}%").or(where('detail LIKE ?', "%#{name}%")) }
   scope :search_label, -> label { joins(:labels).where('labels.name LIKE ?', "%#{label}%") }
-  scope :search_status, -> status { where("status = ?", status) }
+  scope :search_status, -> status { where("tasks.status = ?", status) }
 
   enum status: { yet_start: 0, doing: 1, completed: 2 }
 

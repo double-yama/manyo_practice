@@ -10,12 +10,11 @@ class TasksController < ApplicationController
 
   def search
     @tasks = Task.all
-                 # .search_title_or_detail(params[:q][:name])
-                 # .search_label(params[:q][:label])
-                 # .search_status(params[:q][:status])
-                 # .page(params[:page]).per(10)
-
-    @tasks = Task.search(params_word).page(params[:page]).per(10)
+                 .search_title_or_detail(params[:q][:name])
+                 .search_label(params[:q][:label])
+                 .search_status(params[:q][:status])
+                 .page(params[:page]).per(10)
+    # @tasks = Task.search(params_word).page(params[:page]).per(10)
     @period_ended_tasks = Task.period_expired
     @period_near_tasks = Task.period_close
     @params = params[:q]
