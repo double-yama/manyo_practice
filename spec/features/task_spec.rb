@@ -126,13 +126,20 @@ RSpec.feature 'task', type: :feature do
 
     context 'タイトル/説明文検索欄に「test」を入力すると' do
       background do
+        visit current_path
         Task.first.update(name: 'test')
         fill_in 'q_name', with: 'test'
         click_button 'Search'
       end
 
+      scenario '5件分の削除ボタンが表示される' do
+        # expect(page).to have_link '削除'
+        expect(page.find('a.btn.btn-mini.btn-info').size).to eq(5)
+      end
+
       scenario '5件中1件のみ表示される' do
         p Task.all
+        expect(page).to have_content '削除'
         # expect(page.all('a.btn.btn-mini.btn-info').size).to eq(1)
         expect(page).to have_link '削除'
       end
@@ -142,7 +149,7 @@ RSpec.feature 'task', type: :feature do
       background do
         Task.last.update(status: 'yet_start')
         select 'yet_start', from: 'q_status'
-        click_on 'Search'
+        click_button 'Search'
       end
 
       scenario '5件中1件のみ表示される' do
@@ -154,7 +161,7 @@ RSpec.feature 'task', type: :feature do
       background do
         Task.last.update(status: 'doing')
         select 'doing', from: 'q_status'
-        click_on 'Search'
+        click_button 'Search'
       end
 
       scenario '5件中1件のみ表示される' do
@@ -166,7 +173,7 @@ RSpec.feature 'task', type: :feature do
       background do
         Task.last.update(status: "completed")
         select "completed", from: 'q_status'
-        click_on 'Search'
+        click_button 'Search'
       end
 
       scenario '5件中1件のみ表示される' do

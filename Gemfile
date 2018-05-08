@@ -36,9 +36,13 @@ gem 'slim-rails'
 gem 'html2slim'
 gem 'rubocop'
 gem 'rails-i18n'
+gem 'rails-ujs'
 gem 'carrierwave'
-
+gem 'font-awesome-rails'
 gem 'bcrypt', '~> 3.1.7'
+gem 'enum_help'
+gem 'enumerize'
+gem 'bullet'
 
 group :development, :test do
   gem 'mysql2', '>= 0.3.18', '< 0.5'

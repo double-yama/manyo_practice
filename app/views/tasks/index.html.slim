@@ -9,13 +9,17 @@ h1
   #search
     = render 'search'
     br
+    = link_to new_task_path, class: "btn btn-primary" do
+      = fa_icon "plus-circle", text: "#{t('title.add_new_task')}"
     br
   #side-content
-    = render 'side'
+    #items
+      = render 'side'
+      br
 
   #main-content
+    br
     = render 'table_all'
     br
-    = link_to t('title.add_new_task'), new_task_path, class: "btn btn-primary btn-block btn-lg"
 
   #product-modal

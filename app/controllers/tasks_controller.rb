@@ -1,24 +1,27 @@
 class TasksController < ApplicationController
   protect_from_forgery :except => [:read]
+  helper_method :sort_column, :sort_order
   def index
     @q = Task.new
+    @tasks = Task.all.order(sort_column + ' ' + sort_order).includes([:user, task_labels: :label]).page(params[:page]).per(10)
+    @period_ended_tasks = Task.period_expired.page(params[:page]).per(5)
+    @period_near_tasks = Task.period_close.page(params[:page]).per(5)
+  end
 
-    @tasks = Task.all.order(created_at: :desc).includes([:user, task_labels: :label]).page(params[:page]).per(10)
-    @period_ended_tasks = Task.period_expired
-    @period_near_tasks = Task.all.period_close
+  def more
+    index
   end
 
   def search
-    @tasks = Task.all
-                 .search_title_or_detail(params[:q][:name])
-                 .search_label(params[:q][:label])
-                 .search_status(params[:q][:status])
-                 .page(params[:page]).per(10)
-    # @tasks = Task.search(params_word).page(params[:page]).per(10)
-    @period_ended_tasks = Task.period_expired
-    @period_near_tasks = Task.period_close
-    @params = params[:q]
+  # @tasks = Task.all.includes([:user]).search_title_or_detail(@task.name)
+  #              .search_label(params[:q][:label])
+  #              .search_status(params[:q][:status])
+  #              .page(params[:page]).per(10)
+    @tasks = Task.search(params_word).page(params[:page]).per(10)
+    @period_ended_tasks = Task.period_expired.page(params[:page]).per(5)
+    @period_near_tasks = Task.period_close.page(params[:page]).per(5)
   end
+  # public_methods.grep(/status)
 
   def new
     @task = Task.new
@@ -33,6 +36,7 @@ class TasksController < ApplicationController
     @task.read_flg = 1
     @task.save
     # ajaxを使うこと
+    # GETなのにPOSTしてるのはダメ
   end
 
   def edit
@@ -67,7 +71,11 @@ class TasksController < ApplicationController
   end
 
   def mypage
-    @my_tasks = Task.my_task(current_user.id)
+    @my_tasks = Task.my_task(current_user.id).page(params[:page]).per(10)
+  end
+
+  def label
+    @labels = Label.all
   end
 
   private
@@ -79,7 +87,7 @@ class TasksController < ApplicationController
       :status,
       :period,
       :priority,
-      :label_text,
+      :label_text
     )
   end
 
@@ -91,5 +99,13 @@ class TasksController < ApplicationController
           :label
       )
     end
+  end
+
+  def sort_order
+    %w[asc desc].include?(params[:order]) ?  params[:order] : "asc"
+  end
+
+  def sort_column
+    Task.column_names.include?(params[:sort]) ? params[:sort] : "status"
   end
 end

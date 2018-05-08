@@ -1,4 +1,15 @@
 ja:
+  enumerize:
+    status:
+      yet_start: "未着手"
+      doing: "実行中"
+      completed: "完了"
+  enums:
+    status:
+      yet_start: "未着手"
+      doing: "実行中"
+      completed: "完了"
+
   title:
     task: "タスク管理"
     edit: "編集"
@@ -11,13 +22,15 @@ ja:
   label:
     my_page: "さんのタスク一覧"
     mypage: "マイページ"
+    label_add: "ラベル管理"
     search_for_task: "タスク名/説明文検索"
     search_for_label: "ラベル検索"
     search_for_status: "ステータス検索"
     result_search: "の検索結果です。"
     name: "名前"
-    task_name: "タスク名"
+    task_name: "タイトル"
     task_count: "タスク数"
+    label_name: "ラベル名"
     role: "ロール"
     description: "説明"
     period_end_on: "期限"
@@ -28,6 +41,7 @@ ja:
     password: "パスワード"
     password_again: "パスワード(確認)"
     register: "登録"
+    label_register: "新規追加"
     signup: "新規登録"
     user_edit: "ユーザ編集"
     back: "戻る"
@@ -36,13 +50,13 @@ ja:
     label: "ラベル"
     please_put_in: "入力してください"
     read: "既読済"
-    please_put_in: '入力してください'
 
   flash:
     invalid_password: "ログインできませんでした"
     invalid_mail: "ログインできませんでした"
     no_authority: "権限がありません"
     new_task_added: "New Task is added!"
+    new_label_added: "New Label is added!"
     task_updated: "Task is updated!!"
     cinfirm: 'Are you sure ?'
 
@@ -52,38 +66,9 @@ ja:
       middle: "中"
       low: "低"
     status:
-#      0: "未着手"
-#      1: "着手中"
-#      2: "完了"
       yet_start: "未着手"
       doing: "実行中"
       completed: "完了"
-
     role:
       true: "管理者"
       false: ""
-
-  date:
-    formats:
-      default: "%Y/%m/%d"
-      short: "%m/%d"
-      long: "%Y年%m月%d日(%a)"
-
-    day_names: [日曜日, 月曜日, 火曜日, 水曜日, 木曜日, 金曜日, 土曜日]
-    abbr_day_names: [日, 月, 火, 水, 木, 金, 土]
-
-    month_names: [~, 1月, 2月, 3月, 4月, 5月, 6月, 7月, 8月, 9月, 10月, 11月, 12月]
-    abbr_month_names: [~, 1月, 2月, 3月, 4月, 5月, 6月, 7月, 8月, 9月, 10月, 11月, 12月]
-
-    order:
-      - :year
-      - :month
-      - :day
-
-  time:
-    formats:
-      default: "%Y/%m/%d %H:%M:%S"
-      short: "%y/%m/%d %H:%M"
-      long: "%Y年%m月%d日(%a) %H時%M分%S秒 %Z"
-    am: "午前"
-    pm: "午後"

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180424065720) do
+ActiveRecord::Schema.define(version: 20180508083307) do
 
   create_table "labels", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20180424065720) do
     t.datetime "updated_at", null: false
     t.date "period"
     t.integer "status"
-    t.string "priority"
+    t.integer "priority"
     t.integer "user_id"
     t.string "label"
     t.boolean "read_flg", default: false

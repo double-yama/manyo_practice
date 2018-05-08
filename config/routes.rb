@@ -6,17 +6,19 @@ Rails.application.routes.draw do
   get "signup" => "users#new"
   get "admin/users" => "users#index"
   resources :users, :except => :index
+  # get 'label/index'
+  # post 'label/index'
+  resources :labels
 
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   delete '/logout' => 'sessions#destroy'
-
-  # resources :tasks
-
+  
   resources :tasks do
     collection do
       get :mypage
       get :search
+      get :more
     end
 
     member do

@@ -2,7 +2,6 @@ br
 h3
   = '期限切れタスク一覧'
 br
-br
 
 table.center_table.table
   tr
@@ -22,6 +21,10 @@ table.center_table.table
       td
         = task.period
 
+br
+  = render 'more_expired'
+
+br
 br
 h4
   = '3日以内に期日の切れるタスク一覧'

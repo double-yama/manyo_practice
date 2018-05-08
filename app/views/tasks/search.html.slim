@@ -12,11 +12,15 @@ br
 #inner
   #search
     = render 'search'
+    br
+    br
+    br
+    = link_to t('title.add_new_task'), new_task_path, class: "btn btn-primary"
   #side-content
     = render 'side'
 
   #main-content
     = render 'table_all'
     br
-      = link_to t('title.add_new_task'), new_task_path
+      / = link_to t('title.add_new_task'), new_task_path
 
