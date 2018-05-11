@@ -1,13 +1,16 @@
-h1
-  = t('title.login')
+- if flash[:notice]
+  javascript:
+      toastr.success('#{flash[:notice]}');
 
 = form_for :session do |f|
-  = f.label t('label.user_name')
-  = f.text_field :username
+  = fa_icon "user"
+  = ' : '
+  = f.text_field :username, placeholder: t("views.sessions.new.login_name")
   br
   br
-  = f.label t('label.password')
-  = f.password_field :password
+  = fa_icon "lock"
+  = ' : '
+  = f.password_field :password, placeholder: t("views.sessions.new.password")
   br
   br
   = f.submit t('title.login'), class:"btn btn-primary"

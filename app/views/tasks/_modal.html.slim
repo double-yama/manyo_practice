@@ -1,7 +1,3 @@
-h1
-  = t('title.add_new_task')
-  br
-  br
 = form_for(@task) do |f|
   div.form-group
     = f.label :name, t('label.name'), class: "control-label col-xs-4"
@@ -34,14 +30,13 @@ h1
   div.form-group
     = f.label :status, t('label.status'), class: "control-label col-xs-4"
     = f.select :status, Task.statuses.map { |k, _v| [t("enums.status.#{k}"), k] }, class: "form-control col-xs-4 dropdown-toggle"
-    /.map { |s, v| [t("activerecord.attributes.status.#{s}"), v] }
-      / .map { |k, v| [t("enums.status.#{k}"), v] }
   br
   br
   div.form-group
     = f.label t('label.label'), class: "control-label col-xs-4"
     div.col-xs-5
-      = f.text_field :label_text, class: "form-control"
+      / 複数タスク付け加えられるようにすることと、現在のラベルも表示すること
+      = f.select :label_text, Label.all.map {|l| [l.name]}, {include_blank: true}, class: "form-control"
   br
   br
   = f.submit t('label.register'), class: "btn btn-primary btn-lg active"
@@ -52,4 +47,4 @@ h1
   - if @task.errors.any?
     - @task.errors.full_messages.each do |message|
       javascript:
-          toastr.info("#{message}");
+          toastr.error("#{message}");

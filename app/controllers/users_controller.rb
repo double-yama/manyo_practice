@@ -16,7 +16,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect_to tasks_path
     else
-      render("users/new")
+      render 'new'
     end
   end
 
@@ -40,9 +40,9 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
-    Task::destroy_all_tasks(params[:id])
+    User.destroy_all_tasks(params[:id])
     @user.destroy
-    redirect_to users_path
+    redirect_to admin_users_path
   end
 
   def ensure_correct_user

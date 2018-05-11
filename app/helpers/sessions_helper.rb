@@ -16,9 +16,4 @@ module SessionsHelper
   def logout
     session.delete :user_id
   end
-
-  # ユーザモデルに書く
-  # def super_user?
-  #   current_user.super?
-  # end
 end

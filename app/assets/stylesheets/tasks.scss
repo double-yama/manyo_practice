@@ -3,25 +3,51 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .search{
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.search_form_tr{
+  margin-left: 150px;
+  margin-right: 150px;
+  justify-content: space-around;  //display: inline-flex;
+}
+
+.label_search{
+  margin: 8px;
+  flex-grow: 2;
+}
+
+.form_search{
+  flex-grow: 5;
+}
+
+.center{
+  background-color: aliceblue !important;
+}
+
+.panel{
+  margin: 40px 400px;
+  background-color: white !important;
 }
 
 #inner {
   margin:0 10px;
+  background-color: aliceblue !important;
 }
 
 #main-content {
   padding: 10px;
   width: 75%;
   float:right;
+  background-color: white !important;
 }
 
 #side-content {
   padding: 10px;
   width: 25%;
   float:left;
-  border-right: 1px #c0c0c0 solid;
+  background-color: white !important;
 }
 
 th{
@@ -48,6 +74,3 @@ tr{
   width: 100%;
 }
 
-.panel{
-  background-color: gainsboro !important;
-}

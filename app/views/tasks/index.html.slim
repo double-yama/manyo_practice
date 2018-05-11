@@ -1,9 +1,8 @@
-h1
-  = t 'title.index'
-
 - if flash[:notice]
   javascript:
     toastr.success('#{flash[:notice]}');
+
+  / cssがどこで読み込まれてるか調べる
 
 #inner
   #search

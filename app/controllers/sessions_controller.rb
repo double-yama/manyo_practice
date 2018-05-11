@@ -7,6 +7,7 @@ class SessionsController < ApplicationController
     @user = User.find_by(username: name_params["username"])
     if @user&.authenticate(password_params["password"])
       login @user
+      flash[:notice] = t('flash.success_to_login')
       redirect_to tasks_path
     else
       redirect_to login_path
@@ -15,6 +16,7 @@ class SessionsController < ApplicationController
 
   def destroy
     logout
+    flash[:notice] = t('flash.success_to_logout')
     redirect_to login_path
   end
 

@@ -164,7 +164,7 @@ RSpec.describe Task, type: :model do
         @task.save(validate: false)
       end
       it "期限が2日以内でないため, 何も返されない" do
-        expect(Task.period_close).to be_empty
+        expect(Task.deadline_in_three_days).to be_empty
       end
     end
 
@@ -178,7 +178,7 @@ RSpec.describe Task, type: :model do
       end
 
       it "期限が2日以内のため、データが1つ返される" do
-        expect(Task.period_close.count).to eq 1
+        expect(Task.deadline_in_three_days.count).to eq 1
       end
     end
 
@@ -191,7 +191,7 @@ RSpec.describe Task, type: :model do
         @task.save(validate: false)
       end
       it "期限が2日以内のため、データが1つ返される" do
-        expect(Task.period_close.count).to eq 1
+        expect(Task.deadline_in_three_days.count).to eq 1
       end
     end
 
@@ -204,7 +204,7 @@ RSpec.describe Task, type: :model do
         @task.save(validate: false)
       end
       it "期限が2日以内のため、データが1つ返される" do
-        expect(Task.period_close.count).to eq 1
+        expect(Task.deadline_in_three_days.count).to eq 1
       end
     end
 
@@ -217,7 +217,7 @@ RSpec.describe Task, type: :model do
         @task.save(validate: false)
       end
       it "期限が2日以内でないため, 何も返されない" do
-        expect(Task.period_close).to be_empty
+        expect(Task.deadline_in_three_days).to be_empty
       end
     end
   end
@@ -253,7 +253,7 @@ RSpec.describe Task, type: :model do
           end
         end
         it "該当したオブジェクトが5個返される" do
-          expect(Task.search(@params).count).to eq 5
+          expect(Task.search_tasks_by_queries(@params).count).to eq 5
         end
       end
 
@@ -284,7 +284,7 @@ RSpec.describe Task, type: :model do
             )
             no_test.save(validate: false)
           end
-          expect(Task.search(@params).count).to eq 5
+          expect(Task.search_tasks_by_queries(@params).count).to eq 5
         end
       end
 
@@ -297,7 +297,7 @@ RSpec.describe Task, type: :model do
                                         status: 0
             )
             no_test.save(validate: false)
-          expect(Task.search(@params).count).to eq 1
+          expect(Task.search_tasks_by_queries(@params).count).to eq 1
         end
       end
     end

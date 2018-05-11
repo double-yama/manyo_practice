@@ -1,26 +1,17 @@
 class TasksController < ApplicationController
   protect_from_forgery :except => [:read]
   helper_method :sort_column, :sort_order
+
   def index
     @q = Task.new
     @tasks = Task.all.order(sort_column + ' ' + sort_order).includes([:user, task_labels: :label]).page(params[:page]).per(10)
-    @period_ended_tasks = Task.period_expired.page(params[:page]).per(5)
-    @period_near_tasks = Task.period_close.page(params[:page]).per(5)
+    unless params[:q].nil?
+      @tasks = Task.search_tasks_by_queries(params_word).page(params[:page]).per(10)
+    end
+    @period_ended_tasks = Task.period_expired.includes(:user).order('period ASC')
+    @deadline_in_three_days = Task.deadline_in_three_days.includes(:user).order('period ASC')
   end
 
-  def more
-    index
-  end
-
-  def search
-  # @tasks = Task.all.includes([:user]).search_title_or_detail(@task.name)
-  #              .search_label(params[:q][:label])
-  #              .search_status(params[:q][:status])
-  #              .page(params[:page]).per(10)
-    @tasks = Task.search(params_word).page(params[:page]).per(10)
-    @period_ended_tasks = Task.period_expired.page(params[:page]).per(5)
-    @period_near_tasks = Task.period_close.page(params[:page]).per(5)
-  end
   # public_methods.grep(/status)
 
   def new
@@ -28,15 +19,15 @@ class TasksController < ApplicationController
   end
 
   def show
-    @task = Task.find(params[:id])
+    @id = params[:id]
+    @task = Task.find(@id)
   end
 
   def read
-    @task = Task.find(params[:id])
+    @id = params[:read_id]
+    @task = Task.find(@id)
     @task.read_flg = 1
     @task.save
-    # ajaxを使うこと
-    # GETなのにPOSTしてるのはダメ
   end
 
   def edit
@@ -50,7 +41,7 @@ class TasksController < ApplicationController
       flash[:notice] = t('flash.new_task_added')
       redirect_to tasks_path
     else
-      render new_task_path
+      render 'new'
     end
   end
 
@@ -67,15 +58,11 @@ class TasksController < ApplicationController
   def destroy
     @task = Task.find(params[:id])
     @task.destroy
-    redirect_to tasks_path
+    redirect_back(fallback_location: root_path)
   end
 
   def mypage
     @my_tasks = Task.my_task(current_user.id).page(params[:page]).per(10)
-  end
-
-  def label
-    @labels = Label.all
   end
 
   private
@@ -92,8 +79,9 @@ class TasksController < ApplicationController
   end
 
   def params_word
-    if :q
+    if params[:q].present?
       params.require(:q).permit(
+          # :username,
           :name,
           :status,
           :label
@@ -102,10 +90,10 @@ class TasksController < ApplicationController
   end
 
   def sort_order
-    %w[asc desc].include?(params[:order]) ?  params[:order] : "asc"
+    %w[asc desc].include?(params[:order]) ?  params[:order] : t('params.desc')
   end
 
   def sort_column
-    Task.column_names.include?(params[:sort]) ? params[:sort] : "status"
+    Task.column_names.include?(params[:sort]) ? params[:sort] : t('params.updated_at')
   end
 end

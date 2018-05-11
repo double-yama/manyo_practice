@@ -5,4 +5,12 @@ class User < ApplicationRecord
   validates :password_digest, presence: true
   has_many :tasks, dependent: :destroy
   mount_uploader :image, ImageUploader
+
+  def self.destroy_all_tasks(user_id)
+    where('users.id = ?', user_id).destroy_all
+  end
+
+  def super_user?
+    current_user.super?
+  end
 end

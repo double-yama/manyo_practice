@@ -1,13 +1,13 @@
 doctype html
 html
   head
-    title Manyo
+    title = t('title.page_title')
     = csrf_meta_tags
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track'=> true
     = javascript_include_tag 'application', 'data-turbolinks-track'=> true
     = javascript_include_tag 'jquery'
     / = javascript_include_tag 'task_read', 'data-turbolinks-track'=> true
-    / = favicon_link_tag
+    = favicon_link_tag
 
   body
     div.center
@@ -20,7 +20,7 @@ html
               span.icon-bar
               span.icon-bar
             div.navbar-brand
-              = link_to t('title.task'), 'http://ashita-team.com/'
+              = fa_icon "tasks"
 
           div.collapse.navbar-collapse#navbarEexample1
             - if logged_in?
@@ -39,7 +39,7 @@ html
 
               ul
                 p.navbar-text.navbar-right
-                  = 'ようこそ'
+                  = t('label.welcome')
                   = current_user.username
-                  = 'さん'
+                  = t('label.mr')
       == yield

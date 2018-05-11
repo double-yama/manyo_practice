@@ -43,6 +43,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'enum_help'
 gem 'enumerize'
 gem 'bullet'
+gem 'data-confirm-modal'
 
 group :development, :test do
   gem 'mysql2', '>= 0.3.18', '< 0.5'

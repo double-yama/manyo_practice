@@ -1,4 +1,7 @@
 ja:
+  activerecord:
+    attributes:
+
   enumerize:
     status:
       yet_start: "未着手"
@@ -19,6 +22,7 @@ ja:
     show: "詳細"
     login: "ログイン"
     all_tasks: "全てのタスク"
+    page_title: 'タスク管理アプリ by Manyo'
   label:
     my_page: "さんのタスク一覧"
     mypage: "マイページ"
@@ -26,7 +30,9 @@ ja:
     search_for_task: "タスク名/説明文検索"
     search_for_label: "ラベル検索"
     search_for_status: "ステータス検索"
+    search_for_user_name: "ユーザ名検索"
     result_search: "の検索結果です。"
+    search: "検索"
     name: "名前"
     task_name: "タイトル"
     task_count: "タスク数"
@@ -41,6 +47,8 @@ ja:
     password: "パスワード"
     password_again: "パスワード(確認)"
     register: "登録"
+    save: "保存"
+    clear: "クリア"
     label_register: "新規追加"
     signup: "新規登録"
     user_edit: "ユーザ編集"
@@ -50,15 +58,31 @@ ja:
     label: "ラベル"
     please_put_in: "入力してください"
     read: "既読済"
+    welcome: "ようこそ"
+    mr: "さん"
+    label_delete_message01: "ラベル「"
+    label_delete_message02: "」を"
+
 
   flash:
+    success_to_login: "ログインしました"
+    success_to_logout: "ログアウトしました バイバイ"
     invalid_password: "ログインできませんでした"
     invalid_mail: "ログインできませんでした"
     no_authority: "権限がありません"
-    new_task_added: "New Task is added!"
-    new_label_added: "New Label is added!"
-    task_updated: "Task is updated!!"
-    cinfirm: 'Are you sure ?'
+    can_not_be_blank: " cannot be blank"
+    new_task_added: "タスク作成に成功しました"
+    new_label_added: "ラベル作成に成功しました"
+    task_updated: "タスク更新に成功しました"
+    confirm: "」を削除します よろしいですか？"
+    delete_user: "ユーザ「"
+    delete_task: "タスク「"
+
+
+  params:
+    asc: "asc"
+    desc: "desc"
+    updated_at: "updated_at"
 
   column:
     priority:
@@ -70,5 +94,18 @@ ja:
       doing: "実行中"
       completed: "完了"
     role:
-      true: "管理者"
-      false: ""
+      "true": "管理者"
+      "false": "一般"
+
+  views:
+    sessions:
+      new:
+        login_name: "ユーザ名"
+        password: "パスワード"
+    pagination:
+      first: "&laquo; 最初"
+      last: "最後 &raquo;"
+      next: "次 &rsaquo;"
+      previous: "&lsaquo; 前"
+      truncate: "&hellip;"
+      display_entries: "全%{total}件中 %{first}～%{last}件を表示"

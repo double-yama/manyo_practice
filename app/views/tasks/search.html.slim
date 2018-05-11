@@ -1,6 +1,3 @@
-h1
-  = t 'title.index'
-
 - if flash[:notice]
   p
     = flash[:notice]
@@ -22,5 +19,3 @@ br
   #main-content
     = render 'table_all'
     br
-      / = link_to t('title.add_new_task'), new_task_path
-

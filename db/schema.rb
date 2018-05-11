@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180508083307) do
+ActiveRecord::Schema.define(version: 20180510014926) do
 
   create_table "labels", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20180508083307) do
     t.integer "user_id"
     t.string "label"
     t.boolean "read_flg", default: false
+    t.index ["user_id", "name", "period"], name: "index_tasks_on_user_id_and_name_and_period"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

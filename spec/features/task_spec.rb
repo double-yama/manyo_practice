@@ -13,6 +13,15 @@ RSpec.feature 'task', type: :feature do
     fill_in 'session[password]', with: @user.password
     click_button 'ログイン'
     visit tasks_path
+    # session_helperにてsessionにログイン情報を入れる
+    # cookie[:user_remember_token]とかを利用する
+    # before (login_as user)
+    # helper.rbに
+    # RSpec.cinfigure do |config|
+    # config.include SessinHelper
+    # End
+    # とかしてる
+    #
   end
 
   describe 'ログイン画面' do
