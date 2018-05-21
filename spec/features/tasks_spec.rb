@@ -22,7 +22,6 @@ RSpec.feature "Tasks", type: :feature do
       # config.include SessinHelper
       # End
       # とかしてる
-      #
     end
 
     describe 'ログイン画面' do
@@ -77,7 +76,7 @@ RSpec.feature "Tasks", type: :feature do
 
       context 'ラベル以外を入力、かつ説明文が空であるならば' do
         background do
-          visit new_tasks_path
+          visit tasks_path
           fill_in 'task_name', with: @task.name
           fill_in 'task_detail', with: nil
           find('option[value="high"]').select_option
@@ -132,12 +131,10 @@ RSpec.feature "Tasks", type: :feature do
         end
 
         scenario '1件分の削除ボタンが表示される' do
-          # expect(page).to have_link '削除'
           expect(page.all('a.btn.btn-danger').size).to eq(1)
         end
 
         scenario '5件中1件のみ表示される' do
-          # p Task.all
           expect(page.all('.btn.btn-danger').size).to eq(1)
         end
       end
