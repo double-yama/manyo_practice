@@ -12,10 +12,27 @@
 //
 //= require rails-ujs
 //= require turbolinks
-// require_tree .
 //= require bootstrap-sprockets
-//// = require jquery
-//// = require jquery_ujs
+//= require jquery
+//= require jquery_ujs
 //= require data-confirm-modal
 //= require toastr
+//= require moment
+//= require fullcalendar
+//= require fullcalendar/lang/ja
+//= require moment/ja
+//= require bootstrap-datetimepicker
+//= require data-confirm-modal
+//= require_tree .
+//= require task_list
+// var data = {'data-format': 'yyyy-MM-dd hh:mm:ss' };
+// // $(function(){
+// //     $('.datepicker').attr(data);
+// //     $('.datepicker').datetimepicker();
+// // });
 
+var data = {'data-format': 'yyyy-MM-dd hh:mm:ss' };
+$(function(){
+    $('.datepicker').attr(data);
+    $('.datepicker').datetimepicker();
+});

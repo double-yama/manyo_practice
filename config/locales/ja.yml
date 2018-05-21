@@ -23,11 +23,11 @@ ja:
     login: "ログイン"
     all_tasks: "全てのタスク"
     page_title: 'タスク管理アプリ by Manyo'
+
   label:
-    my_page: "さんのタスク一覧"
-    mypage: "マイページ"
+
+    groups : "グループ一覧"
     label_add: "ラベル管理"
-    search_for_task: "タスク名/説明文検索"
     search_for_label: "ラベル検索"
     search_for_status: "ステータス検索"
     search_for_user_name: "ユーザ名検索"
@@ -38,7 +38,7 @@ ja:
     task_count: "タスク数"
     label_name: "ラベル名"
     role: "ロール"
-    description: "説明"
+    description: "説明 : "
     period_end_on: "期限"
     priority: "優先度"
     status: "ステータス"
@@ -63,6 +63,21 @@ ja:
     label_delete_message01: "ラベル「"
     label_delete_message02: "」を"
 
+    task:
+      my_page: "さんのタスク一覧"
+      mypage: "マイページ"
+      search_for_task: "タスク名/説明文検索"
+      option: 任意
+      must: 必須
+
+    user:
+      belongs_to_group: "所属グループ"
+
+    group:
+      group_name : "グループ名"
+      description: "説明"
+      member : "メンバー"
+
 
   flash:
     success_to_login: "ログインしました"
@@ -77,6 +92,11 @@ ja:
     confirm: "」を削除します よろしいですか？"
     delete_user: "ユーザ「"
     delete_task: "タスク「"
+
+    group:
+      new_group_added: "グループを作成しました"
+      delete_group: "グループ「"
+      group_delete_message01: "」を削除します よろしいですか？"
 
 
   params:

@@ -1,15 +1,12 @@
 class TasksController < ApplicationController
-  protect_from_forgery :except => [:read]
+  # helperはビューのためのもの
+  # MVC的じゃない
+  # paramsもビューで使うな
   helper_method :sort_column, :sort_order
 
   def index
-    @q = Task.new
-    @tasks = Task.all.order(sort_column + ' ' + sort_order).includes([:user, task_labels: :label]).page(params[:page]).per(10)
-    unless params[:q].nil?
-      @tasks = Task.search_tasks_by_queries(params_word).page(params[:page]).per(10)
-    end
-    @period_ended_tasks = Task.period_expired.includes(:user).order('period ASC')
-    @deadline_in_three_days = Task.deadline_in_three_days.includes(:user).order('period ASC')
+    @task = Task.new
+    set_for_index
   end
 
   # public_methods.grep(/status)
@@ -19,13 +16,11 @@ class TasksController < ApplicationController
   end
 
   def show
-    @id = params[:id]
-    @task = Task.find(@id)
+    @task = Task.find(params[:id])
   end
 
   def read
-    @id = params[:read_id]
-    @task = Task.find(@id)
+    @task = Task.find(params[:read_id])
     @task.read_flg = 1
     @task.save
   end
@@ -41,7 +36,8 @@ class TasksController < ApplicationController
       flash[:notice] = t('flash.new_task_added')
       redirect_to tasks_path
     else
-      render 'new'
+      set_for_index
+      render 'index'
     end
   end
 
@@ -62,7 +58,34 @@ class TasksController < ApplicationController
   end
 
   def mypage
-    @my_tasks = Task.my_task(current_user.id).page(params[:page]).per(10)
+    if params[:q].present?
+      @q = Task.new(params_word)
+      @tasks_for_user = Task.my_task(current_user.id).search_tasks_by_queries(params_word).page(params[:page]).per(10)
+      @tasks_count = Task.tasks_count_for_my_page(current_user.id)
+    else
+      @q = Task.new
+      @tasks_for_user = Task.my_task_without_params(current_user.id).order(sort_column + ' ' + sort_order).includes([:user, task_labels: :label]).page(params[:page]).per(10)
+      @tasks_count = Task.tasks_count_for_my_page(current_user.id)
+    end
+  end
+
+  def turn_complete
+    @task = Task.find(params[:task_id])
+    @task.status = "completed"
+    @task.save
+  end
+
+  def download
+    task = Task.find(params[:id])
+    filepath = task.file.url
+    p 'talahashistakahasthitakahashi'
+    p filepath.class
+    send_file(filepath,
+              # :type => 'txt/pdf',
+              :disposition => 'attachment',
+              :filename => task.file,
+              :status => 200)
+    redirect_to tasks_path
   end
 
   private
@@ -74,14 +97,15 @@ class TasksController < ApplicationController
       :status,
       :period,
       :priority,
-      :label_text
+      :label_text,
+      :file,
+      :file_cache
     )
   end
 
   def params_word
     if params[:q].present?
       params.require(:q).permit(
-          # :username,
           :name,
           :status,
           :label
@@ -90,10 +114,16 @@ class TasksController < ApplicationController
   end
 
   def sort_order
-    %w[asc desc].include?(params[:order]) ?  params[:order] : t('params.desc')
+    %w[asc desc].include?(params[:order]) ?  params[:order] : Task::SORT_NAME[:desc]
   end
 
   def sort_column
-    Task.column_names.include?(params[:sort]) ? params[:sort] : t('params.updated_at')
+    Task.column_names.include?(params[:sort]) ? params[:sort] : Task::COLUMN_NAME[:updated_at]
+  end
+
+  def set_for_index
+    @period_ended_tasks = Task.period_expired.includes(:user).order('period ASC')
+    @deadline_closed_tasks = Task.deadline_close(3).includes(:user).order('period ASC')
+    @tasks = Task.all.order(sort_column + ' ' + sort_order).includes([:user, task_labels: :label]).page(params[:page]).per(10)
   end
 end

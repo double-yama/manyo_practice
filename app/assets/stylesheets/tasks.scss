@@ -2,19 +2,33 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.search{
-  margin-left: 0px;
-  margin-right: 0px;
-}
+//.search{
+//  margin-left: 0px;
+//  margin-right: 0px;
+//}
 
 .search_form_tr{
   margin-left: 150px;
   margin-right: 150px;
-  justify-content: space-around;  //display: inline-flex;
+  justify-content: space-around;
+}
+
+.m-15{
+  margin: 10px;
+}
+
+.m-10{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.m-10-lr{
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .label_search{
-  margin: 8px;
+  margin: 10px;
   flex-grow: 2;
 }
 
@@ -22,9 +36,9 @@
   flex-grow: 5;
 }
 
-.center{
-  background-color: aliceblue !important;
-}
+//.center{
+//  background-color: white !important;
+//}
 
 .panel{
   margin: 40px 400px;
@@ -36,18 +50,28 @@
   background-color: aliceblue !important;
 }
 
+.panel-info-index{
+  background-color: aliceblue !important;
+}
+
 #main-content {
-  padding: 10px;
-  width: 75%;
+  margin-left: 15px;
+  margin-right: 15px;
+  width: 50%;
   float:right;
   background-color: white !important;
 }
 
 #side-content {
-  padding: 10px;
-  width: 25%;
+  margin-left: 15px;
+  margin-right: 15px;
+  width: 45%;
   float:left;
-  background-color: white !important;
+  background-color: white;
+}
+
+#items {
+  background-color: white;
 }
 
 th{
@@ -68,9 +92,82 @@ tr{
 
 .content{
   margin:0 50px;
+  background-color: white;
 }
 
 .search_form{
   width: 100%;
 }
 
+.m-100{
+  margin-top: 100px;
+  margin-bottom: 10px;
+}
+
+.mt-100{
+  margin-top: 100px;
+}
+
+.mt-40{
+  margin-top: 40px;
+}
+
+.table_label{
+  width:90%;
+  margin-top: 100px;
+  margin-bottom: 20px;
+}
+
+tr {
+  height: 40px;
+}
+
+.breadcrumbs{
+  text-align: left;
+  margin-left: 15px;
+}
+
+.my_profile{
+  font-size: 150%;
+  .user_label{
+    font-size: 90%;
+    text-align: right;
+  }
+
+  .user_name{
+    font-size: 90%;
+    text-align: left;
+  }
+
+  .tasks_num_label, .tasks_num{
+    font-size: 80%;
+    text-align: left;
+  }
+}
+
+#calendar{
+  text-align: center;
+  margin-left: 40px;
+  width: 80%;
+}
+
+.search_btn{
+  display: inline-block;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  background: #668ad8;/*ボタン色*/
+  color: #4868ad;/*ボタン色より暗く*/
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
+  border-bottom: solid 3px #627295;
+  border-radius: 3px;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+}
+
+.search_btn:active   {
+  -ms-transform: translateY(4px);
+  -webkit-transform: translateY(4px);
+  transform: translateY(4px);
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);
+  border-bottom: none;
+}

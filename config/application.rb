@@ -19,5 +19,6 @@ module Manyo
     config.eager_load_paths += Dir[Rails.root.join('app', 'uploaders')]
     config.eager_load_paths += %W(#{config.root}/app/uploaders)
     # config.autoload_paths += %W(#{config.root}/app/uploaders)
+    config.generators.template_engine = :slim
   end
 end

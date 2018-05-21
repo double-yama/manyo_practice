@@ -1,5 +1,15 @@
 Rails.application.routes.draw do
 
+  get 'groups/index'
+
+  get 'groups/new'
+
+  get 'groups/create'
+
+  get 'groups/update'
+
+  get 'groups/destroy'
+
   # collection(集合)はidなし、member(個別)はidあり
 
   root :to => 'tasks#index'
@@ -7,11 +17,13 @@ Rails.application.routes.draw do
   get "admin/users" => "users#index"
   resources :users, :except => :index
   resources :labels
+  resources :groups
+  resources :calendar
 
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   delete '/logout' => 'sessions#destroy'
-  
+
   resources :tasks do
     collection do
       get :mypage
@@ -20,6 +32,8 @@ Rails.application.routes.draw do
 
     member do
       post :read
+      post :turn_complete
+      # get :download
     end
   end
 

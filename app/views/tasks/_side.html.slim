@@ -1,15 +1,14 @@
-br
 h4
   = '期限切れタスク一覧'
 br
 
 table.center_table.table#expired_task_list
   tr
-    th
+    th.center
       = t('label.user_name')
-    th
+    th.center
       = t('label.task_name')
-    th
+    th.center
       = t('label.period_end_on')
     - @period_ended_tasks.each do |task|
       tr
@@ -19,6 +18,7 @@ table.center_table.table#expired_task_list
           = link_to task.name, task_path(task.id)
           = '  '
           = fa_icon(task.read_flg == false ? '' : 'check-circle')
+
         td
           = task.period
 br
@@ -34,13 +34,13 @@ br
 
 table.center_table.table.table-hover.table-striped#deadline_in_three_days_task_list
   tr
-    th
+    th.center
       = t('label.user_name')
-    th
+    th.center
       = t('label.task_name')
-    th
+    th.center
       = t('label.period_end_on')
-  - @deadline_in_three_days.each do |task|
+  - @deadline_closed_tasks.each do |task|
     tr
       td
         = task.user.username
@@ -52,62 +52,3 @@ br
 #more_btn_deadline_in_three_days
   = button_tag fa_icon('chevron-circle-down lg', text: 'もっと見る'), class: 'btn btn-info btn-block open_deadline_close'
   = button_tag fa_icon('chevron-circle-up lg', text: '閉じる'), class: 'btn btn-info btn-block close_deadline_close'
-
-/ merginを各要素に
-
-javascript:
-  var b1 = $('#expired_task_list');
-  var b2 = $('#more_btn_expired');
-
-  $(function () {
-      b1.each(function () {
-          $(this).find("tr:gt(5)").each(function () {
-              $(this).hide();
-          });
-
-          b2.find('.open_expired').nextAll().hide();
-          b2.find('.open_expired').click(function () {
-              b2.find('.open_expired').hide();
-              b1.find("tr").show(400);
-              b2.find('.open_expired').nextAll().show();
-              return false;
-          });
-
-          b2.find('.close_expired').click(function () {
-              b2.find('.open_expired').show();
-              b2.find('.open_expired').nextAll().hide();
-              b1.find("tr:gt(5)").each(function () {
-                  $(this).hide();
-              });
-              return false;
-          });
-      });
-  });
-
-  var b3 = $('#deadline_in_three_days_task_list');
-  var b4 = $('#more_btn_deadline_in_three_days');
-
-  $(function () {
-      b3.each(function () {
-          $(this).find("tr:gt(5)").each(function () {
-              $(this).hide();
-          });
-
-          b4.find('.open_deadline_close').nextAll().hide();
-          b4.find('.open_deadline_close').click(function () {
-              b4.find('.open_deadline_close').hide();
-              b3.find("tr").show(400);
-              b4.find('.open_deadline_close').nextAll().show();
-              return false;
-          });
-
-          b4.find('.close_deadline_close').click(function () {
-              b4.find('.open_deadline_close').show();
-              b4.find('.open_deadline_close').nextAll().hide();
-              b3.find("tr:gt(5)").each(function () {
-                  $(this).hide();
-              });
-              return false;
-          });
-      });
-  });

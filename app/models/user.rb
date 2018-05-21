@@ -5,6 +5,9 @@ class User < ApplicationRecord
   validates :password_digest, presence: true
   has_many :tasks, dependent: :destroy
   mount_uploader :image, ImageUploader
+  has_many :group, through: :group_users
+  has_many :group_users
+  accepts_nested_attributes_for :group_users
 
   def self.destroy_all_tasks(user_id)
     where('users.id = ?', user_id).destroy_all

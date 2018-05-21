@@ -1,19 +1,15 @@
 .panel.panel-info
   .panel-body.search
-    = form_for :q, url: tasks_path, html: {method: :get} do |f|
+    = form_for :q, url: mypage_tasks_path, html: {method: :get} do |f|
       .form-group.search_form_tr
         div.label_search
-          = t('label.search_for_task')
+          = t('label.task.search_for_task')
         div.form_search
           = f.text_field :name, class:"form-control"
-          / ,params[:q][:name] - unless params[:q][:name].blank?
-      br
-      .form-group.search_form_tr
         div.label_search
           = t('label.search_for_label')
         div.form_search
           = f.select :label, Label.all.map{|l| [l.name]}, {include_blank: true}, class:"form-control"
-      br
       .form-group.search_form_tr
         div.label_search
           = t('label.search_for_status')
@@ -25,33 +21,7 @@
       /     = t('label.search_for_user_name')
       /   div.form_search
       /     = f.select :username, User.all.map{|l| [l.username]}, {include_blank: true}, class:"form-control"
-      br
       .form-group.search_form_tr
-        div.label_search
-          = button_tag fa_icon('search lg', text: t('label.search')), class: 'btn btn-success'
-        div.form_search
-          = button_tag fa_icon('times-circle lg', text: t('label.clear')), type: :reset,  class: 'btn btn-danger'
-
-    br
-    br
-    - if params[:q]
-      table.center_table
-        - unless params[:q][:name].blank?
-          tr
-            th
-              = t('label.search_for_task') + ': '
-            td
-              = params[:q][:name]
-        - unless params[:q][:label].blank?
-          tr
-            th
-              = t('label.search_for_label') + ': '
-            td
-              = params[:q][:label]
-        - unless params[:q][:status].blank?
-          tr
-            th
-              = t('label.search_for_status') + ': '
-            td
-              = t("column.status.#{params[:q][:status]}")
-      = t('label.result_search')
+        .label_search
+        = button_tag fa_icon('search lg', text: t('label.search')), class: 'btn btn-info m-15 search_btn'
+        = button_tag fa_icon('times-circle lg', text: t('label.clear')), type: :reset, class: 'btn btn-warning m-15 search_btn'

@@ -14,10 +14,14 @@
  *= require_self
  *= require font-awesome
  *= require toastr
+ *= require fullcalendar
+ *= require bootstrap-datetimepicker
 */
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "toastr";
+@import 'bootstrap-datetimepicker';
+@import 'fullcalendar';
 
 .center{
     text-align: center;

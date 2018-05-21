@@ -1,0 +1,39 @@
+.content
+  = form_for(@group) do |l|
+    - if @group.errors.any?
+      - @group.errors.full_messages.each do |message|
+        javascript:
+            toastr.info("#{message}");
+    .m-form
+      .col-xs-1
+      = l.label :name, t('label.group.group_name'), class: "control-label col-xs-4"
+      .col-xs-3
+        = l.text_field :name, class: "form-control"
+      / .col-xs-3
+      br
+    .m-form
+      .col-xs-1
+      = l.label :description, t('label.group.description'), class: "control-label col-xs-4"
+      .col-xs-3
+        = l.text_field :description, class: "form-control"
+      / .col-xs-3
+      br
+    br
+    .m-form
+      .col-xs-1
+      = l.label t('label.group.member'), class: "control-label col-xs-4"
+      .label_check_box
+        = l.collection_check_boxes(:user_ids, User.where.not(username: current_user.username), :id, :username) do |u|
+          tr
+            td
+              = u.check_box class: 'form-check-input'
+            td
+              = u.label class: 'form-check-label'
+    br
+    br
+    
+      .col-xs-3
+      = l.submit "#{t('label.save')}", class: "btn btn-primary col-xs-2"
+      .col-xs-2
+      = button_tag fa_icon('times-circle lg', text: t('label.clear')), type: :reset, class: 'btn btn-danger col-xs-2'
+      .col-xs-3

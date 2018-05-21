@@ -2,23 +2,20 @@
   javascript:
     toastr.success('#{flash[:notice]}');
 
-  / cssがどこで読み込まれてるか調べる
-
 #inner
-  #search
-    = render 'search'
-    br
-    = link_to new_task_path, class: "btn btn-primary" do
-      = fa_icon "plus-circle", text: "#{t('title.add_new_task')}"
-    br
-  #side-content
-    #items
-      = render 'side'
-      br
+  .breadcrumbs
+    - breadcrumb :root
+  #side-content.panel-body
+    = render 'side'
 
-  #main-content
+  #main-content.panel-body
     br
-    = render 'table_all'
+    h3
+      = t('title.add_new_task')
     br
+    br
+    = render 'modal'
 
-  #product-modal
+#calendar
+
+/ = javascript_include_tag 'task_list.js'

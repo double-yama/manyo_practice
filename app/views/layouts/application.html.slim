@@ -5,9 +5,8 @@ html
     = csrf_meta_tags
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track'=> true
     = javascript_include_tag 'application', 'data-turbolinks-track'=> true
-    = javascript_include_tag 'jquery'
-    / = javascript_include_tag 'task_read', 'data-turbolinks-track'=> true
-    = favicon_link_tag
+    = javascript_include_tag "https://www.google.com/jsapi", "chartkick"
+    / = favicon_link_tag
 
   body
     div.center
@@ -28,7 +27,9 @@ html
                 li
                   = link_to t('title.all_tasks'), tasks_path
                 li
-                  =  link_to t('label.mypage'), mypage_tasks_path
+                  =  link_to t('label.task.mypage'), mypage_tasks_path
+                li
+                  = link_to t('label.groups'), groups_path
                 - if current_user.super?
                   li
                     =  link_to t('title.user_index'), admin_users_path
@@ -39,7 +40,10 @@ html
 
               ul
                 p.navbar-text.navbar-right
+                  = image_tag(current_user.image.to_s, :size => "25x25")
+                  = '  '
                   = t('label.welcome')
                   = current_user.username
                   = t('label.mr')
+      == breadcrumbs separator: " &rsaquo; "
       == yield

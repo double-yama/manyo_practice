@@ -1,4 +1,4 @@
-require 'rails_helper_stash'
+require 'rails_helper'
 RSpec.describe User, type: :model do
   describe 'バリデーション' do # validation設定してるならいらない
     context '適切な名前とパスワードを与えると' do
@@ -13,7 +13,7 @@ RSpec.describe User, type: :model do
     context '不適切な名前を与えると' do
       before do
         @user = FactoryGirl.build(:user,
-                                 username: nil
+                                  username: nil
         )
         @user.save
       end
@@ -30,7 +30,7 @@ RSpec.describe User, type: :model do
     context '不適切なパスワードを与えると' do
       before do
         @user = FactoryGirl.build(:user,
-                                 password: nil
+                                  password: nil
         )
         @user.save
       end
@@ -45,4 +45,3 @@ RSpec.describe User, type: :model do
     end
   end
 end
-

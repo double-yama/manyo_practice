@@ -44,16 +44,19 @@ gem 'enum_help'
 gem 'enumerize'
 gem 'bullet'
 gem 'data-confirm-modal'
+gem 'gretel'
+gem 'bootstrap-datetimepicker-rails'
+gem 'momentjs-rails', '>= 2.9.0'
+gem "chartkick"
+gem 'fullcalendar-rails'
 
 group :development, :test do
   gem 'mysql2', '>= 0.3.18', '< 0.5'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '~> 2.13'
-  gem 'selenium-webdriver'
+  # gem 'capybara', '~> 2.13'
   gem 'rspec-rails', '~> 3.6'
-  # gem "factory_bot_rails"
   gem "factory_girl_rails"
   gem "guard-rspec"
   gem "spring-commands-rspec"
@@ -61,19 +64,12 @@ group :development, :test do
   gem 'pry-rails'
   gem 'pry-byebug'
   gem 'pry-doc'
+  gem 'selenium-webdriver'
   gem 'chromedriver-helper'
   gem 'enum_help'
+  gem 'brakeman', :require => false
+  gem 'database_cleaner'
 end
-
-# group :development do
-# #   # gem 'mysql2', '>= 0.3.18', '< 0.5'
-# #   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-# #   gem 'web-console', '>= 3.3.0'
-# #   gem 'listen', '>= 3.0.5', '< 3.2'
-# #   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-# #   gem 'spring'
-# #   gem 'spring-watcher-listen', '~> 2.0.0'
-# # end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
@@ -96,8 +92,8 @@ group :production do
 end
 
 group :test do
+  gem 'capybara'
   gem "faker"
-  # gem 'capybara', '~> 2.13'
   gem "database_cleaner"
   gem 'database_rewinder'
   gem "launchy"

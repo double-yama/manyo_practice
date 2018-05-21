@@ -6,12 +6,27 @@ module TasksHelper
     link_to title, {:sort => column, :order => order}, {:class => css_class}
   end
 
-  # def create_status_label(status)
-  #   case status
-  #   when 'yet_start'
-  #     ''
-  #   end
-  #   t("column.status.#{task.status}")
-  # end
+  def label_for_status(status)
+    case status
+    when 'yet_start'
+      'label label-warning'
+    when 'doing'
+      'label label-info'
+    when 'completed'
+      'label label-success'
+    else
+    end
+  end
+
+  def complete_button_for_show(task_id)
+    case Task.find(task_id).status
+    when 'yet_start', 'doing'
+      p = button_tag '完了' , class: 'btn btn-info btn-large complete_button'
+    when 'completed' then
+    end
+  end
+
+  # これも理解すること
+  #
 end
 
