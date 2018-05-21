@@ -25,11 +25,6 @@
 //= require data-confirm-modal
 //= require_tree .
 //= require task_list
-// var data = {'data-format': 'yyyy-MM-dd hh:mm:ss' };
-// // $(function(){
-// //     $('.datepicker').attr(data);
-// //     $('.datepicker').datetimepicker();
-// // });
 
 var data = {'data-format': 'yyyy-MM-dd hh:mm:ss' };
 $(function(){

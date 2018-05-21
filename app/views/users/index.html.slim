@@ -1,0 +1,39 @@
+div.content
+  div.breadcrumbs
+    - breadcrumb :users
+
+  table.center_table.table-hover.table-striped.user_tables
+    tr
+      td
+        = t('label.user_id')
+      td
+        = t('label.user_name')
+      td
+        = t('label.task_count')
+      td
+        = t('label.role')
+      td
+        = t('label.user.belongs_to_group')
+      td
+        = t('title.edit')
+      td
+        = t('label.delete')
+
+    - @users.each do |user|
+      tr
+        td
+          = user.id
+        td
+          = link_to user.username, user_path(user.id)
+        td
+          = user.tasks.size
+        td
+          = t("column.role.#{user.super}")
+        td
+
+        td
+          = link_to edit_user_path(user.id), class: "btn btn-primary" do
+            = fa_icon "edit"
+        td
+          = link_to user_path(user.id), method: :delete, data: {confirm: t("flash.delete_user") + user.username + t('flash.confirm')}, class: "btn btn-danger" do
+            = fa_icon "trash"

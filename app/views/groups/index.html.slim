@@ -1,0 +1,44 @@
+.content
+  .breadcrumbs
+    - breadcrumb :group
+
+  .mt-100
+    .col-xs-10
+    .col-xs-1
+      = link_to '新規グループ作成' ,new_group_path, class: "btn btn-info"
+    .col-xs-1
+  br
+  table.center_table.table-hover.table-striped.mt-40.table_group
+    tr
+      th.center
+        = t('label.group.group_name')
+      th.center
+        = t('label.group.member')
+      th.center
+        = t('title.edit')
+      th.center
+        = t('label.delete')
+    / tr#groups
+    - @groups.each do |group|
+      tr
+        td
+          = group.name
+        td
+          - group.group_users.each do |user|
+            = user.user.username + ' '
+        td
+          = link_to edit_group_path(group.id), class: "btn btn-primary" do
+            = fa_icon "edit"
+        td
+          = link_to group_path(group.id), method: :delete, data: {confirm: t('flash.group.delete_group') + group.name + t('flash.group.group_delete_message01')}, class: "btn btn-danger" do
+            = fa_icon "trash"
+    / = render partial: 'group', locals: {groups: @groups}
+  = paginate @groups
+
+- if flash[:notice]
+  javascript:
+      toastr.success('#{flash[:notice]}');
+
+- if flash[:error]
+  javascript:
+      toastr.error('#{flash[:error]}');

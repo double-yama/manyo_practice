@@ -1,0 +1,66 @@
+.content
+
+  table.center_table.table-hover.table-striped
+    tr
+      th.m-10.center
+        = t('label.task_name')
+      th.center
+        = sortable "priority", t('label.priority')
+      th.center
+        = sortable "period", t('label.period_end_on')
+      th.center
+        = sortable "status", t('label.status')
+      th.center
+        = t('label.description')
+      th
+      th
+
+    - @tasks_for_user.each do |task|
+      tr
+        td.col-xs-3.center
+          = link_to task.name, task_path(task.id)
+        td.col-xs-1.center
+          = t("column.priority.#{task.priority}")
+        td.col-xs-1.center
+          = task.period
+        td.col-xs-2.center
+          div class = "#{label_for_status(task.status)}"
+            = t("column.status.#{task.status}")
+        td.col-xs-3.center
+          = task.detail
+        td.col-xs-1
+          = link_to edit_task_path(task.id), class: "btn btn-primary" do
+            = fa_icon "edit"
+        td.col-xs-1
+          = link_to task_path(task.id), method: :delete, data: {confirm: t('flash.delete_task') + task.name + t('flash.confirm'),　cancel: "やめる" },class: "btn btn-danger" do
+            = fa_icon "trash"
+
+  br
+  br
+  = paginate @tasks_for_user
+
+  br
+  br
+  #calendar
+
+javascript:
+  $(document).ready(function () {
+      var tasks = "#{@tasks_for_user}";
+      $('#calendar').fullCalendar({
+          lang: 'ja',
+          events: [
+
+              {
+                  title: 'All Day Event',
+                  start: '2018-05-01'
+              }
+              // {
+              //     title: 'All Day Event',
+              //     start: '2018-05-02'
+              // }, {
+              //     title: 'All Day Event',
+              //     start: '2018-05-03'
+              // }
+          ]
+      })
+  });

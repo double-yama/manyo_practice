@@ -1,0 +1,30 @@
+.breadcrumbs
+  - breadcrumb :my_page
+br
+.my_info
+  .col-xs-4
+  .my_page_image.col-xs-2
+    = image_tag(current_user.image.to_s, :size => "100x100")
+  .my_profile.col-xs-6
+    .col-xs-3.user_label
+      p ユーザID:
+    .col-xs-1.user_name
+      = current_user.id
+    .col-xs-3
+  .my_profile.col-xs-6
+    .col-xs-3.user_label
+      p ユーザ名:
+    .col-xs-1.user_name
+      = current_user.username
+    .col-xs-3
+  .my_profile.col-xs-6
+    .col-xs-4.tasks_num_label
+      p 未着手/実行中タスク数:
+    .col-xs-1.tasks_num
+      = @tasks_count
+    .col-xs-3
+
+br
+#search.m-100
+  = render 'search'
+= render 'mypage_table'

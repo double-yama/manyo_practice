@@ -1,0 +1,49 @@
+= form_for(@task) do |f|
+  div.form-group
+    = f.label :name, t('label.name'), class: "control-label col-xs-4"
+    div.col-xs-5
+      = f.text_field :name, class: "form-control"
+    br
+  br
+  br
+  div.form-group.search_form_tr
+    = f.label :detail, t('label.description'), class: "control-label col-xs-4"
+    div.col-xs-5
+      = f.text_area :detail, class: "form-control"
+    br
+  br
+  br
+  br
+  div.form-group.search_form_tr
+    = f.label t('label.priority'), class: "control-label col-xs-4"
+    = f.select :priority,[%w(高 high), %w(中 middle), %w(低 low)], class: "selectpicker"
+  br
+  br
+  br
+  div.form-group.search_form_tr
+    = f.label t('label.period_end_on'), class: "control-label col-xs-4"
+    = f.datetime_select :period, class: 'form-control'
+    br
+  br
+  br
+  br
+  div.form-group.search_form_tr
+    = f.label :status, t('label.status'), class: "control-label col-xs-4"
+    = f.select :status, Task.statuses.map { |k, _v| [t("enums.status.#{k}"), k] }, class: "form-control col-xs-4 dropdown-toggle"
+  br
+  br
+  div.form-group
+    = f.label t('label.label'), class: "control-label col-xs-4"
+    div.col-xs-5
+      = f.text_field :label_text, class: "form-control"
+  br
+  br
+  = f.submit t('label.register'), class: "btn btn-primary btn-lg active"
+  br
+  br
+  br
+
+  - if @task.errors.any?
+    - @task.errors.full_messages.each do |message|
+      javascript:
+          toastr.info("#{message}");
