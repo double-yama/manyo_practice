@@ -13,7 +13,7 @@ crumb :label do
 end
 
 crumb :users do
-  link "ユーザ一覧", users_path
+  link "ユーザ一覧", admin_users_path
   parent :root
 end
 
@@ -23,7 +23,7 @@ crumb :show_task do |task|
 end
 
 crumb :group do
-  link "グループ一覧" , groups_index_path
+  link "グループ一覧" , groups_path
   parent :root
 end
 

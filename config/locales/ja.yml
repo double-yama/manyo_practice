@@ -51,6 +51,7 @@ ja:
     clear: "クリア"
     label_register: "新規追加"
     signup: "新規登録"
+    admin_login: "管理者ログイン画面"
     user_edit: "ユーザ編集"
     back: "戻る"
     delete: "削除"

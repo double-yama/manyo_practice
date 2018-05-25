@@ -1,7 +1,13 @@
 class LabelsController < ApplicationController
+  before_action :ensure_correct_user, only: %i[index destroy]
+
   def index
     @labels = set_for_index
     @label = Label.new
+  end
+
+  def show
+    render plain: 'soichiro'
   end
 
   def create
@@ -51,8 +57,11 @@ class LabelsController < ApplicationController
     params.require(:label).permit(:name)
   end
 
+  def ensure_correct_user
+    redirect_to tasks_path, flash[:notice] = t('flash.no_authority') unless current_user.super
+  end
+
   private
-  #
 
   def set_for_index
     # all_labels

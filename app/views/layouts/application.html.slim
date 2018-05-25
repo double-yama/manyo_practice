@@ -5,23 +5,22 @@ html
     = csrf_meta_tags
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track'=> true
     = javascript_include_tag 'application', 'data-turbolinks-track'=> true
-    / = javascript_include_tag "https://www.google.com/jsapi", "chartkick"
     / = favicon_link_tag
 
   body
-    div.center
+    .center
       nav.navbar.navbar-default
-        div.container-fluid
-          div.navbar-header
+        .container-fluid
+          .navbar-header
             button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarEexample1"
               span class="sr-only"Toggle navigationspan
               span.icon-bar
               span.icon-bar
               span.icon-bar
-            div.navbar-brand
+            .navbar-brand
               = fa_icon "tasks"
 
-          div.collapse.navbar-collapse#navbarEexample1
+          .collapse.navbar-collapse#navbarEexample1
             - if logged_in?
               ul.nav.navbar-nav
                 li
@@ -29,12 +28,14 @@ html
                 li
                   =  link_to t('label.task.mypage'), mypage_tasks_path
                 li
-                  = link_to t('label.groups'), groups_path
+                  = link_to "カレンダー", calendar_index_path
                 - if current_user.super?
                   li
+                    = link_to t('label.groups'), groups_path
+                  li
                     =  link_to t('title.user_index'), admin_users_path
-                li
-                  = link_to t('label.label_add'), labels_path
+                  li
+                    = link_to t('label.label_add'), labels_path
                 li class="navbar-right"
                   = link_to t('label.logout'), logout_path, method: :delete
 
@@ -47,3 +48,7 @@ html
                   = t('label.mr')
       == breadcrumbs separator: " &rsaquo; "
       == yield
+
+
+
+

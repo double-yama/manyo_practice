@@ -5,7 +5,6 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 ruby '2.3.3'
 gem 'rails', '~> 5.1.5'
@@ -29,46 +28,34 @@ gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 gem 'kaminari'
-gem 'ransack'
 gem 'bootstrap-sass','3.2.0.0'
 gem 'autoprefixer-rails'
-gem 'slim-rails'
 gem 'html2slim'
 gem 'rubocop'
 gem 'rails-i18n'
-gem 'rails-ujs'
+# gem 'rails-ujs'
 gem 'carrierwave'
 gem 'font-awesome-rails'
 gem 'bcrypt', '~> 3.1.7'
 gem 'enum_help'
 gem 'enumerize'
 gem 'bullet'
-gem 'data-confirm-modal'
 gem 'gretel'
-gem 'bootstrap-datetimepicker-rails'
-gem 'momentjs-rails', '>= 2.9.0'
 gem "chartkick"
-gem 'fullcalendar-rails'
+gem 'slim-rails'
 
 group :development, :test do
   gem 'mysql2', '>= 0.3.18', '< 0.5'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Adds support for Capybara system testing and selenium driver
-  # gem 'capybara', '~> 2.13'
   gem 'rspec-rails', '~> 3.6'
   gem "factory_girl_rails"
   gem "guard-rspec"
   gem "spring-commands-rspec"
   gem 'toastr-rails'
-  gem 'pry-rails'
   gem 'pry-byebug'
-  gem 'pry-doc'
-  gem 'selenium-webdriver'
-  gem 'chromedriver-helper'
-  gem 'enum_help'
   gem 'brakeman', :require => false
-  gem 'database_cleaner'
 end
 
 group :development do
@@ -79,7 +66,6 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   # NOTE: generator時にslim対応可能になる
-  # gem 'slim-rails'
   gem 'view_source_map'
   gem 'activerecord-cause'
   gem 'pry-rails'
@@ -93,11 +79,13 @@ end
 
 group :test do
   gem 'capybara'
+  # gem 'capybara-webkit'
+  gem 'selenium-webdriver'
+  gem 'chromedriver-helper'
   gem "faker"
   gem "database_cleaner"
   gem 'database_rewinder'
   gem "launchy"
-  # gem "selenium-webdriver"
   gem "shoulda-matchers"
 end
 

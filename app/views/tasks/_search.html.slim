@@ -23,5 +23,5 @@
       /     = f.select :username, User.all.map{|l| [l.username]}, {include_blank: true}, class:"form-control"
       .form-group.search_form_tr
         .label_search
-        = button_tag fa_icon('search lg', text: t('label.search')), class: 'btn btn-info m-15 search_btn'
-        = button_tag fa_icon('times-circle lg', text: t('label.clear')), type: :reset, class: 'btn btn-warning m-15 search_btn'
+        = button_tag fa_icon('search lg', text: t('label.search')), class: 'btn btn-info m-15'
+        = button_tag fa_icon('times-circle lg', text: t('label.clear')), type: :reset, class: 'btn btn-warning m-15'

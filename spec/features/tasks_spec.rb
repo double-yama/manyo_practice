@@ -1,7 +1,12 @@
 require 'rails_helper'
+require_relative '../support/login'
+
+# describe ... type: :featureの代わりにfeature
+# beforeの代わりに、background
+# itの代わりに、scenario
+# letの代わりにgiven
 
 RSpec.feature "Tasks", type: :feature do
-  # pending "add some scenarios (or delete) #{__FILE__}"
     background do
       @today = Date.today
       @user = FactoryGirl.create(:user)
@@ -14,53 +19,40 @@ RSpec.feature "Tasks", type: :feature do
       fill_in 'session[password]', with: @user.password
       click_button 'ログイン'
       visit tasks_path
-      # session_helperにてsessionにログイン情報を入れる
-      # cookie[:user_remember_token]とかを利用する
-      # before (login_as user)
-      # helper.rbに
-      # RSpec.cinfigure do |config|
-      # config.include SessinHelper
-      # End
-      # とかしてる
     end
 
-    describe 'ログイン画面' do
-      context '新規タスク作成リンクを押下すると' do
-        scenario 'タスク一覧画面に遷移する' do
-          expect(page).to have_content '期限切れタスク一覧'
-        end
-      end
-    end
+    # support/login.rbにまとめる
 
-    describe 'タスク画面から新規タスク追加' do
+    feature '新規タスク追加' do
       context 'ラベル以外を入力、かつ全て有効値であるならば' do
         background do
-          visit tasks_path
-          fill_in 'task_name', with: @task.name
-          fill_in 'task_detail', with: @task.detail
+          login
+          fill_in 'task_name', with: 'テストタスク'
+          fill_in 'task_detail', with: 'テスト説明文'
           find('option[value="high"]').select_option
           select @today.year, from: 'task_period_1i'
           select @today.month, from: 'task_period_2i'
           select @today.day, from: 'task_period_3i'
           find('option[value="completed"]').select_option
           click_button '登録'
-          sleep 3
         end
 
-        scenario 'タスクは登録され、タスク一覧ページへ遷移する' , js: false do
+        #文字数のテストを書くべき
+
+        scenario 'タスクは登録され、タスク一覧ページへ遷移する' , js: true do
+
           expect(page).to have_content 'タスク作成に成功しました'
-          # expect(page).to have_content @task.detail
-          # expect(page).to have_content @task.period
-          # expect(page).to have_content '期限切れタスク一覧'
+          # これはトースタのテスト
+          # そのタスクが登録されたかどうか、正確なURLに飛んだかのテストもいる
+          # Modelのタスク数を調べる
+          # Pathも
         end
       end
 
       context 'ラベル以外を入力、かつ名前が空であるならば' do
         background do
-          visit tasks_path
-          click_link '新規タスク追加'
           fill_in '名前', with: nil
-          fill_in 'task_detail', with: @task.detail
+          fill_in 'task_detail', with: 'テスト説明文'
           find('option[value="high"]').select_option
           select @today.year, from: 'task_period_1i'
           select @today.month, from: 'task_period_2i'
@@ -69,15 +61,16 @@ RSpec.feature "Tasks", type: :feature do
           click_button '登録'
         end
 
-        scenario 'タスクは登録されず、バリデーションエラーが発生する', js: false do
+        scenario 'タスクは登録されず、バリデーションエラーが発生する', js: true do
           expect(page).to have_content "Name cannot be blank"
         end
+        # OPTIMIZE
+        # 高橋氏「capybara.rbにてデフォルトで見えないものを見えるようにしている」
       end
 
       context 'ラベル以外を入力、かつ説明文が空であるならば' do
         background do
-          visit tasks_path
-          fill_in 'task_name', with: @task.name
+          fill_in 'task_name', with: 'テスト名前'
           fill_in 'task_detail', with: nil
           find('option[value="high"]').select_option
           select @today.year, from: 'task_period_1i'
@@ -87,14 +80,14 @@ RSpec.feature "Tasks", type: :feature do
           click_button '登録'
         end
 
-        scenario 'タスクは登録されず、バリデーションエラーが発生する', js: false do
+        scenario '「Detail cannot be blank」がトースタとして表示される', js: true do
           expect(page).to have_content "Detail cannot be blank"
+          # トースタのテストだけになってるけどそれでいい
         end
       end
 
       context 'ラベル以外を入力、かつ期限が昨日のものであるならば' do
         background do
-          visit tasks_path
           fill_in 'task_name', with: @task.name
           fill_in 'task_detail', with: @task.detail
           find('option[value="high"]').select_option
@@ -105,13 +98,16 @@ RSpec.feature "Tasks", type: :feature do
           click_button '登録'
         end
 
-        scenario 'タスクは登録されず、バリデーションエラーが発生する', js: false do
-          expect(page).to have_content "有効な日付を入力してください"
+        scenario 'タスクは登録されず、バリデーションエラーが発生する', js: true do
+          expect(page).to have_content "今日以前の日付を入力してください"
         end
       end
+      # 今日のテストもする
+      # やらなくていい
+      # Modelでやってるなら重複させなくていい
     end
 
-    feature 'search' do
+    feature 'タスク削除' do
       background do
         1.upto(4) do
           FactoryGirl.create(:task,
@@ -119,7 +115,51 @@ RSpec.feature "Tasks", type: :feature do
                              period: @today + 1.day
           )
         end
-        visit tasks_path
+      end
+
+      context '一番上の削除ボタンを押下すると' do
+        background do
+          visit mypage_tasks_path
+          page.all('.btn-danger')[0].click
+          # page.all('table tbody tr')[1].first('.btn.btn-danger').click
+          page.driver.browser.switch_to.alert.accept
+        end
+
+        scenario '1件のタスクが削除され、4件の削除ボタンが表示される' do
+          expect(page.all('a.btn.btn-danger').size).to eq(4)
+        end
+      end
+
+    end
+
+    # feature '完了化' , js: true do
+    #   background do
+    #     1.upto(4) do
+    #       FactoryGirl.create(:task,
+    #                          user_id: @user.id,
+    #                          period: @today + 1.day
+    #       )
+    #     end
+    #     visit mypage_tasks_path
+    #     page.save_screenshot '~/Desktop/test3a.png'
+    #     page.all('table tbody tr')[1].all('a')[0].click
+    #     # click_link #{@task.name} + 1.to_s
+    #   end
+    #   scenario '個別のタスク画面に遷移する' do
+    #     expect(page).to have_content '詳細'
+    #   end
+    # end
+
+    feature '検索' do
+      background do
+        1.upto(4) do
+          FactoryGirl.create(:task,
+                             user_id: @user.id,
+                             period: @today + 1.day
+          )
+          #　都度変えずにここで
+          # アップデートの検証ではない
+        end
       end
 
       context 'タイトル/説明文検索欄に「test」を入力すると' do
@@ -178,4 +218,5 @@ RSpec.feature "Tasks", type: :feature do
         end
       end
     end
+
 end

@@ -5,57 +5,24 @@ Pull Request (Step is completed without hroku)
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
 ##### できてないステップ
 * ステップ13(デプロイしよう)
 
-画像アップロード機能が邪魔してherokuにデプロイできず
-
-* OP2(ユーザの間でタスクを共有できるようにしたい)以降ほぼ全て
-
 ###### やること
+
+*　コンピテンシークラウドみたいにadminとuserでわける
+
+* カレンダーにて前後の月を表示する
 
 * ja.ymlファイルのリファクタリング
 
-* 緑　gitの管理下ではない, 赤 無視リスト, 黒 変更なし, 青　変更あり
-
-* capybaraについて
-
-* database cleanerを入れること
-
-* spec traitについて勉強する
-
 * 説明は、onClickで表示するtooltip
-
-* 期限をカレンダーに
 
 * 
 
-
 Specの注意点
 
-* 全画面の見ログイン時の制限てすと
-
-* ログインしていないときのテスト
+* 全画面のみログイン時の制限テスト
 
 * 間違えやすいところのテストをすること
 
@@ -67,19 +34,44 @@ Specの注意点
 
 * 削除されるテストと、削除されないテストなど、両方やること
 
+* 
+
+* spec traitについて勉強する
+
+
+* 緑　gitの管理下ではない, 赤 無視リスト, 黒 変更なし, 青　変更あり
+
+* control shift dでRSpecデバッグ
+
 
 ###### メモ
 
 * jsでうまう行かなかったら検証→コンソールを見ること
-* capybara　=> test時クリックしたりするやつ
 * メソッドを書く際は事前条件・事後条件を考える
 * 事前条件 => 引数
 * 事後条件 => 返り値
 
-form_forとform_tagの違い
+* 管理者フラグよりも、UserとAdminUserというように、モデルを複数作成する方が望ましい
 
-一つのモデルにのみ対応するときform_for
-色々自由にできるのはform_tag
+* ログインフォームだけでなく、タスク一覧なども両方作るのが望ましい
+
+* タスクモデルとかはさすがに共通化すること
+
+* 管理者かどうかでviewを作成するのはまずい
+
+* rails g controller Admin::Tasks
+
+* マージして破棄したら、downしないとDBになにか及ぼす
+>  namespaceもやってくれる
+
+* なんでもコンソールで実験すること
+
+text.split(",").each do |label_name|
+  TaskLabel.create(task_id : 3, Label.create(label_name))
+end
+
+admin::tasks_controller
+layout admin
 
 カラム名について、
 on => 日付
@@ -132,11 +124,6 @@ let! と before はほぼ同じ
 
 active Recordを扱う際は、SQL文をちゃんと確認すること
 
-active recordゆえ、whereをつなげたりすることができる
-
-active recordの返り値自体がactive record
-
-
 
 4/27
 
@@ -149,5 +136,3 @@ active recordの返り値自体がactive record
 あんまり細かすぎるのもダメ
 
 なんのコミットなのかがわかるように
-
-

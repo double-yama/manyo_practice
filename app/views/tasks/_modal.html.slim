@@ -34,7 +34,7 @@
   .form-group
     = f.label t('label.period_end_on'),{} ,  class: "control-label col-xs-2"
     .col-xs-8
-      = f.date_select :period, {}, class: 'form-control form-inlin'
+      = f.date_select :period, {}, class: 'form-control form-inline'
     .col-xs-2
     span.label.label-info.col-xs-1.m-15
       = t('label.task.option')
@@ -71,8 +71,8 @@
       = t('label.task.option')
   br
   br
-  = f.submit t('label.register'), class: "btn btn-primary btn-lg active m-15 search_btn"
-  = button_tag t('label.clear'), type: :reset, class: 'btn btn-warning btn-lg m-15 search_btn'
+  = f.submit t('label.register'), class: "btn btn-primary btn-lg active m-15"
+  = button_tag t('label.clear'), type: :reset, class: 'btn btn-warning btn-lg m-15'
 
   - if @task.errors.any?
     - @task.errors.full_messages.each do |message|

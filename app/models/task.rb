@@ -1,4 +1,5 @@
 class Task < ApplicationRecord
+  validates :name, presence: { message: Proc.new{ I18n.t('flash.can_not_be_blank')} }, length: { maximum: 20 }
   validates :detail, presence: { message: Proc.new{ I18n.t('flash.can_not_be_blank')} }, length: { maximum: 50 }
   validates :period, presence: { message: Proc.new{ I18n.t('flash.can_not_be_blank')} }
   validate :validate_previous_day, :on => :create
@@ -42,7 +43,7 @@ class Task < ApplicationRecord
 
   def validate_previous_day
     if self.period < Date.today
-      errors[:base] << "有効な日付を入力してください"
+      errors[:base] << "今日以降の日付を入力してください"
     end if period
   end
 
@@ -64,7 +65,8 @@ class Task < ApplicationRecord
   end
 
   def self.my_task_without_params(user_id)
-    where('user_id = ? AND status != ? ', user_id, 2).includes(:user)
+    # アクション名に未完了のみの旨を記載する
+    where('user_id = ? AND status != ? ', user_id, STATUS[:completed]).includes(:user)
   end
 
   def self.my_task(user_id)
@@ -72,26 +74,32 @@ class Task < ApplicationRecord
   end
 
   def self.tasks_count_for_my_page(user_id)
-    where('user_id = ? AND status != ?', user_id , 2).includes(:user).count
+    # viewで.countつけてもいい
+    Task.my_task_without_params(user_id).count
+    # where('user_id = ? AND status != ?', user_id , STATUS[:completed]).includes(:user).count
   end
 
   def create_label_text
     if label_text.present?
       label = Label.find_or_create_by(name: label_text)
       task_labels.create(label_id: label.id)
+      # tl = self.task_labels.where(label_id: label.id)
+      # self.task_labels.create(label_id: label.id) if tl.blank?
     end
   end
 
-  def label_for_status(status)
-    case status
-    when 'yet_start'
-      'label label-warning'
-    when 'doing'
-      'label label-info'
-    when 'complete'
-      'label label-success'
-    else
+  # いらない
 
-    end
-  end
+  # def label_for_status(status)
+  #   case status
+  #   when 'yet_start'
+  #     'label label-warning'
+  #   when 'doing'
+  #     'label label-info'
+  #   when 'complete'
+  #     'label label-success'
+  #   else
+  #
+  #   end
+  # end
 end

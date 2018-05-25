@@ -4,5 +4,16 @@ class Group < ApplicationRecord
 
   has_many :group_users
   has_many :user, through: :group_users
-  # accepts_nested_attributes_for :group_users
+
+  attr_accessor :users_name
+  after_save :save_users_name
+
+  def save_users_name
+    if users_name.present?
+      gu = self.group_users.where(user_id: user.id)
+      self.group_users.create(user_id: user.id) if gu.blank?
+    end
+  end
+
+
 end

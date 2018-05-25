@@ -1,4 +1,6 @@
 class GroupsController < ApplicationController
+  before_action :ensure_correct_user, only: %i[index destroy]
+
   def index
     @groups = Group.all.page(params[:page]).per(10)
   end
@@ -19,7 +21,6 @@ class GroupsController < ApplicationController
     else
       render 'new'
     end
-
   end
 
   def edit
@@ -28,19 +29,18 @@ class GroupsController < ApplicationController
 
   def update
     group = Group.find(params[:id])
-    # group_user = GroupUser.find_by(group_id: params[:id])
+    param_user_ids = params[:group][:user_ids].select {|id| id.present?}
+    group.group_users.delete_all
+    param_user_ids.each do |user_id|
+      group.group_users.create(user_id: user_id)
+    end
 
     #　これは複数返る
     if group.update(group_params)
       flash[:notice] = t('flash.group.new_group_added')
-      # param_user_ids = params[:group][:user_ids].select {|id| id.present?}
-      # param_user_ids.each do |user_id|
-      #   group.group_users.update(user_id: user_id)
-      # end
       redirect_to groups_path
     else
       p group.errors
-      # flash[:notice]
     end
   end
 
@@ -48,6 +48,10 @@ class GroupsController < ApplicationController
     group = Group.find(params[:id])
     group.destroy
     redirect_to groups_path
+  end
+
+  def ensure_correct_user
+    redirect_to tasks_path, flash[:notice] = t('flash.no_authority') unless current_user.super
   end
 
   private

@@ -1,3 +1,57 @@
 // Place all the styles related to the calendar controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.content{
+  margin:0 50px;
+  text-align:  center;
+
+}
+#calendar{
+  //margin:50px 50px;
+  width: 95%;
+  table-layout: fixed;
+}
+
+.tds_for_today{
+  background-color: #8fdf82;
+}
+
+.td-bg-today{
+  background-color: #CCFF99;
+}
+
+.m-15{
+  margin: 10px;
+}
+
+.p-15{
+  padding-bottom: 50px;
+}
+
+.th-cal{
+  border: thin solid;
+  vertical-align: middle;
+}
+
+.td-cal{
+  border: thin solid;
+  vertical-align: top;
+}
+
+.td-cal:hover{
+  background-color: #bce8f1;
+}
+
+.cal-date{
+  margin-top: 5px;
+}
+.cal-task{
+  padding-bottom: 30px;
+  word-wrap: break-word;
+  display: block;
+}
+
+.cal-content{
+  font-size: 80%;
+}

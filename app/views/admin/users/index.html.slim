@@ -24,7 +24,7 @@
         td
           = user.id
         td
-          = link_to user.username, admin_users_path(user.id)
+          = link_to user.username, admin_user_path(user.id)
         td
           = user.tasks.size
         td
@@ -38,5 +38,5 @@
           = link_to edit_admin_user_path(user.id), class: "btn btn-primary" do
             = fa_icon "edit"
         td
-          = link_to admin_users_path(user.id), method: :delete, data: {confirm: t("flash.delete_user") + user.username + t('flash.confirm')}, class: "btn btn-danger" do
+          = link_to admin_user_path(user.id), method: :delete, data: {confirm: t("flash.delete_user") + user.username + t('flash.confirm')}, class: "btn btn-danger" do
             = fa_icon "trash"

@@ -1,54 +1,55 @@
-h4
-  = '期限切れタスク一覧'
-br
+#expired_task_list
+  h4
+    = '期限切れタスク一覧'
+  br
+  table.center_table.table
+    tr
+      th.center
+        = t('label.user_name')
+      th.center
+        = t('label.task_name')
+      th.center
+        = t('label.period_end_on')
+      - @period_ended_tasks.each do |task|
+        tr
+          td
+            = task.user.username
+          td
+            = link_to task.name, task_path(task.id)
+            = '  '
+            = fa_icon(task.read_flg == false ? '' : 'check-circle')
 
-table.center_table.table#expired_task_list
-  tr
-    th.center
-      = t('label.user_name')
-    th.center
-      = t('label.task_name')
-    th.center
-      = t('label.period_end_on')
-    - @period_ended_tasks.each do |task|
-      tr
-        td
-          = task.user.username
-        td
-          = link_to task.name, task_path(task.id)
-          = '  '
-          = fa_icon(task.read_flg == false ? '' : 'check-circle')
-
-        td
-          = task.period
-br
+          td
+            = task.period
+  br
 #more_btn_expired
   = button_tag fa_icon('chevron-circle-down lg', text: 'もっと見る'), class: 'btn btn-info btn-block open_expired'
   = button_tag fa_icon('chevron-circle-up lg', text: '閉じる'), class: 'btn btn-info btn-block close_expired'
 
 br
 br
-h4
-  = '3日以内に期日の切れるタスク一覧'
-br
 
-table.center_table.table.table-hover.table-striped#deadline_in_three_days_task_list
-  tr
-    th.center
-      = t('label.user_name')
-    th.center
-      = t('label.task_name')
-    th.center
-      = t('label.period_end_on')
-  - @deadline_closed_tasks.each do |task|
+#deadline_in_three_days_task_list
+  table.center_table.table.table-hover.table-striped
+    h4
+      = '3日以内に期日の切れるタスク一覧'
+    br
     tr
-      td
-        = task.user.username
-      td
-        = link_to task.name, task_path(task.id)
-      td
-        = task.period
-br
+      th.center
+        = t('label.user_name')
+      th.center
+        = t('label.task_name')
+      th.center
+        = t('label.period_end_on')
+    - @deadline_closed_tasks.each do |task|
+      tr
+        td
+          = task.user.username
+        td
+          = link_to task.name, task_path(task.id)
+        td
+          = task.period
+  br
 #more_btn_deadline_in_three_days
   = button_tag fa_icon('chevron-circle-down lg', text: 'もっと見る'), class: 'btn btn-info btn-block open_deadline_close'
   = button_tag fa_icon('chevron-circle-up lg', text: '閉じる'), class: 'btn btn-info btn-block close_deadline_close'

@@ -1,24 +1,40 @@
 Rails.application.routes.draw do
 
-  get 'groups/index'
+  namespace :admin do
+    resources :users, :except => :index
+  end
 
-  get 'groups/new'
+  resources :users, :except => :index
 
-  get 'groups/create'
+  namespace :admin do
+    resources :labels
+  end
 
-  get 'groups/update'
+  # resources :labels
 
-  get 'groups/destroy'
+  namespace :admin do
+  end
+
+  namespace :admin do
+
+  end
+
+  resources :groups
 
   # collection(集合)はidなし、member(個別)はidあり
 
   root :to => 'tasks#index'
   get "signup" => "users#new"
   get "admin/users" => "users#index"
+
+  # namespace :admin do
+  #   resources :users, :except => :index
+  # end
   resources :users, :except => :index
-  resources :labels
   resources :groups
+  resources :labels
   resources :calendar
+  # get '/calendar/:year/:month' => 'calendar#index'
 
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
@@ -33,7 +49,6 @@ Rails.application.routes.draw do
     member do
       post :read
       post :turn_complete
-      # get :download
     end
   end
 
@@ -41,5 +56,4 @@ Rails.application.routes.draw do
   post '*not_found' => 'application#routing_error'
   get  '*unmatched_route' => 'application#routing_error', format: false
 
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

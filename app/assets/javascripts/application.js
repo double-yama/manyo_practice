@@ -10,24 +10,11 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require jquery
 //= require rails-ujs
 //= require turbolinks
-//= require bootstrap-sprockets
-//= require jquery
-//= require jquery_ujs
-//= require data-confirm-modal
 //= require toastr
-//= require moment
-//= require fullcalendar
-//= require fullcalendar/lang/ja
-//= require moment/ja
-//= require bootstrap-datetimepicker
-//= require data-confirm-modal
+//= require bootstrap-sprockets
+//= require Chart.bundle
+//= require chartkick
 //= require_tree .
-//= require task_list
-
-var data = {'data-format': 'yyyy-MM-dd hh:mm:ss' };
-$(function(){
-    $('.datepicker').attr(data);
-    $('.datepicker').datetimepicker();
-});

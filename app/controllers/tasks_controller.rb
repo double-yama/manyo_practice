@@ -27,6 +27,8 @@ class TasksController < ApplicationController
 
   def edit
     @task = Task.find(params[:id])
+    # @task.label_text = @task.labels.pluck(:name).uniq.join(",")
+    @task.label_text = @task.labels
   end
 
   def create
