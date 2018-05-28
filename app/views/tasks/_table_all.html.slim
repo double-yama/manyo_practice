@@ -1,50 +1,49 @@
-br
-  / 文字はspanとかp
-  / brは使わないこと
+/ 文字はspanとかp
+// brは使わないこと
 
 table.center_table.table.table-hover.table-striped
-  tr
-    th
-      = t('label.user_name') 
-    th
-      = t('label.task_name')
-    th.m-10-lr
-      = sortable "priority", t('label.priority')
-    th.m-10-lr
-      = sortable "period", t('label.period_end_on')
-    th.m-10-lr
-      = t('label.status') 
-    th
-      = t('label.description')
-    th
-      = 'ラベル'
-    th
-    th
-
-  - @tasks.each do |task|
+  thead
     tr
-      td
-        = task.user.username
-      td
-        = link_to task.name, task_path(task.id)
-      td.m-10-lr
-        = t("column.priority.#{task.priority}")
-      td.m-10-lr
-        = task.period
-      td.m-10-lr
-        = t("column.status.#{task.status}")
-      td
-        = task.detail
-      td
-        - task.task_labels.each do |label|
-          = label.label.name + ' '
-      td
-        = link_to edit_task_path(task.id), class: "btn btn-primary" do
-          = fa_icon "edit"
-      td
-        = link_to task_path(task.id), method: :delete, data: {confirm: t("flash.delete_task") + task.name + t('flash.confirm')}, class: "btn btn-danger" do
-          = fa_icon "trash"
+      th
+        = t('label.user_name')
+      th
+        = t('label.task_name')
+      th.m-10-lr
+        = sortable "priority", t('label.priority')
+      th.m-10-lr
+        = sortable "period", t('label.period_end_on')
+      th.m-10-lr
+        = t('label.status')
+      th
+        = t('label.description')
+      th
+        = 'ラベルa'
+      th
+      th
 
-br
+  tbody
+    - @tasks.each do |task|
+      tr
+        td
+          = task.user.username
+        td
+          = link_to task.name, task_path(task.id)
+        td.m-10-lr
+          = t("column.priority.#{task.priority}")
+        td.m-10-lr
+          = task.period
+        td.m-10-lr
+          = t("column.status.#{task.status}")
+        td
+          = task.detail
+        td
+          - task.task_labels.each do |tl|
+            = tl.label.name + ' '
+        td
+          = link_to edit_task_path(task.id), class: "btn btn-primary" do
+            = fa_icon "edit"
+        td
+          = link_to task_path(task.id), method: :delete, data: {confirm: t("flash.delete_task") + task.name + t('flash.confirm')}, class: "btn btn-danger" do
+            = fa_icon "trash"
 
 = paginate @tasks, :window => 2

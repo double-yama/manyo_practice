@@ -87,19 +87,4 @@ class Task < ApplicationRecord
       # self.task_labels.create(label_id: label.id) if tl.blank?
     end
   end
-
-  # いらない
-
-  # def label_for_status(status)
-  #   case status
-  #   when 'yet_start'
-  #     'label label-warning'
-  #   when 'doing'
-  #     'label label-info'
-  #   when 'complete'
-  #     'label label-success'
-  #   else
-  #
-  #   end
-  # end
 end

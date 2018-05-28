@@ -2,8 +2,8 @@ class Group < ApplicationRecord
   validates :name, presence: { message: Proc.new{ I18n.t('flash.can_not_be_blank')} }, length: { maximum: 30 }
   validates :description, presence: { message: Proc.new{ I18n.t('flash.can_not_be_blank')} }, length: { maximum: 50 }
 
-  has_many :group_users
-  has_many :user, through: :group_users
+  has_many :group_users, dependent: :destroy
+  has_many :users, through: :group_users
 
   attr_accessor :users_name
   after_save :save_users_name

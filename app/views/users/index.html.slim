@@ -30,6 +30,8 @@
         td
           = t("column.role.#{user.super}")
         td
+          / - user.group_users.each do |gu|
+          /   = gu.group.name + ' '
           / - GroupUser.where(user_id: user.id).each do |gu|
           /   = Group.where(id: gu.group_id).name
           / = Group.where(id: user.group_users.group_id).name

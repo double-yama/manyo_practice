@@ -6,6 +6,8 @@
       = link_to " >>"
     tr
       th.th-cal
+        = '日'
+      th.th-cal
         = '月'
       th.th-cal
         = '火'
@@ -17,11 +19,9 @@
         = '金'
       th.th-cal
         = '土'
-      th.th-cal
-        = '日'
       - 1.upto(5).each do
         tr.week_for_task
-          - (@d..@d.end_of_week).each do|c|
+          - (@d..@d.end_of_week(:sunday)).each do|c|
             td class=(c == @today ? 'td-cal td-bg-today' : 'td-cal')
               / - if c == @today ? 'td.td-cal.td-bg-today' : 'td.td-cal'
               / - if c == @today

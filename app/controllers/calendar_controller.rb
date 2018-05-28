@@ -4,7 +4,7 @@ class CalendarController < ApplicationController
     @tasks_for_user = Task.my_task_without_params(current_user.id).includes([:user, task_labels: :label])
     @today = Date.today
     @month = @today.strftime('%m')
-    @d = @today.at_beginning_of_month.at_beginning_of_week
+    @d = @today.at_beginning_of_month.at_beginning_of_week(:sunday)
   end
 
   def move_previous_month
