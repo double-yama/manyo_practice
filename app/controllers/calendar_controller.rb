@@ -1,7 +1,7 @@
 class CalendarController < ApplicationController
 
   def index
-    @tasks_for_user = Task.my_task_without_params(current_user.id).includes([:user, task_labels: :label])
+    @tasks_for_user = Task.my_task_without_params_and_completed(current_user.id).includes([:user, task_labels: :label])
     @today = Date.today
     @month = @today.strftime('%m')
     @d = @today.at_beginning_of_month.at_beginning_of_week(:sunday)

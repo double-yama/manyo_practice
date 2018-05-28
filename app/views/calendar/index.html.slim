@@ -7,6 +7,8 @@
     tr
       th.th-cal
         = '日'
+        / = @sun
+        / = "#{DAYS[:SUN]}"
       th.th-cal
         = '月'
       th.th-cal
@@ -23,11 +25,6 @@
         tr.week_for_task
           - (@d..@d.end_of_week(:sunday)).each do|c|
             td class=(c == @today ? 'td-cal td-bg-today' : 'td-cal')
-              / - if c == @today ? 'td.td-cal.td-bg-today' : 'td.td-cal'
-              / - if c == @today
-              /   td.td-cal.td-bg-today
-              / - else
-              / td.td-cal
               .cal-date
                 = (c.strftime('%m') == @month)? c.strftime('%-d'): "  "
               .show_tasks_count.cal-content

@@ -48,7 +48,7 @@ class Task < ApplicationRecord
   end
 
   def self.period_expired
-    eager_load(:user).where("period < ? AND status != ?", Date.today, 2)
+    eager_load(:user).where("period < ? AND status != ?", Date.today, STATUS[:completed])
   end
 
   def self.deadline_close(days)
@@ -60,12 +60,10 @@ class Task < ApplicationRecord
     tasks = tasks.where(['tasks.name LIKE ?', "%#{params[:name]}%"]).or(tasks.where(['detail LIKE ?', "%#{params[:name]}%"])) if params[:name].present?
     tasks = tasks.joins(:labels).where "labels.name = ?", params[:label] if params[:label].present?
     tasks = tasks.where(status: params[:status]) if params[:status].present?
-    # tasks = tasks.joins(:users).where "users.username = ?", params[:username] if params[:username].present?
     tasks
   end
 
-  def self.my_task_without_params(user_id)
-    # アクション名に未完了のみの旨を記載する
+  def self.my_task_without_params_and_completed(user_id)
     where('user_id = ? AND status != ? ', user_id, STATUS[:completed]).includes(:user)
   end
 
@@ -75,16 +73,13 @@ class Task < ApplicationRecord
 
   def self.tasks_count_for_my_page(user_id)
     # viewで.countつけてもいい
-    Task.my_task_without_params(user_id).count
-    # where('user_id = ? AND status != ?', user_id , STATUS[:completed]).includes(:user).count
+    Task.my_task_without_params_and_completed(user_id).count
   end
 
   def create_label_text
     if label_text.present?
       label = Label.find_or_create_by(name: label_text)
       task_labels.create(label_id: label.id)
-      # tl = self.task_labels.where(label_id: label.id)
-      # self.task_labels.create(label_id: label.id) if tl.blank?
     end
   end
 end

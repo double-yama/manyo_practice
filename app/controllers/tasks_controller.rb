@@ -66,7 +66,7 @@ class TasksController < ApplicationController
       @tasks_count = Task.tasks_count_for_my_page(current_user.id)
     else
       @q = Task.new
-      @tasks_for_user = Task.my_task_without_params(current_user.id).order(sort_column + ' ' + sort_order).includes([:user, task_labels: :label]).page(params[:page]).per(10)
+      @tasks_for_user = Task.my_task_without_params_and_completed(current_user.id).order(sort_column + ' ' + sort_order).includes([:user, task_labels: :label]).page(params[:page]).per(10)
       @tasks_count = Task.tasks_count_for_my_page(current_user.id)
     end
   end
