@@ -8,16 +8,6 @@ require 'rspec/rails'
 require 'capybara/rspec'
 # require 'selenium-webdriver'
 
-# Capybara.javascript_driver = :selenium_chrome
-# Capybara.default_max_wait_time = 15
-# Capybara.javascript_driver = :webkit
-#
-# Capybara.register_driver :selenium_chrome do |app|
-#   options = Selenium::WebDriver::Chrome::Options.new
-#   options.add_argument('headless')
-#   options.add_argument('--disable-gpu')
-#   Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
-# end
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in

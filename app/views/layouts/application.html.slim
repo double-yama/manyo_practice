@@ -31,7 +31,7 @@ html
                   = link_to "カレンダー", calendar_index_path
                 - if current_user.super?
                   li
-                    = link_to t('label.groups'), groups_path
+                    = link_to t('label.groups'), groups_path, id: 'group'
                   li
                     =  link_to t('title.user_index'), admin_users_path
                   li

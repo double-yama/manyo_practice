@@ -48,7 +48,7 @@ class Task < ApplicationRecord
   end
 
   def self.period_expired
-    eager_load(:user).where("period < ? AND status != ?", Date.today, STATUS[:completed])
+    eager_load(:user).where("period < ? AND status != ?", Date.today, '2')
   end
 
   def self.deadline_close(days)
@@ -64,7 +64,7 @@ class Task < ApplicationRecord
   end
 
   def self.my_task_without_params_and_completed(user_id)
-    where('user_id = ? AND status != ? ', user_id, STATUS[:completed]).includes(:user)
+    where('user_id = ? AND status != ? ', user_id, '2').includes(:user)
   end
 
   def self.my_task(user_id)

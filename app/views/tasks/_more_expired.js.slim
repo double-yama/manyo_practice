@@ -1,7 +1,0 @@
-javascript:
-  jQuery('#items').append("= escape_javascript(render 'items', object: @period_ended_tasks)");
-  jQuery("#more_link").replaceWith("= escape_javascript(render 'more')");
-
-  function nowLoading() {
-      $("#more_link").replaceWith("a #more_link 読込中");
-  };

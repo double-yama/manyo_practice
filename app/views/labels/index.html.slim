@@ -8,19 +8,20 @@
         - @label.errors.full_messages.each do |message|
           javascript:
            toastr.info("#{message}");
-      .form-group.m-100
+      .form-group.mt-100.mb-40
         .col-xs-1
         = l.label :name, t('label.label_name'), class: "control-label col-xs-4"
         .col-xs-5
           = l.text_field :name, class: "form-control col-xs-4"
-        br
+      br
       br
       .col-xs-3
       = l.submit "#{t('label.label_register')}", class: "btn btn-info col-xs-3"
       .col-xs-1
       = button_tag fa_icon('times-circle lg', text: t('label.clear')), type: :reset, class: 'btn btn-warning col-xs-3'
 
-    table.center_table.table-hover.table-striped.m-100.table_label
+    br
+    table.center_table.table-hover.table-striped.table_label.mt-40
       tr
         th.center
           = t('label.label_name')

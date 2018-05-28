@@ -26,10 +26,6 @@ RSpec.describe Task, type: :model do
         end
 
         # fetureでやるべき
-
-        # it '特定のエラーメッセージ「Name cannot be blank」を返す' do
-        #   expect(@task.errors.full_messages).to include 'Name cannot be blank'
-        # end
       end
 
       context '説明のみ空にすると' do
@@ -83,8 +79,8 @@ RSpec.describe Task, type: :model do
           expect(@task).not_to be_valid
         end
 
-        it "「有効な日付を入力してください」というメッセージが表示される" do
-          expect(@task.errors.full_messages).to include '有効な日付を入力してください'
+        it "「今日以降の日付を入力してください」というメッセージが表示される" do
+          expect(@task.errors.full_messages).to include '今日以降の日付を入力してください'
         end
       end
 
@@ -147,14 +143,14 @@ RSpec.describe Task, type: :model do
         before do
           @task = FactoryGirl.build(:task,
                                     user_id: user.id,
-                                    period: yesterday
+                                    period: yesterday,
+                                    status: 'doing'
           )
 
           @task.save(validate: false)
-          p @task
         end
         it "期限切れのため、データが1つ返される" do
-          expect(Task.period_expired.count).to eq 1
+          expect(Task.period_expired.size).to eq 1
         end
       end
     end

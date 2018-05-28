@@ -108,14 +108,21 @@ tr{
   margin-top: 100px;
 }
 
+.mb-20{
+  margin-bottom: 20px;
+}
+
 .mt-40{
   margin-top: 40px;
+}
+
+.mt-50{
+  margin-top: 50px;
 }
 
 .table_label{
   width:90%;
   margin-top: 100px;
-  margin-bottom: 20px;
 }
 
 tr {
@@ -140,7 +147,7 @@ tr {
   }
 
   .tasks_num_label, .tasks_num{
-    font-size: 80%;
+    font-size: 75%;
     text-align: left;
   }
 }

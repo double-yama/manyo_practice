@@ -1,6 +1,5 @@
 .content
-
-  table.center_table.table-hover.table-striped.task_sortable
+  table.center_table.table-hover.table-striped.task_sortable.mb-20
     thead
       tr
         th.m-10.center
@@ -21,7 +20,7 @@
       - @tasks_for_user.each do |task|
         tr
           td.col-xs-2.center
-            = link_to task.name, task_path(task.id)
+            = link_to task.name, task_path(task.id),remote: true
           td.col-xs-1.center
             = t("column.priority.#{task.priority}")
           td.col-xs-1.center
@@ -40,34 +39,12 @@
           td.col-xs-1
             = link_to task_path(task.id), method: :delete, data: {confirm: t('flash.delete_task') + task.name + t('flash.confirm'),　cancel: "やめる" },class: "btn btn-danger" do
               = fa_icon "trash"
-
-  br
-  br
   = paginate @tasks_for_user
 
-  br
-
 javascript:
-  $(document).ready(function () {
-      var tasks = "#{@tasks_for_user}";
-      $('#calendar').fullCalendar({
-          lang: 'ja',
-          events: [
-
-              {
-                  title: 'All Day Event',
-                  start: '2018-05-01'
-              }
-          ]
-      })
-  });
-
-javascript:
-
   $('#sortable').sortable();
   $('#sortable').disableSelection();
   $('#sortable').bind('sortstop', function (e, ui) {
-      // ソートが完了したら実行される。
       var rows = $('#sortable .rank');
       for (var i = 0, rowTotal = rows.length; i < rowTotal; i += 1) {
           $($('')[i]).text(i + 1);
