@@ -3,10 +3,6 @@
     - breadcrumb :group_new
 
   = form_for(@group) do |l|
-    - if @group.errors.any?
-      - @group.errors.full_messages.each do |message|
-        javascript:
-            toastr.info("#{message}");
     br
     .m-form
       .col-xs-1
@@ -38,10 +34,11 @@
       .col-xs-4
 
 
-- if flash[:notice]
-  javascript:
-      toastr.success('#{flash[:notice]}');
-
 - if flash[:error]
   javascript:
       toastr.error('#{flash[:error]}');
+
+- if @group.errors.any?
+    - @group.errors.full_messages.each do |message|
+  javascript:
+    toastr.error("#{message}");

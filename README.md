@@ -5,18 +5,7 @@ Pull Request (Step is completed without hroku)
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
-##### できてないステップ
-* ステップ13(デプロイしよう)
-
 ###### やること
-
-*　コンピテンシークラウドみたいにadminとuserでわける
-
-* カレンダーにて前後の月を表示する
-
-* ja.ymlファイルのリファクタリング
-
-* 説明は、onClickで表示するtooltip
 
 * 
 
@@ -62,7 +51,6 @@ Specの注意点
 * rails g controller Admin::Tasks
 
 * マージして破棄したら、downしないとDBになにか及ぼす
->  namespaceもやってくれる
 
 * なんでもコンソールで実験すること
 

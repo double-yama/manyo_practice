@@ -2,11 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-//.search{
-//  margin-left: 0px;
-//  margin-right: 0px;
-//}
-
 .search_form_tr{
   margin-left: 150px;
   margin-right: 150px;
@@ -35,10 +30,6 @@
 .form_search{
   flex-grow: 5;
 }
-
-//.center{
-//  background-color: white !important;
-//}
 
 .panel{
   margin: 40px 400px;
@@ -80,14 +71,11 @@ th{
 
 tr{
   text-align: center;
-
+  height: 40px;
 }
 
 .read{
   background-color: #66FFFF;
-}
-.unread{
-
 }
 
 .content{
@@ -125,10 +113,6 @@ tr{
   margin-top: 100px;
 }
 
-tr {
-  height: 40px;
-}
-
 .breadcrumbs{
   text-align: left;
   margin-left: 15px;
@@ -151,12 +135,6 @@ tr {
     text-align: left;
   }
 }
-
-//#calendar{
-//  text-align: center;
-//  margin-left: 40px;
-//  width: 80%;
-//}
 
 .search_btn{
   display: inline-block;

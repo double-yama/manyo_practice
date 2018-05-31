@@ -1,38 +1,38 @@
-h3
-  = @user_name.username
-  = 'さんのタスク一覧'
-br
-  = image_tag(@user_name.image.to_s, :size => "100x141")
-
-  br
-  br
-.content
-  table.center_table.table.table-hover.table-striped
-    tr
-      th
-        = t('label.task_name')
-      th
-        =  t('label.priority')
-      th
-        = t('label.status')
-      th
-        = t('label.description')
-      th
-      th
-
-    - @users_tasks.each do |task|
-      tr
-        td
-          = link_to task.name, task_path(task.id)
-        td
-          = t("column.priority.#{task.priority}")
-        td
-          = t("column.status.#{task.status}")
-        td
-          = task.detail
-        td
-          = link_to edit_task_path(task.id), class: "btn btn-primary" do
-            = fa_icon "edit"
-        td
-          = link_to task_path(task.id), method: :delete, data: {confirm: t('flash.confirm')}, class: "btn btn-danger" do
-            = fa_icon "trash"
+/ h3
+/   = @user_name.username
+/   = 'さんのタスク一覧'
+/ br
+/   = image_tag(@user_name.image.to_s, :size => "100x141")
+/
+/   br
+/   br
+/ .content
+/   table.center_table.table.table-hover.table-striped
+/     tr
+/       th
+/         = t('label.task_name')
+/       th
+/         =  t('label.priority')
+/       th
+/         = t('label.status')
+/       th
+/         = t('label.description')
+/       th
+/       th
+/
+/     - @users_tasks.each do |task|
+/       tr
+/         td
+/           = link_to task.name, task_path(task.id)
+/         td
+/           = t("column.priority.#{task.priority}")
+/         td
+/           = t("column.status.#{task.status}")
+/         td
+/           = task.detail
+/         td
+/           = link_to edit_task_path(task.id), class: "btn btn-primary" do
+/             = fa_icon "edit"
+/         td
+/           = link_to task_path(task.id), method: :delete, data: {confirm: t('flash.confirm')}, class: "btn btn-danger" do
+/             = fa_icon "trash"

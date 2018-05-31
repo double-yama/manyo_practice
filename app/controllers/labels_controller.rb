@@ -1,5 +1,5 @@
 class LabelsController < ApplicationController
-  before_action :ensure_correct_user, only: %i[index destroy]
+  before_action :ensure_correct_user
 
   def index
     @labels = set_for_index
@@ -7,15 +7,15 @@ class LabelsController < ApplicationController
   end
 
   def show
-    render plain: 'soichiro'
+    @label = Label.find(params[:id])
   end
 
   def create
+    @labels = set_for_index
     @label = Label.new(label_params)
     if @label.save
       flash[:notice] = t('flash.new_label_added')
       redirect_to labels_path
-      # errorなのにinfoになってる　トースター
     else
       set_for_index
       render 'index'
@@ -57,14 +57,9 @@ class LabelsController < ApplicationController
     params.require(:label).permit(:name)
   end
 
-  def ensure_correct_user
-    redirect_to tasks_path, flash[:notice] = t('flash.no_authority') unless current_user.super
-  end
-
   private
 
   def set_for_index
-    # all_labels
     Label.all.order(created_at: :desc).page(params[:page]).per(10)
   end
 end

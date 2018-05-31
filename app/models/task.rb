@@ -1,7 +1,8 @@
+# frozen_string_literal: true.
 class Task < ApplicationRecord
-  validates :name, presence: { message: Proc.new{ I18n.t('flash.can_not_be_blank')} }, length: { maximum: 20 }
-  validates :detail, presence: { message: Proc.new{ I18n.t('flash.can_not_be_blank')} }, length: { maximum: 50 }
-  validates :period, presence: { message: Proc.new{ I18n.t('flash.can_not_be_blank')} }
+  validates :name, presence: { message: Proc.new { I18n.t('flash.can_not_be_blank') } }, length: { maximum: 20 }
+  validates :detail, presence: { message: Proc.new { I18n.t('flash.can_not_be_blank') } }, length: { maximum: 50 }
+  validates :period, presence: { message: Proc.new { I18n.t('flash.can_not_be_blank') } }
   validate :validate_previous_day, :on => :create
 
   mount_uploader :file, FileUploader
@@ -16,26 +17,26 @@ class Task < ApplicationRecord
   after_save :create_label_text
 
   COLUMN_NAME = {
-      updated_at: 'updated_at'
+    updated_at: 'updated_at'
   }.freeze
 
   SORT_NAME = {
-      asc: 'asc',
-      desc: 'desc'
+    asc: 'asc',
+    desc: 'desc'
   }
 
   scope :include_relative_models, -> { includes([:user, task_labels: :label]) }
-  scope :period_ended, -> { where("period < ?", Date.today) }
+  scope :period_ended, -> { where('period < ?', Date.today) }
 
   STATUS = {
-      yet_start: 0,
-      doing: 1,
-      completed: 2
+    yet_start: 0,
+    doing: 1,
+    completed: 2
   }
   PRIORITY = {
-      low: 0,
-      middle: 1,
-      high: 2
+    low: 0,
+    middle: 1,
+    high: 2
   }
 
   enum status: STATUS
@@ -43,24 +44,30 @@ class Task < ApplicationRecord
 
   def validate_previous_day
     if self.period < Date.today
-      errors[:base] << "今日以降の日付を入力してください"
+      errors[:base] << I18n.t('flash.warn_to_put_date_from_today')
     end if period
   end
 
   def self.period_expired
-    eager_load(:user).where("period < ? AND status != ?", Date.today, '2')
+    eager_load(:user).where('period < ? AND status != ?', Date.today, '2')
   end
 
   def self.deadline_close(days)
-    eager_load(:user).where("period >= ? and period < ?", Date.today, Date.today + days.day)
+    eager_load(:user).where('period >= ? and period < ?', Date.today, Date.today + days.day)
   end
 
   def self.search_tasks_by_queries(params)
     tasks = Task.all.includes([:user, task_labels: :label])
-    tasks = tasks.where(['tasks.name LIKE ?', "%#{params[:name]}%"]).or(tasks.where(['detail LIKE ?', "%#{params[:name]}%"])) if params[:name].present?
-    tasks = tasks.joins(:labels).where "labels.name = ?", params[:label] if params[:label].present?
+    if params[:name].present?
+    tasks = tasks.where(['tasks.name LIKE ?', "%#{params[:name]}%"]).or(tasks.where(['detail LIKE ?', "%#{params[:name]}%"]))
+    end
+    tasks = tasks.joins(:labels).where 'labels.name = ?', params[:label] if params[:label].present?
     tasks = tasks.where(status: params[:status]) if params[:status].present?
     tasks
+  end
+
+  def sakimura
+    where(['tasks.name LIKE ?', "%#{params[:name]}%"])
   end
 
   def self.my_task_without_params_and_completed(user_id)
@@ -72,7 +79,6 @@ class Task < ApplicationRecord
   end
 
   def self.tasks_count_for_my_page(user_id)
-    # viewで.countつけてもいい
     Task.my_task_without_params_and_completed(user_id).count
   end
 

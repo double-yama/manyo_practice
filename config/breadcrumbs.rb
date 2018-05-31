@@ -13,7 +13,7 @@ crumb :label do
 end
 
 crumb :users do
-  link "ユーザ一覧", admin_users_path
+  link "ユーザ一覧", users_path
   parent :root
 end
 
@@ -32,6 +32,15 @@ crumb :group_new do
   parent :group
 end
 
+crumb :calendar do
+  link "カレンダー" , calendar_index_path
+  parent :root
+end
+
+# crumb :show_calendar do
+#   link "#{task.name}" , calendar_index_path
+#   parent :calendar
+# end
 
 # crumb :projects do
 #   link "Projects", projects_path

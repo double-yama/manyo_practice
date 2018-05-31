@@ -7,7 +7,7 @@
       - if @label.errors.any?
         - @label.errors.full_messages.each do |message|
           javascript:
-           toastr.info("#{message}");
+           toastr.error("#{message}");
       .form-group.mt-100.mb-40
         .col-xs-1
         = l.label :name, t('label.label_name'), class: "control-label col-xs-4"
@@ -29,13 +29,21 @@
           = t('title.edit')
         th.center
           = t('label.delete')
-      tr#labels
-        = render partial: 'label', locals: { labels: @labels }
+      - @labels.each do |label|
+        tr#labels
+          td
+            = link_to label.name, label_path(label.id)
+          td
+            = link_to edit_label_path(label.id), class: "btn btn-primary" do
+              = fa_icon "edit"
+          td
+            = link_to label_path(label.id), method: :delete, data: {confirm: t("label.label_delete_message01") + label.name + t('flash.confirm')}, class: "btn btn-danger" do
+              = fa_icon "trash"
     = paginate @labels
   #l_side-content
     h4.m-100 ラベル使用率グラフ
     .pie-chart
-      = pie_chart TaskLabel.joins(:label).group("labels.name").count
+      = pie_chart TaskLabel.joins(:label).group("labels.name").count.sort_by(&:last).reverse
 
 - if flash[:notice]
   javascript:
@@ -44,5 +52,3 @@
 - if flash[:error]
   javascript:
     toastr.error('#{flash[:error]}');
-
-

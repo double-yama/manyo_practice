@@ -1,13 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
-  # pending "add some examples to (or delete) #{__FILE__}"
     let!(:user) { FactoryGirl.create(:user) }
     let!(:today) { Date.today }
     let!(:yesterday) { Date.today - 1.day }
     let!(:tomorrow) { Date.today + 1.day }
-
-    #　letは全体、beforeはそのdescribeやcontextだけ有効という解釈でいいのか？
 
     describe 'バリデーションテスト' do
       context '名前のみ空にすると' do
@@ -24,8 +21,6 @@ RSpec.describe Task, type: :model do
         it 'バリデーションに引っかかる' do
           expect(@task).not_to be_valid
         end
-
-        # fetureでやるべき
       end
 
       context '説明のみ空にすると' do
@@ -97,6 +92,7 @@ RSpec.describe Task, type: :model do
         end
       end
 
+      # いらない
       context "今日から1日後の日付の場合" do
         before do
           @task = FactoryGirl.build(:task,
@@ -257,8 +253,6 @@ RSpec.describe Task, type: :model do
           expect(Task.search_tasks_by_queries(@params).count).to eq 5
         end
       end
-
-      # 別クラスに切り出した場合、specも別ファイルに書き出すこと
 
       context "検索ワード｢test｣が名前に含まれるものが3個,説明文に2個,そうでないものが4個あるとき" do
         it "該当したオブジェクトが5個返される" do

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :ensure_correct_user, only: %i[index destroy]
+  before_action :ensure_correct_user, only: %i[index update show destroy]
   skip_before_action :require_login, only: %i[new create]
 
   def index
@@ -32,7 +32,8 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      redirect_to admin_users_path
+      redirect_to users_path
+      # redirect_to admin_users_path
     else
       render 'edit'
     end
@@ -42,11 +43,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     User.destroy_all_tasks(params[:id])
     @user.destroy
-    redirect_to admin_users_path
-  end
-
-  def ensure_correct_user
-    redirect_to tasks_path, flash[:notice] = t('flash.no_authority') unless current_user.super
+    redirect_to users_path
+      # redirect_to admin_users_path
   end
 
 private

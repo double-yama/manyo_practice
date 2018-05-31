@@ -48,10 +48,14 @@
 }
 .cal-task{
   padding-bottom: 30px;
-  word-wrap: break-word;
+  overflow-wrap: break-word;
   display: block;
 }
 
 .cal-content{
   font-size: 80%;
+}
+
+table td {
+  word-break : break-all;
 }

@@ -1,7 +1,5 @@
 class TasksController < ApplicationController
   # helperはビューのためのもの
-  # MVC的じゃない
-  # paramsもビューで使うな
   helper_method :sort_column, :sort_order
 
   def index
@@ -35,6 +33,7 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     @task.user_id = current_user.id
     if @task.save
+      NoticeMailer.sendmail_confirm_task(@task.name).deliver
       flash[:notice] = t('flash.new_task_added')
       redirect_to tasks_path
     else

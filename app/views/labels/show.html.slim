@@ -1,0 +1,26 @@
+/ .breadcrumbs
+  / - breadcrumb :show_label, @label
+
+h3
+  = @label.name + 'のタスク一覧'
+
+table.center_table.table-hover.table-striped.task_sortable.mb-20.table_label
+  thead
+    tr
+      th
+        = 'タスクID'
+      th
+        = t('label.task_name')
+      th
+        = t('label.description')
+  tbody
+    - @label.task_labels.each do |tl|
+      tr
+        td
+          = tl.task.id
+        td
+          = tl.task.name
+        td
+          = tl.task.detail
+br
+  = link_to t('label.back'), :back

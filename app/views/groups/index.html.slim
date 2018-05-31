@@ -18,7 +18,6 @@
         = t('title.edit')
       th.center
         = t('label.delete')
-    / tr#groups
     - @groups.each do |group|
       tr
         td
@@ -32,7 +31,6 @@
         td
           = link_to group_path(group.id), method: :delete, data: {confirm: t('flash.group.delete_group') + group.name + t('flash.group.group_delete_message01')}, class: "btn btn-danger" do
             = fa_icon "trash"
-    / = render partial: 'group', locals: {groups: @groups}
   = paginate @groups
 
 - if flash[:notice]

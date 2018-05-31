@@ -7,11 +7,12 @@ html
     = javascript_include_tag 'application', 'data-turbolinks-track'=> true
     / = favicon_link_tag
 
+
   body
     .center
       nav.navbar.navbar-default
         .container-fluid
-          .navbar-header
+          .navbar-headerconsider_all_requests_local
             button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarEexample1"
               span class="sr-only"Toggle navigationspan
               span.icon-bar
@@ -33,7 +34,7 @@ html
                   li
                     = link_to t('label.groups'), groups_path, id: 'group'
                   li
-                    =  link_to t('title.user_index'), admin_users_path
+                    =  link_to t('title.user_index'), users_path
                   li
                     = link_to t('label.label_add'), labels_path
                 li class="navbar-right"

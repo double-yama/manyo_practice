@@ -21,12 +21,9 @@ module TasksHelper
   def complete_button_for_show(task_id)
     case Task.find(task_id).status
     when 'yet_start', 'doing'
-      p = button_tag '完了' , class: 'btn btn-info btn-large complete_button'
+      p = button_tag '完了' , class: 'btn btn-info btn-large complete_button', onclick: "turn_status_to_complete(this, #{task_id});"
     when 'completed' then
     end
   end
-
-  # これも理解すること
-  #
 end
 

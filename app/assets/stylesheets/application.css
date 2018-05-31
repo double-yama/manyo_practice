@@ -24,6 +24,7 @@
 }
 
 .center_table{
+    /*white-space: nowrap;*/
     margin-left: auto;
     margin-right: auto;
     align: center;

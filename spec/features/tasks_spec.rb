@@ -1,29 +1,31 @@
 require 'rails_helper'
-# require_relative '../support/login'
+require_relative '../support/login'
 
 # describe ... type: :featureの代わりにfeature
-# beforeの代わりに、before
-# itの代わりに、it
+# beforeの代わりに、background
+# itの代わりに、scenario
 # letの代わりにgiven
 
 RSpec.feature "Tasks", type: :feature do
     before do
-      @today = Date.today
-      @user = FactoryGirl.create(:user)
-      @task = FactoryGirl.create(:task,
-                                 user_id: @user.id,
-                                 period: @today + 1.day
-      )
-      visit root_path
-      fill_in 'session[username]', with: @user.username
-      fill_in 'session[password]', with: @user.password
-      click_button 'ログイン'
-      visit tasks_path
+      # @today = Date.today
+      # @user = FactoryGirl.create(:user)
+      # @task = FactoryGirl.create(:task,
+      #                            user_id: @user.id,
+      #                            period: @today + 1.day
+      # )
+      # # visit root_path
+      # fill_in 'session[username]', with: @user.username
+      # fill_in 'session[password]', with: @user.password
+      # click_button 'ログイン'
+      # visit tasks_path
     end
+
+      # support/login.rbにまとめる
 
     feature '新規タスク追加' do
       context 'ラベル以外を入力、かつ全て有効値であるならば' do
-        before do
+        background do
           fill_in 'task_name', with: 'テストタスク'
           fill_in 'task_detail', with: 'テスト説明文'
           find('option[value="high"]').select_option
@@ -36,7 +38,7 @@ RSpec.feature "Tasks", type: :feature do
 
         #文字数のテストを書くべき
 
-        it 'タスクは登録され、タスク一覧ページへ遷移する' , js: true do
+        scenario 'タスクは登録され、タスク一覧ページへ遷移する' , js: true do
 
           expect(page).to have_content 'タスク作成に成功しました'
           # これはトースタのテスト
@@ -47,7 +49,7 @@ RSpec.feature "Tasks", type: :feature do
       end
 
       context 'ラベル以外を入力、かつ名前が空であるならば' do
-        before do
+        background do
           fill_in '名前', with: nil
           fill_in 'task_detail', with: 'テスト説明文'
           find('option[value="high"]').select_option
@@ -58,7 +60,7 @@ RSpec.feature "Tasks", type: :feature do
           click_button '登録'
         end
 
-        it 'タスクは登録されず、バリデーションエラーが発生する', js: true do
+        scenario 'タスクは登録されず、バリデーションエラーが発生する', js: true do
           expect(page).to have_content "Name cannot be blank"
         end
         # OPTIMIZE
@@ -66,7 +68,7 @@ RSpec.feature "Tasks", type: :feature do
       end
 
       context 'ラベル以外を入力、かつ説明文が空であるならば' do
-        before do
+        background do
           fill_in 'task_name', with: 'テスト名前'
           fill_in 'task_detail', with: nil
           find('option[value="high"]').select_option
@@ -77,14 +79,14 @@ RSpec.feature "Tasks", type: :feature do
           click_button '登録'
         end
 
-        it '「Detail cannot be blank」がトースタとして表示される', js: true do
+        scenario '「Detail cannot be blank」がトースタとして表示される', js: true do
           expect(page).to have_content "Detail cannot be blank"
           # トースタのテストだけになってるけどそれでいい
         end
       end
 
       context 'ラベル以外を入力、かつ期限が昨日のものであるならば' do
-        before do
+        background do
           fill_in 'task_name', with: @task.name
           fill_in 'task_detail', with: @task.detail
           find('option[value="high"]').select_option
@@ -95,7 +97,7 @@ RSpec.feature "Tasks", type: :feature do
           click_button '登録'
         end
 
-        it 'タスクは登録されず、バリデーションエラーが発生する', js: true do
+        scenario 'タスクは登録されず、バリデーションエラーが発生する', js: true do
           expect(page).to have_content "今日以前の日付を入力してください"
         end
       end
@@ -105,7 +107,7 @@ RSpec.feature "Tasks", type: :feature do
     end
 
     feature 'タスク削除' do
-      before do
+      background do
         1.upto(4) do
           FactoryGirl.create(:task,
                              user_id: @user.id,
@@ -115,14 +117,14 @@ RSpec.feature "Tasks", type: :feature do
       end
 
       context '一番上の削除ボタンを押下すると' do
-        before do
+        background do
           visit mypage_tasks_path
           page.all('.btn-danger')[0].click
           # page.all('table tbody tr')[1].first('.btn.btn-danger').click
           page.driver.browser.switch_to.alert.accept
         end
 
-        it '1件のタスクが削除され、4件の削除ボタンが表示される' do
+        scenario '1件のタスクが削除され、4件の削除ボタンが表示される' do
           expect(page.all('a.btn.btn-danger').size).to eq(4)
         end
       end
@@ -130,7 +132,7 @@ RSpec.feature "Tasks", type: :feature do
     end
 
     # feature '完了化' , js: true do
-    #   before do
+    #   background do
     #     1.upto(4) do
     #       FactoryGirl.create(:task,
     #                          user_id: @user.id,
@@ -142,13 +144,13 @@ RSpec.feature "Tasks", type: :feature do
     #     page.all('table tbody tr')[1].all('a')[0].click
     #     # click_link #{@task.name} + 1.to_s
     #   end
-    #   it '個別のタスク画面に遷移する' do
+    #   scenario '個別のタスク画面に遷移する' do
     #     expect(page).to have_content '詳細'
     #   end
     # end
 
     feature '検索' do
-      before do
+      background do
         1.upto(4) do
           FactoryGirl.create(:task,
                              user_id: @user.id,
@@ -160,57 +162,57 @@ RSpec.feature "Tasks", type: :feature do
       end
 
       context 'タイトル/説明文検索欄に「test」を入力すると' do
-        before do
+        background do
           visit mypage_tasks_path
           Task.first.update(name: 'test')
           fill_in 'q_name', with: 'test'
           click_button '検索'
         end
 
-        it '1件分の削除ボタンが表示される' do
+        scenario '1件分の削除ボタンが表示される' do
           expect(page.all('a.btn.btn-danger').size).to eq(1)
         end
 
-        it '5件中1件のみ表示される' do
+        scenario '5件中1件のみ表示される' do
           expect(page.all('.btn.btn-danger').size).to eq(1)
         end
       end
 
       context 'ステータス検索欄に「未着手」を選択すると' do
-        before do
+        background do
           visit mypage_tasks_path
           Task.last.update(status: 'yet_start')
           select '未着手', from: 'q[status]'
           click_button '検索'
         end
 
-        it '5件中1件のみ表示される' do
+        scenario '5件中1件のみ表示される' do
           expect(page.all('.btn.btn-primary').size).to eq(1)
         end
       end
 
       context 'ステータス検索欄に「実行中」を選択すると' do
-        before do
+        background do
           visit mypage_tasks_path
           Task.last.update(status: 1)
           select '実行中', from: 'q[status]'
           click_button '検索'
         end
 
-        it '5件中1件のみ表示される' do
+        scenario '5件中1件のみ表示される' do
           expect(page.all('.btn.btn-primary').size).to eq(1)
         end
       end
 
       context 'ステータス検索欄に「完了」を選択すると' do
-        before do
+        background do
           visit mypage_tasks_path
           Task.last.update(status: 2)
           select "完了", from: 'q[status]'
           click_button '検索'
         end
 
-        it '5件中1件のみ表示される' do
+        scenario '5件中1件のみ表示される' do
           expect(page.all('.btn.btn-primary').size).to eq(1)
         end
       end

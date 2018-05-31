@@ -15,7 +15,9 @@
             td
               = task.user.username
             td
-              = link_to task.name, task_path(task.id)
+              #edit_button_doing data-toggle='modal' data-target='#edit_button_#{task.id}'
+                = task.name
+                = render partial: 'show', locals: {task: task}
               = '  '
               = fa_icon(task.read_flg == false ? '' : 'check-circle')
             td

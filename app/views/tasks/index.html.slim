@@ -1,6 +1,9 @@
 - if flash[:notice]
   javascript:
     toastr.success('#{flash[:notice]}');
+- if flash[:error]
+  javascript:
+    toastr.warning('#{flash[:error]}');
 
 #inner
   .breadcrumbs

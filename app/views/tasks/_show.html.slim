@@ -1,76 +1,53 @@
-.breadcrumbs
-  - breadcrumb :show_task, @task
-
-h3
-  = t('title.show')
-p
-  = 'タスクID'
-  #task_id
-    = @task.id
-p
-  = t('label.task_name')
-  br
-  = @task.name
-br
-p
-  = t('label.description')
-  br
-  = @task.detail
-br
-p
-  = '添付ファイル'
-  br
-  = link_to @task.file, @task.file.url,  download: @task.file
-br
-#complete_button
-  = complete_button_for_show(@task.id)
-
-br
-  = link_to t('label.back'), :back
+.modal.fade id="edit_button_#{task.id}" role="dialog"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        / button type="button" class="close" data-dismiss="modal"
+        h4.modal-title
+          = '詳細'
+      .modal-body.center_table
+        table.modal-body.center_table
+          tbody
+            tr
+              th
+                = 'タスクID'
+              td#task_id
+                = task.id
+            tr
+              th
+                = t('label.task_name')
+              td
+                = task.name
+            tr
+              th
+                = t('label.description')
+              td
+                = task.detail
+            tr
+              th
+                = '添付ファイル'
+              td
+                = link_to task.file, task.file.url, download: task.file
+        br
+          #complete_button
+            = complete_button_for_show(task.id)
 
 javascript:
-    $(document).ready(function () {
-        var task_id = #{@task.id};
-        if(#{@task.read_flg} == 0) {
-            $.ajax({
-                url: '#{read_task_path}',
-                type: 'POST',
-                data: {
-                    read_id: task_id
-                },
-                timeout: 10000  // 単位はミリ秒
-                // 送信前
-                // beforeSend: function (xhr, settings) {
-                // },
-                // // 応答後
-                // complete: function (xhr, textStatus) {
-                // },
-                //
-                // // 通信成功時の処理
-                // success: function (result, textStatus, xhr) {
-                // },
-                // // 通信失敗時の処理
-                // error: function (xhr, textStatus, error) {
-                // }
-            });
-        } else{}
-    });
 
-    $('.complete_button').click(function () {
-        var task_id = #{@task.id};
-        $.ajax({
-            url: '#{turn_complete_task_path}',
-            type: 'POST',
-            data: {
-                task_id: task_id
-            },
-            timeout: 10000,
-            success: function () {
-                $('.complete_button').hide();
-                alert('このタスクのステータスを｢完了｣に変更しました');
-            },
-            error: function () {
-                alert('An error has occured...');
-            }
-        })
-    });
+  function turn_status_to_complete(button, task_id){
+    $.ajax({
+        url: '#{turn_complete_tasks_path}',
+        type: 'POST',
+        data: {
+            task_id: task_id
+        },
+        timeout: 10000,
+        success: function () {
+            $(button).hide();
+            alert('このタスクのステータスを｢完了｣に変更しました');
+        },
+        error: function () {
+            alert('An error has occured...');
+        }
+    })
+  }

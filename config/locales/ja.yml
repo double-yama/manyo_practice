@@ -97,6 +97,7 @@ ja:
     confirm: "」を削除します よろしいですか？"
     delete_user: "ユーザ「"
     delete_task: "タスク「"
+    warn_to_put_date_from_today: "今日以降の日付を入力してください"
 
     group:
       new_group_added: "グループを作成しました"
