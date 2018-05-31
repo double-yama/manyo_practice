@@ -27,7 +27,8 @@ br
         td
           = t("column.priority.#{task.priority}")
         td
-          = t("column.status.#{task.status}")
+          div class = "#{label_for_status(task.status)}"
+            = t("column.status.#{task.status}")
         td
           = task.detail
         td
@@ -36,3 +37,5 @@ br
         td
           = link_to task_path(task.id), method: :delete, data: {confirm: t('flash.confirm')}, class: "btn btn-danger" do
             = fa_icon "trash"
+
+  = paginate @users_tasks

@@ -21,7 +21,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @users_tasks = Task::my_task(params[:id])
+    @users_tasks = Task::my_task(params[:id]).page(params[:page]).per(10)
     @user_name = User.find(params[:id])
   end
 
