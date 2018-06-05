@@ -52,7 +52,9 @@ class TasksController < ApplicationController
       flash[:notice] = t('flash.task_updated')
       redirect_to tasks_path
     else
-      render 'edit'
+      flash[:notice] = t('flash.task_updated')
+      redirect_to tasks_path
+      # render 'edit'
     end
   end
 
@@ -108,7 +110,7 @@ class TasksController < ApplicationController
       :status,
       :period,
       :priority,
-      :label_text,
+      # :label_text,
       :file,
       :file_cache,
       :group_id
@@ -116,13 +118,11 @@ class TasksController < ApplicationController
   end
 
   def params_word
-    # if params[:q].present?
     params.require(:q).permit(
       :name,
       :status,
       :label
     )
-    # end
   end
 
   def sort_order

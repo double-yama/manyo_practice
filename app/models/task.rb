@@ -16,7 +16,7 @@ class Task < ApplicationRecord
   has_many :labels, through: :task_labels
 
   attr_accessor :label_text
-  after_save :create_label_text
+  # after_save :create_label_text
 
   COLUMN_NAME = {
       updated_at: 'updated_at'
