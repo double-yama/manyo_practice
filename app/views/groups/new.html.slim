@@ -3,22 +3,22 @@
     - breadcrumb :group_new
 
   = form_for(@group) do |l|
-    br
-    .m-form
-      .col-xs-1
-      = l.label :name, t('label.group.group_name'), class: "control-label col-xs-4"
-      .col-xs-3
+    .mt-110
+      .col-xs-2
+      = l.label :name, t('label.group.group_name'), class: "control-label col-xs-8"
+      .col-xs-8
         = l.text_field :name, class: "form-control"
-      br
-    .m-form
-      .col-xs-1
-      = l.label :description, t('label.group.description'), class: "control-label col-xs-4"
-      .col-xs-3
+      .col-xs-6
+    br
+    .mt-30
+      .col-xs-2
+      = l.label :description, t('label.group.description'), class: "control-label col-xs-8"
+      .col-xs-8
         = l.text_field :description, class: "form-control"
-      br
-    .m-form
-      .col-xs-1
-      = l.label t('label.group.member'), class: "control-label col-xs-4"
+      .col-xs-6
+    .mt-110
+      .col-xs-2
+      = l.label t('label.group.member'), class: "control-label col-xs-8"
       .label_check_box
         = l.collection_check_boxes(:user_ids, User.where.not(username: current_user.username), :id, :username) do |u|
           tr
@@ -26,13 +26,12 @@
               = u.check_box class: 'form-check-input'
             td
               = u.label class: 'form-check-label'
-    .m-form
-      .col-xs-4
-      = l.submit "#{t('label.label_register')}", class: "btn btn-primary col-xs-1"
-      .col-xs-1
-      = button_tag fa_icon('times-circle lg', text: t('label.clear')), type: :reset, class: 'btn btn-warning col-xs-1'
-      .col-xs-4
-
+    .mt-50
+      .col-xs-8
+      = l.submit "#{t('label.label_register')}", class: "btn btn-primary col-xs-2"
+      .col-xs-2
+      = button_tag fa_icon('times-circle lg', text: t('label.clear')), type: :reset, class: 'btn btn-warning col-xs-2'
+      .col-xs-8
 
 - if flash[:error]
   javascript:
@@ -40,5 +39,5 @@
 
 - if @group.errors.any?
     - @group.errors.full_messages.each do |message|
-  javascript:
-    toastr.error("#{message}");
+      javascript:
+          toastr.error("#{message}");

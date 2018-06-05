@@ -17,9 +17,9 @@
         th
         th
     tbody#sortable
-      - @my_tasks.each do |task|
+      - @tasks.each do |task|
         tr
-          td.col-xs-5.center
+          td.col-xs-4.center
             #edit_button_doing data-toggle="modal" data-target="#edit_button_#{task.id}"
               = task.name
               = render partial: 'show', locals: {task: task}
@@ -27,30 +27,15 @@
             = t("column.priority.#{task.priority}")
           td.col-xs-2.center
             = task.period
-          td.col-xs-2.center
+          td.col-xs-1.center
             div class = "#{label_for_status(task.status)}"
               = t("column.status.#{task.status}")
-          td.col-xs-8.center.edit_button
+          td.col-xs-8.center
             = task.detail
           td.col-xs-4.center
-            - task.task_labels.each do |tl|
-              p
-                = '・' + tl.label.name
           td.col-xs-1
             = link_to edit_task_path(task.id), class: "btn btn-primary" do
               = fa_icon "edit"
           td.col-xs-1
             = link_to task_path(task.id), method: :delete, data: {confirm: t('flash.delete_task') + task.name + t('flash.confirm'),　cancel: "やめる" },class: "btn btn-danger" do
               = fa_icon "trash"
-
-  = paginate @my_tasks
-
-javascript:
-  $('#sortable').sortable();
-  $('#sortable').disableSelection();
-  $('#sortable').bind('sortstop', function (e, ui) {
-      var rows = $('#sortable .rank');
-      for (var i = 0, rowTotal = rows.length; i < rowTotal; i += 1) {
-          $($('')[i]).text(i + 1);
-      }
-  });

@@ -1,13 +1,11 @@
 h3
   = @user_name.username
   = 'さんのタスク一覧'
-br
-  = image_tag(@user_name.image.to_s, :size => "100x141")
+.mt-40
+  = image_tag(@user_name.image.to_s, :size => "100x100", :alt => 'icon')
 
-  br
-  br
-.content
-  table.center_table.table.table-hover.table-striped
+.mt-40
+  table.center_table.table.table-hover.table-striped.users_content
     tr
       th
         = t('label.task_name')

@@ -6,10 +6,10 @@ class User < ApplicationRecord
   validates :password_digest, presence: true
   has_many :tasks, dependent: :destroy
   mount_uploader :image, ImageUploader
-  has_many :groups, through: :group_users
   has_many :group_users, dependent: :destroy
-  accepts_nested_attributes_for :group_users
-  attr_accessor :group_name
+  has_many :groups, through: :group_users
+  # accepts_nested_attributes_for :group_users
+  attr_accessor :groups_name
 
   def self.destroy_all_tasks(user_id)
     where('users.id = ?', user_id).destroy_all
@@ -18,4 +18,5 @@ class User < ApplicationRecord
   def super_user?
     current_user.super?
   end
+
 end

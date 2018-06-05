@@ -1,5 +1,3 @@
-br
-= image_tag(@user.image.to_s, :size => "100x141")
-br
-br
+= image_tag(@user.image.to_s, :size => "100x100", :alt => 'icon')
+.mt-50
 = render 'users/form'

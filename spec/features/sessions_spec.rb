@@ -16,7 +16,7 @@ RSpec.feature "Sessions", type: :feature do
 
     context '/mypageにアクセスすると' do
       before do
-        visit mypage_tasks_path
+        visit my_page_tasks_path
       end
       scenario '/loginにリダイレクトされる' do
         expect("#{uri.path}").to eq(login_path)

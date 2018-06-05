@@ -118,7 +118,7 @@ RSpec.feature "Tasks", type: :feature do
 
       context '一番上の削除ボタンを押下すると' do
         background do
-          visit mypage_tasks_path
+          visit my_page_tasks_path
           page.all('.btn-danger')[0].click
           # page.all('table tbody tr')[1].first('.btn.btn-danger').click
           page.driver.browser.switch_to.alert.accept
@@ -139,7 +139,7 @@ RSpec.feature "Tasks", type: :feature do
     #                          period: @today + 1.day
     #       )
     #     end
-    #     visit mypage_tasks_path
+    #     visit my_page_tasks_path
     #     page.save_screenshot '~/Desktop/test3a.png'
     #     page.all('table tbody tr')[1].all('a')[0].click
     #     # click_link #{@task.name} + 1.to_s
@@ -163,7 +163,7 @@ RSpec.feature "Tasks", type: :feature do
 
       context 'タイトル/説明文検索欄に「test」を入力すると' do
         background do
-          visit mypage_tasks_path
+          visit my_page_tasks_path
           Task.first.update(name: 'test')
           fill_in 'q_name', with: 'test'
           click_button '検索'
@@ -180,7 +180,7 @@ RSpec.feature "Tasks", type: :feature do
 
       context 'ステータス検索欄に「未着手」を選択すると' do
         background do
-          visit mypage_tasks_path
+          visit my_page_tasks_path
           Task.last.update(status: 'yet_start')
           select '未着手', from: 'q[status]'
           click_button '検索'
@@ -193,7 +193,7 @@ RSpec.feature "Tasks", type: :feature do
 
       context 'ステータス検索欄に「実行中」を選択すると' do
         background do
-          visit mypage_tasks_path
+          visit my_page_tasks_path
           Task.last.update(status: 1)
           select '実行中', from: 'q[status]'
           click_button '検索'
@@ -206,7 +206,7 @@ RSpec.feature "Tasks", type: :feature do
 
       context 'ステータス検索欄に「完了」を選択すると' do
         background do
-          visit mypage_tasks_path
+          visit my_page_tasks_path
           Task.last.update(status: 2)
           select "完了", from: 'q[status]'
           click_button '検索'

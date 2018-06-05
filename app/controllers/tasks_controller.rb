@@ -1,13 +1,11 @@
+# frozen_string_literal: true.
 class TasksController < ApplicationController
-  # helperはビューのためのもの
   helper_method :sort_column, :sort_order
 
   def index
     @task = Task.new
     set_for_index
   end
-
-  # public_methods.grep(/status)
 
   def new
     @task = Task.new
@@ -34,7 +32,7 @@ class TasksController < ApplicationController
     @task.user_id = current_user.id
     if @task.save
       NoticeMailer.sendmail_confirm_task(@task.name).deliver
-      flash[:notice] = t('flash.new_task_added')
+      flash[:notice] = t('flash.delete_task') + @task.name + t('flash.is_added')
       redirect_to tasks_path
     else
       set_for_index
@@ -43,8 +41,14 @@ class TasksController < ApplicationController
   end
 
   def update
-    @task = Task.find(params[:id])
-    if @task.update(task_params)
+    task = Task.find(params[:id])
+    param_label_ids = params[:task][:label_ids].select { |id| id.present? }
+    task.task_labels.delete_all
+    param_label_ids.each do |label_id|
+      task.task_labels.create(label_id: label_id)
+    end
+
+    if task.update(task_params)
       flash[:notice] = t('flash.task_updated')
       redirect_to tasks_path
     else
@@ -58,34 +62,40 @@ class TasksController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
-  def mypage
+  def my_page
     if params[:q].present?
       @q = Task.new(params_word)
-      @tasks_for_user = Task.my_task(current_user.id).search_tasks_by_queries(params_word).page(params[:page]).per(10)
-      @tasks_count = Task.tasks_count_for_my_page(current_user.id)
+      @my_tasks = my_tasks.search_tasks_by_queries(params_word).page(params[:page]).per(10)
+      # @tasks_count = my_tasks.incomplete.count
     else
       @q = Task.new
-      @tasks_for_user = Task.my_task_without_params_and_completed(current_user.id).order(sort_column + ' ' + sort_order).includes([:user, task_labels: :label]).page(params[:page]).per(10)
-      @tasks_count = Task.tasks_count_for_my_page(current_user.id)
+      @my_tasks = my_tasks.incomplete.order(sort_column + ' ' + sort_order).include_label.include_users.page(params[:page]).per(10)
+      # @tasks_count = my_tasks.incomplete.count
     end
+  end
+
+  def my_groups
+    @tasks_of_my_group = my_tasks.incomplete.order(sort_column + ' ' + sort_order).include_label.include_user.page(params[:page]).per(10)
+    # @tasks_count = my_tasks.incomplete.count
+  end
+
+  def tasks_for_group
+    @tasks = Task.where(group_id: params[:id])
   end
 
   def turn_complete
     @task = Task.find(params[:task_id])
-    @task.status = "completed"
+    @task.status = 'completed'
     @task.save
   end
 
   def download
     task = Task.find(params[:id])
     filepath = task.file.url
-    p 'talahashistakahasthitakahashi'
-    p filepath.class
     send_file(filepath,
-              # :type => 'txt/pdf',
-              :disposition => 'attachment',
-              :filename => task.file,
-              :status => 200)
+              disposition: 'attachment',
+              filename: task.filename,
+              status: 200)
     redirect_to tasks_path
   end
 
@@ -100,22 +110,23 @@ class TasksController < ApplicationController
       :priority,
       :label_text,
       :file,
-      :file_cache
+      :file_cache,
+      :group_id
     )
   end
 
   def params_word
-    if params[:q].present?
-      params.require(:q).permit(
-          :name,
-          :status,
-          :label
-      )
-    end
+    # if params[:q].present?
+    params.require(:q).permit(
+      :name,
+      :status,
+      :label
+    )
+    # end
   end
 
   def sort_order
-    %w[asc desc].include?(params[:order]) ?  params[:order] : Task::SORT_NAME[:desc]
+    %w[asc desc].include?(params[:order]) ? params[:order] : Task::SORT_NAME[:desc]
   end
 
   def sort_column
@@ -123,8 +134,12 @@ class TasksController < ApplicationController
   end
 
   def set_for_index
-    @period_ended_tasks = Task.period_expired.includes(:user).order('period ASC')
-    @deadline_closed_tasks = Task.deadline_close(3).includes(:user).order('period ASC')
-    @tasks = Task.all.order(sort_column + ' ' + sort_order).includes([:user, task_labels: :label]).page(params[:page]).per(10)
+    @my_period_expired_tasks = my_tasks.period_expired.include_users.incomplete.order('period ASC')
+    @deadline_closed_tasks = my_tasks.deadline_closed(3).include_users.incomplete.order('period ASC')
+    @tasks = Task.all.order(sort_column + ' ' + sort_order).include_label.page(params[:page]).per(10)
+  end
+
+  def my_tasks
+    current_user.tasks
   end
 end

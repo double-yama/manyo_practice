@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-  before_action :ensure_correct_user
+  before_action :ensure_correct_user, except: :my_groups
 
   def index
     @groups = Group.all.page(params[:page]).per(10)
@@ -9,11 +9,15 @@ class GroupsController < ApplicationController
     @group = Group.new
   end
 
+  def show
+  end
+
   def create
     group = Group.new(group_params)
     if group.save
       flash[:notice] = t('flash.group.new_group_added')
       param_user_ids = params[:group][:user_ids].select {|id| id.present?}
+      param_user_ids.push(current_user.id)
       param_user_ids.each do |user_id|
         group.group_users.create(user_id: user_id)
       end
@@ -30,6 +34,7 @@ class GroupsController < ApplicationController
   def update
     group = Group.find(params[:id])
     param_user_ids = params[:group][:user_ids].select {|id| id.present?}
+    param_user_ids.push(current_user.id)
     group.group_users.delete_all
     param_user_ids.each do |user_id|
       group.group_users.create(user_id: user_id)
@@ -39,7 +44,7 @@ class GroupsController < ApplicationController
       flash[:notice] = t('flash.group.new_group_added')
       redirect_to groups_path
     else
-      p group.errors
+      render 'edit'
     end
   end
 
@@ -52,10 +57,10 @@ class GroupsController < ApplicationController
   private
 
   def group_params
-
     params.require(:group).permit(
         :name,
-        :description
+        :description,
+        :user_ids
     )
   end
 end

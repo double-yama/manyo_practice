@@ -1,19 +1,17 @@
 - if flash[:notice]
   javascript:
       toastr.success('#{flash[:notice]}');
-
+.mt-30
 = form_for :session do |f|
   = fa_icon "user"
   = ' : '
   = f.text_field :username, placeholder: t("views.sessions.new.login_name")
-  br
-  br
+  .mt-30
   = fa_icon "lock"
   = ' : '
   = f.password_field :password, placeholder: t("views.sessions.new.password")
-  br
-  br
+  .mt-30
   = f.submit t('title.login'), class:"btn btn-primary"
-br
+  .mt-30
 div
   = link_to t('label.signup'), signup_path

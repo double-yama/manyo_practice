@@ -68,7 +68,7 @@ RSpec.feature "Groups", type: :feature do
 
     context 'グループ一覧画面にて、削除ボタンを押下すると' do
       background do
-        visit mypage_tasks_path
+        visit my_page_tasks_path
         page.all('.btn-danger')[0].click
         # page.all('table tbody tr')[1].first('.btn.btn-danger').click
         page.driver.browser.switch_to.alert.accept

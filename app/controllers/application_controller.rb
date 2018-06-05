@@ -18,10 +18,16 @@ class ApplicationController < ActionController::Base
   end
 
   def ensure_correct_user
+    # correctじゃわからない
+    # adminとかsuperとか
     unless current_user.super
       flash[:error] = t('flash.no_authority')
       redirect_to tasks_path
     end
+  end
+
+  def current_user
+    User.find(session[:user_id])
   end
 
 private

@@ -3,29 +3,30 @@
     - breadcrumb :calendar
   table#calendar.center_table
     caption.m-10
-      = link_to calendar_path(@previous) do
+      = link_to calendar_path(@today.prev_month.strftime('%Y%m')) do
         = fa_icon('fast-backward')
       = @today.strftime('%Y年%m月')
-      = link_to  calendar_path(@next) do
+      = link_to calendar_path(@today.next_month.strftime('%Y%m')) do
         = fa_icon('fast-forward')
 
       = render partial: 'calendar'
 
       - 1.upto(5).each do
         tr.week_for_task
-          - (@d..@d.end_of_week(:sunday)).each do|c|
-            td class=(c == @today ? 'td-cal td-bg-today' : 'td-cal')
+          / 月曜か火曜にしっかりレビューしてもらうこと
+          / オブジェクトごとに扱う
+          / @dayに、日付情報だけでなくタスクも持たせる
+          /
+          - (@day..@day.end_of_week(:sunday)).each do |d|
+            td.td-cal class=('td-bg-today' if (d == @today))
               .cal-date
-                = (c.strftime('%m') == @month)? c.strftime('%-d'): "  "
-              .show_tasks_count.cal-content.word_break
-                - unless (@tasks_for_user.where(period: c).size == 0)
+                = (d.month == @today.month)? d.strftime('%-d'): ' '
+              .show_tasks_count
+                - unless (@my_tasks.where(period: d).size == 0)
                   span.label.label-info
-                    = @tasks_for_user.where(period: c).size
-              .show_tasks_detail.cal-task.word_break name="#{c}"
-                - @tasks_for_user.where(period: c).each do |task|
-                  #edit_button_doing data-toggle='modal' data-target='#edit_button_#{task.id}'
-                    = task.name
-                    = render partial: 'tasks/show', locals: {task: task}
-                  / = link_to task.name, task_path(task.id), class: "cal-content"
-                  br
-        - @d = @d + 1.week
+                    = @my_tasks.where(period: d).size
+              .show_tasks_detail.cal-task
+                - @my_tasks.where(period: d).each do |task|
+                  #edit_button_doing
+                  = link_to task.name, task_path(task.id), class: 'cal-content'
+        - @day = @day + 1.week

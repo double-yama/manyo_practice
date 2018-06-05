@@ -1,3 +1,4 @@
+# frozen_string_literal: true.
 class UsersController < ApplicationController
   before_action :ensure_correct_user, only: %i[index update show destroy]
   skip_before_action :require_login, only: %i[new create]
@@ -21,7 +22,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @users_tasks = Task::my_task(params[:id]).page(params[:page]).per(10)
+    @users_tasks = current_user.tasks.page(params[:page]).per(10)
     @user_name = User.find(params[:id])
   end
 
@@ -33,7 +34,6 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update(user_params)
       redirect_to users_path
-      # redirect_to admin_users_path
     else
       render 'edit'
     end
@@ -44,10 +44,14 @@ class UsersController < ApplicationController
     User.destroy_all_tasks(params[:id])
     @user.destroy
     redirect_to users_path
-      # redirect_to admin_users_path
   end
 
-private
+  def my_groups
+    @user = User.find(current_user.id)
+    @my_gu = GroupUser.where(user_id: current_user.id).order('group_id')
+  end
+
+  private
 
   def user_params
     params.require(:user).permit(:username, :password, :password_confirmation, :image)

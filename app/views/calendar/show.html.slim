@@ -3,24 +3,23 @@
     - breadcrumb :calendar
   table#calendar.center_table
     caption.m-10
-      = link_to "<< ", calendar_path(@previous)
+      = link_to "<<  ", calendar_path(@date.prev_month.strftime('%Y%m'))
       = @date.strftime('%Y年%m月')
-      = link_to " >>", calendar_path(@next)
+      = link_to "  >>", calendar_path(@date.next_month.strftime('%Y%m'))
 
       = render partial: 'calendar'
 
       - 1.upto(5).each do
         tr.week_for_task
           - (@d..@d.end_of_week(:sunday)).each do|c|
-            td class=(c == @today ? 'td-cal td-bg-today' : 'td-cal')
+            td.td-cal class=('td-bg-today' if (c == @today))
               .cal-date
-                = (c.strftime('%m') == @month)? c.strftime('%-d'): "  "
-              .show_tasks_count.cal-content.word_break
-                - unless (@tasks_for_user.where(period: c).size == 0)
+                = (c.month == @date.month)? c.strftime('%-d'): ''
+              .show_tasks_count
+                - unless (@my_tasks.where(period: c).size == 0)
                   span.label.label-info
-                    = @tasks_for_user.where(period: c).size
-              .show_tasks_detail.cal-task.word_break name="#{c}"
-                - @tasks_for_user.where(period: c).each do |task|
+                    = @my_tasks.where(period: c).size
+              .show_tasks_detail.cal-task
+                - @my_tasks.where(period: c).each do |task|
                   = link_to task.name, task_path(task.id), class: "cal-content"
-                  br
         - @d = @d + 1.week

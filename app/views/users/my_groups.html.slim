@@ -1,0 +1,39 @@
+.content
+  .breadcrumbs
+    - breadcrumb :groups_for_user
+
+  .mt-100
+    .col-xs-18
+    .col-xs-2
+      = link_to '新規グループ作成' ,new_group_path, class: "btn btn-info"
+    .col-xs-4
+  br
+  table.center_table.table-hover.table-striped.mt-40.table_group
+    tr
+      th.center
+        = 'グループID'
+      th.center
+        = t('label.group.group_name')
+      th.center
+        = t('label.group.member')
+      th.center
+        = '未完了タスク数'
+    - @my_gu.each do |gu|
+      tr
+        td.col-xs-2.center
+          = gu.group.id
+        td.col-xs-7.center
+          = link_to gu.group.name, tasks_for_group_task_path(gu.group.id)
+        td.col-xs-11.center
+          - gu.group.users.each do |user|
+            = user.username + ' '
+        td.col-xs-4.center
+          = gu.group.tasks.count
+
+- if flash[:notice]
+  javascript:
+      toastr.success('#{flash[:notice]}');
+
+- if flash[:error]
+  javascript:
+      toastr.error('#{flash[:error]}');

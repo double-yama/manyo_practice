@@ -7,7 +7,6 @@ html
     = javascript_include_tag 'application', 'data-turbolinks-track'=> true
     / = favicon_link_tag
 
-
   body
     .center
       nav.navbar.navbar-default
@@ -27,7 +26,9 @@ html
                 li
                   = link_to t('title.all_tasks'), tasks_path
                 li
-                  =  link_to t('label.task.mypage'), mypage_tasks_path
+                  =  link_to t('label.task.mypage'), my_page_tasks_path
+                li
+                  =  link_to '所属グループ', my_groups_users_path
                 li
                   = link_to "カレンダー", calendar_index_path
                 - if current_user.super?

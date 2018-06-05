@@ -1,5 +1,7 @@
 # frozen_string_literal: true.
 class Task < ApplicationRecord
+  include Common
+
   validates :name, presence: { message: Proc.new { I18n.t('flash.can_not_be_blank') } }, length: { maximum: 20 }
   validates :detail, presence: { message: Proc.new { I18n.t('flash.can_not_be_blank') } }, length: { maximum: 50 }
   validates :period, presence: { message: Proc.new { I18n.t('flash.can_not_be_blank') } }
@@ -7,8 +9,8 @@ class Task < ApplicationRecord
 
   mount_uploader :file, FileUploader
 
-  # 本当にpresenceにすべきか考える
   belongs_to :user
+  belongs_to :group
 
   has_many :task_labels, dependent: :destroy
   has_many :labels, through: :task_labels
@@ -17,16 +19,19 @@ class Task < ApplicationRecord
   after_save :create_label_text
 
   COLUMN_NAME = {
-    updated_at: 'updated_at'
+      updated_at: 'updated_at'
   }.freeze
 
   SORT_NAME = {
-    asc: 'asc',
-    desc: 'desc'
-  }
+      asc: 'asc',
+      desc: 'desc'
+  }.freeze
 
-  scope :include_relative_models, -> { includes([:user, task_labels: :label]) }
-  scope :period_ended, -> { where('period < ?', Date.today) }
+  scope :include_label, -> { includes([ task_labels: :label]) }
+  scope :incomplete, -> { where('status != ? ', 2) }
+  scope :include_users, -> { includes(:user) }
+  scope :period_expired, -> { where('period < ? ', Date.today) }
+  scope :deadline_closed, -> (days){ where('period >= ? and period < ?', Date.today, Date.today + days.day) }
 
   STATUS = {
     yet_start: 0,
@@ -48,16 +53,8 @@ class Task < ApplicationRecord
     end if period
   end
 
-  def self.period_expired
-    eager_load(:user).where('period < ? AND status != ?', Date.today, '2')
-  end
-
-  def self.deadline_close(days)
-    eager_load(:user).where('period >= ? and period < ?', Date.today, Date.today + days.day)
-  end
-
   def self.search_tasks_by_queries(params)
-    tasks = Task.all.includes([:user, task_labels: :label])
+    tasks = Task.all.include_label
     if params[:name].present?
     tasks = tasks.where(['tasks.name LIKE ?', "%#{params[:name]}%"]).or(tasks.where(['detail LIKE ?', "%#{params[:name]}%"]))
     end
@@ -66,26 +63,10 @@ class Task < ApplicationRecord
     tasks
   end
 
-  def sakimura
-    where(['tasks.name LIKE ?', "%#{params[:name]}%"])
-  end
-
-  def self.my_task_without_params_and_completed(user_id)
-    where('user_id = ? AND status != ? ', user_id, '2').includes(:user)
-  end
-
-  def self.my_task(user_id)
-    where('user_id = ? ', user_id).includes(:user)
-  end
-
-  def self.tasks_count_for_my_page(user_id)
-    Task.my_task_without_params_and_completed(user_id).count
-  end
-
-  def create_label_text
-    if label_text.present?
-      label = Label.find_or_create_by(name: label_text)
-      task_labels.create(label_id: label.id)
-    end
-  end
+  # def create_label_text
+  #   if label_text.present?
+  #     label = Label.find_or_create_by(name: label_text)
+  #     task_labels.create(label_id: label.id)
+  #   end
+  # end
 end

@@ -118,7 +118,7 @@ RSpec.describe Task, type: :model do
         end
 
         it "何も返されない" do
-          expect(Task.period_expired).to be_empty
+          expect(user.tasks.period_expired).to be_empty
         end
       end
 
@@ -131,7 +131,7 @@ RSpec.describe Task, type: :model do
           @task.save(validate: false)
         end
         it "何も返されない" do
-          expect(Task.period_expired).to be_empty
+          expect(user.tasks.period_expired).to be_empty
         end
       end
 
@@ -146,12 +146,12 @@ RSpec.describe Task, type: :model do
           @task.save(validate: false)
         end
         it "期限切れのため、データが1つ返される" do
-          expect(Task.period_expired.size).to eq 1
+          expect(user.tasks.period_expired.size).to eq 1
         end
       end
     end
 
-    describe "period_close" do
+    describe "period_closed" do
       context "データの日付が3日後の場合" do
         before do
           @task = FactoryGirl.build(:task,
@@ -161,7 +161,7 @@ RSpec.describe Task, type: :model do
           @task.save(validate: false)
         end
         it "期限が2日以内でないため, 何も返されない" do
-          expect(Task.deadline_close(3)).to be_empty
+          expect(user.tasks.deadline_closed(3)).to be_empty
         end
       end
 
@@ -175,7 +175,7 @@ RSpec.describe Task, type: :model do
         end
 
         it "期限が2日以内のため、データが1つ返される" do
-          expect(Task.deadline_close(3).count).to eq 1
+          expect(user.tasks.deadline_closed(3).count).to eq 1
         end
       end
 
@@ -188,7 +188,7 @@ RSpec.describe Task, type: :model do
           @task.save(validate: false)
         end
         it "期限が2日以内のため、データが1つ返される" do
-          expect(Task.deadline_close(3).count).to eq 1
+          expect(user.tasks.deadline_closed(3).size).to eq 1
         end
       end
 
@@ -201,7 +201,7 @@ RSpec.describe Task, type: :model do
           @task.save(validate: false)
         end
         it "期限が2日以内のため、データが1つ返される" do
-          expect(Task.deadline_close(3).count).to eq 1
+          expect(user.tasks.deadline_closed(3).size).to eq 1
         end
       end
 
@@ -214,7 +214,7 @@ RSpec.describe Task, type: :model do
           @task.save(validate: false)
         end
         it "期限が2日以内でないため, 何も返されない" do
-          expect(Task.deadline_close(3)).to be_empty
+          expect(user.tasks.deadline_closed(3)).to be_empty
         end
       end
     end
@@ -250,7 +250,7 @@ RSpec.describe Task, type: :model do
           end
         end
         it "該当したオブジェクトが5個返される" do
-          expect(Task.search_tasks_by_queries(@params).count).to eq 5
+          expect(user.tasks.search_tasks_by_queries(@params).size).to eq 5
         end
       end
 
@@ -279,7 +279,7 @@ RSpec.describe Task, type: :model do
             )
             no_test.save(validate: false)
           end
-          expect(Task.search_tasks_by_queries(@params).count).to eq 5
+          expect(user.tasks.search_tasks_by_queries(@params).size).to eq 5
         end
       end
 
@@ -292,7 +292,7 @@ RSpec.describe Task, type: :model do
                                       status: 0
           )
           no_test.save(validate: false)
-          expect(Task.search_tasks_by_queries(@params).count).to eq 1
+          expect(user.tasks.search_tasks_by_queries(@params).size).to eq 1
         end
       end
     end
@@ -316,7 +316,7 @@ RSpec.describe Task, type: :model do
         end
 
         it "user2のタスクの個数1が返される" do
-          expect(Task.my_task(@user1.id).count).to eq 1
+          expect(@user1.tasks.size).to eq 1
         end
       end
     end
@@ -337,9 +337,29 @@ RSpec.describe Task, type: :model do
         end
 
         it "消したタスク数は1, 残ったタスクの個数は1が返る" do
-          expect(User.destroy_all_tasks(@user1.id).count).to eq 1
-          expect(Task.where(user_id: @user2.id).count).to eq 1
+          expect(User.destroy_all_tasks(@user1.id).size).to eq 1
+          expect(Task.where(user_id: @user2.id).size).to eq 1
         end
       end
     end
+
+    describe "メール送信テスト" do
+      context "タスクを10個作ると" do
+        before do
+          @task = FactoryGirl.build(:task,
+                                    name: '三好ランドに行くことをやめること',
+                                    detail: 'testtest',
+                                    period: tomorrow,
+                                    user_id: user.id
+          )
+
+          10.times{
+            NoticeMailer::sendmail_confirm_task(@task.name).deliver
+          }
+        end
+        it "メールも十回送信される" do
+        end
+      end
+    end
+
 end

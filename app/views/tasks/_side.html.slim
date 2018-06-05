@@ -10,7 +10,7 @@
           = t('label.task_name')
         th.center
           = t('label.period_end_on')
-        - @period_ended_tasks.each do |task|
+        - @my_period_expired_tasks.each do |task|
           tr
             td
               = task.user.username
@@ -42,7 +42,11 @@
         td
           = task.user.username
         td
-          = link_to task.name, task_path(task.id)
+          #edit_button_doing data-toggle='modal' data-target='#edit_button_#{task.id}'
+            = task.name
+            = render partial: 'show', locals: {task: task}
+          = '  '
+          = fa_icon(task.read_flg == false ? '' : 'check-circle')
         td
           = task.period
 #more_btn_deadline_in_three_days

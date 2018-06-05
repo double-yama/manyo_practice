@@ -1,76 +1,76 @@
 = form_for(@task) do |f|
   .form-group
 
-    = f.label :name, t('label.name'), class: "control-label col-xs-2"
-    .col-xs-8
+    = f.label :name, t('label.name'), class: "control-label col-xs-4"
+    .col-xs-16
       = f.text_field :name, class: "form-control"
-    .col-xs-2
-    span.label.label-warning.col-xs-1.m-15
+    .col-xs-4
+    span.label.label-warning.col-xs-2.m-15
       = t('label.task.must')
-    br
   br
-  br
-  .form-group
-    = f.label :detail, t('label.description'), class: "control-label col-xs-2"
-    .col-xs-8
+  .form-group.mt-30
+    = f.label :detail, t('label.description'), class: "control-label col-xs-4"
+    .col-xs-16
       = f.text_area :detail, class: "form-control"
-    .col-xs-2
-    span.label.label-warning.col-xs-1.m-15
+    .col-xs-4
+    span.label.label-warning.col-xs-2.m-15
       = t('label.task.must')
     br
-  br
-  br
-  .form-group
-    = f.label t('label.priority'), class: "control-label col-xs-2"
-    .col-xs-8
+  .form-group.mt-50
+    = f.label t('label.priority'), class: "control-label col-xs-4"
+    .col-xs-16
       = f.select :priority,[%w(高 high), %w(中 middle), %w(低 low)], {}, class: "form-control selectpicker form-inlin"
-    .col-xs-2
-    span.label.label-info.col-xs-1.m-15
+    .col-xs-4
+    span.label.label-info.col-xs-2.m-15
       = t('label.task.option')
-  br
-  br
-
-
-  .form-group
-    = f.label t('label.period_end_on'),{} ,  class: "control-label col-xs-2"
-    .col-xs-8
+  .form-group.mt-110
+    = f.label t('label.period_end_on'),{} ,  class: "control-label col-xs-4"
+    .col-xs-16
       = f.date_select :period, {}, class: 'form-control form-inline'
-    .col-xs-2
-    span.label.label-info.col-xs-1.m-15
+    .col-xs-4
+    span.label.label-info.col-xs-2.m-15
       = t('label.task.option')
   br
-  br
-  br
-  br
-  br
-
-  .form-group.m-10
-    = f.label t('label.status'),  class: "control-label col-xs-2"
-    .col-xs-8
+  .form-group.mt-110
+    = f.label t('label.status'),  class: "control-label col-xs-4"
+    .col-xs-16
       = f.select :status, Task.statuses.map { |k, _v| [t("enums.status.#{k}"), k] }, {}, class: "form-control dropdown-toggle"
-    .col-xs-2
-    span.label.label-info.col-xs-1.m-15
+    .col-xs-4
+    span.label.label-info.col-xs-2.m-15
+      = t('label.task.option')
+  .form-group.mt-80
+    = f.label t('label.label'), class: "control-label col-xs-4"
+    .col-xs-16
+      .label_check_box
+        = f.collection_check_boxes(:label_ids, Label.all, :id, :name) do |l|
+          tr
+            td
+              = l.check_box class: 'form-check-input'
+            td
+              = l.label class: 'form-check-label'
+    .col-xs-4
+    span.label.label-info.col-xs-2.m-15
       = t('label.task.option')
   br
-  br
-  .form-group.m-10
-    = f.label t('label.label'), class: "control-label col-xs-2"
-    .col-xs-8
-      = f.select :label_text, Label.all.map {|l| [l.name]}, {include_blank: true},  class: "form-control "
-    .col-xs-2
-    span.label.label-info.col-xs-1.m-15
+    br
+      br
+  .form-group.mt-80
+    = f.label 'グループ', class: "control-label col-xs-4"
+    .col-xs-16
+      = f.collection_select :group_id, Group.all, :id, :name, {include_blank: true}, class: 'form-control'
+    .col-xs-4
+    .col-xs-4
+    span.label.label-info.col-xs-2.m-15
       = t('label.task.option')
-  br
-  br
-  .form-group.m-10
-    = f.label :file, '添付ファイル', class: "control-label col-xs-2"
-    .col-xs-8
-      = f.file_field :file,  class: "form-control col-xs-2"
-    .col-xs-2
-    span.label.label-info.col-xs-1.m-15
+    br
+  .form-group.mt-40
+    = f.label :file, '添付ファイル', class: "control-label col-xs-4"
+    .col-xs-16
+      = f.file_field :file,  class: "form-control col-xs-4"
+    .col-xs-4
+    span.label.label-info.col-xs-2.m-15
       = t('label.task.option')
-  br
-  br
+  .mt-80
   = f.submit t('label.register'), class: "btn btn-primary btn-lg active m-15"
   = button_tag t('label.clear'), type: :reset, class: 'btn btn-warning btn-lg m-15'
 

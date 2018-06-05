@@ -16,3 +16,4 @@ DAYS = {
     SAT: '土',
     SUN: '日'
 }.freeze
+

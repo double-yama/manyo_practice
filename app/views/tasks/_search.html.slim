@@ -1,27 +1,19 @@
-.panel.panel-info
-  .panel-body.search
-    = form_for :q, url: mypage_tasks_path, html: {method: :get} do |f|
-      .form-group.search_form_tr
-        div.label_search
-          = t('label.task.search_for_task')
-        div.form_search
-          = f.text_field :name, class:"form-control"
-        div.label_search
-          = t('label.search_for_label')
-        div.form_search
-          = f.select :label, Label.all.map{|l| [l.name]}, {include_blank: true}, class:"form-control"
-      .form-group.search_form_tr
-        div.label_search
-          = t('label.search_for_status')
-        div.form_search
-          = f.select :status, Task.statuses.map { |k, _v| [t("enums.status.#{k}"), k] }, {include_blank: true}, class:"form-control"
-      / br
-      / .form-group.search_form_tr
-      /   div.label_search
-      /     = t('label.search_for_user_name')
-      /   div.form_search
-      /     = f.select :username, User.all.map{|l| [l.username]}, {include_blank: true}, class:"form-control"
-      .form-group.search_form_tr
-        .label_search
-        = button_tag fa_icon('search lg', text: t('label.search')), class: 'btn btn-info m-15'
-        = button_tag fa_icon('times-circle lg', text: t('label.clear')), type: :reset, class: 'btn btn-warning m-15'
+= form_for :q, url: my_page_tasks_path, html: {method: :get} do |f|
+  .form-group.search_form_tr
+    .label_search
+      = t('label.task.search_for_task')
+    .form_search
+      = f.text_field :name, class:"form-control"
+    .label_search
+      = t('label.search_for_label')
+    .form_search
+      = f.select :label, Label.all.map{|l| [l.name]}, {include_blank: true}, class:"form-control"
+  .form-group.search_form_tr
+    .label_search
+      = t('label.search_for_status')
+    .form_search
+      = f.select :status, Task.statuses.map { |k, _v| [t("enums.status.#{k}"), k] }, {include_blank: true}, class:"form-control"
+  .form-group.search_form_tr
+    .label_search
+    = button_tag fa_icon('search lg', text: t('label.search')), class: 'btn btn-info m-15'
+    = button_tag fa_icon('times-circle lg', text: t('label.clear')), type: :reset, class: 'btn btn-warning m-15'

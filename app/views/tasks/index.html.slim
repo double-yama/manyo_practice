@@ -10,10 +10,8 @@
     - breadcrumb :root
   #side-content.panel-body
     = render 'side'
-
   #main-content.panel-body
-    h3
+    h4
       = t('title.add_new_task')
-    br
-    br
-    = render 'modal'
+    .mt-30
+      = render 'modal'

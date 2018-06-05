@@ -5,16 +5,11 @@
 .content{
   margin:0 50px;
   text-align:  center;
-
 }
+
 #calendar{
-  //margin:50px 50px;
   width: 95%;
   table-layout: fixed;
-}
-
-.tds_for_today{
-  background-color: #8fdf82;
 }
 
 .td-bg-today{
@@ -25,13 +20,18 @@
   margin: 10px;
 }
 
-.p-15{
-  padding-bottom: 50px;
-}
-
 .th-cal{
   border: thin solid;
   vertical-align: middle;
+  text-align: center;
+}
+
+.red{
+  color: red;
+}
+
+.blue {
+  color: blue;
 }
 
 .td-cal{

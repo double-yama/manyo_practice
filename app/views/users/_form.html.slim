@@ -1,18 +1,17 @@
 = form_for @user do |f|
-  div.field
+  .field
   = f.label :username, t('label.user_name')
   = f.text_field :username
-  br
-  br
-  = f.label :password, t('label.password')
-  = f.password_field :password
-  br
-  br
-  = f.label :password , t('label.password_again')
-  = f.password_field :password_confirmation
-  br
-  br
-  = f.label :image, 'プロフィール画像'
-  = f.file_field :image
 
-  = f.submit t('label.register')
+  .mt-30
+    = f.label :password, t('label.password')
+    = f.password_field :password
+  .mt-30
+    = f.label :password , t('label.password_again')
+    = f.password_field :password_confirmation
+  .mt-30
+    = f.label :image, 'プロフィール画像'
+    .center
+      = f.file_field :image
+
+    = f.submit t('label.register'), class: "btn btn-primary btn-lg active m-15"

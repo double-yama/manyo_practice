@@ -1,19 +1,19 @@
-div.content
+.content
   = form_for(@label) do |l|
     - if @label.errors.any?
       - @label.errors.full_messages.each do |message|
         javascript:
             toastr.info("#{message}");
-    div.form-group
-      = l.label :name, t('label.label_name'), class: "control-label col-xs-4"
-      div.col-xs-5
+    .form-group.mt-50
+      = l.label :name, t('label.label_name'), class: "control-label col-xs-8"
+      .col-xs-10
         = l.text_field :name, class: "form-control"
+      .col-xs-6
       br
-    br
-    div
-      div.col-xs-3
-      = l.submit "#{t('label.save')}", class: "btn btn-primary col-xs-2"
-      div.col-xs-2
-      = button_tag fa_icon('times-circle lg', text: t('label.clear')), type: :reset, class: 'btn btn-danger col-xs-2'
-      div.col-xs-3
+    .mt-50
+      .col-xs-6
+      = l.submit "#{t('label.save')}", class: "btn btn-primary col-xs-4"
+      .col-xs-4
+      = button_tag fa_icon('times-circle lg', text: t('label.clear')), type: :reset, class: 'btn btn-danger col-xs-4'
+      .col-xs-6
 

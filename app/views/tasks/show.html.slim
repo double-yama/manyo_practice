@@ -3,29 +3,27 @@
 
 h3
   = t('title.show')
-p
-  = 'タスクID'
-  #task_id
-    = @task.id
-p
-  = t('label.task_name')
-  br
-  = @task.name
-br
-p
-  = t('label.description')
-  br
-  = @task.detail
-br
-p
-  = '添付ファイル'
-  br
-  = link_to @task.file, @task.file.url,  download: @task.file
-br
-#complete_button
-  = complete_button_for_show(@task.id)
 
-br
+.row
+  #task_id
+    .col-xs-6
+    .col-xs-8
+      = 'タスクID'
+    .col-xs-4
+      = @task.id
+    .col-xs-6
+p.mt-30
+  = t('label.task_name')
+  = @task.name
+p.mt-30
+  = t('label.description')
+  = @task.detail
+p.mt-30
+  = '添付ファイル'
+  = link_to @task.file, @task.file.url,  download: @task.file
+#complete_button.mt-50
+  = complete_button_for_show(@task.id)
+.mt-30
   = link_to t('label.back'), :back
 
 javascript:

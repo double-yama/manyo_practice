@@ -47,7 +47,7 @@ ja:
     user_name_colon: "ユーザ名："
     user_id: "ユーザID"
     user_id_colon: "ユーザID："
-    tasks_count_without_completed: "未着手/実行中タスク数："
+    tasks_count_without_completed: "未完了タスク数："
     password: "パスワード"
     password_again: "パスワード(確認)"
     register: "登録"
@@ -96,7 +96,8 @@ ja:
     task_updated: "タスク更新に成功しました"
     confirm: "」を削除します よろしいですか？"
     delete_user: "ユーザ「"
-    delete_task: "タスク「"
+    delete_task: "タスク名｢「"
+    is_added: "｣が追加されました"
     warn_to_put_date_from_today: "今日以降の日付を入力してください"
 
     group:

@@ -1,0 +1,37 @@
+.breadcrumbs
+  - breadcrumb :my_page
+
+.container
+  .item.col-sm-1
+  .item.col-sm-10.well.well-sm
+    .panel-body.mt-20
+      .my_page_image.architrave_image
+        = image_tag(current_user.image.to_s, :size => "100x100", :alt => 'アイコン' )
+      .mt-30
+        .my_profile
+          .col-xs-6
+          .user_label.col-xs-10
+            = t('label.user_id_colon')
+          .user_name.col-xs-8
+            = current_user.id
+        .my_profile
+          .col-xs-6
+          .user_label.col-xs-10
+            = t('label.user_name_colon')
+          .user_name.col-xs-8
+            = current_user.username
+        .my_profile
+          .col-xs-6
+          .tasks_num_label.col-xs-10
+            = t('label.tasks_count_without_completed')
+          .tasks_num.col-xs-8
+            = current_user.tasks.incomplete.count
+          = link_to '編集', edit_user_path(current_user.id), class: "btn btn-primary mt-40"
+
+  .item.col-sm-1
+  .item.col-sm-11.well.well-sm
+    .panel-body
+      = render 'search'
+  .item.col-sm-1
+
+= render 'mypage_table'

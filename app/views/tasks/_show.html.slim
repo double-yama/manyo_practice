@@ -1,8 +1,7 @@
-.modal.fade id="edit_button_#{task.id}" role="dialog"
+.modal.fade id='edit_button_#{task.id}' role='dialog'
   .modal-dialog
     .modal-content
       .modal-header
-        / button type="button" class="close" data-dismiss="modal"
         h4.modal-title
           = '詳細'
       .modal-body.center_table
@@ -27,8 +26,7 @@
               th
                 = '添付ファイル'
               td
-                = link_to task.file, task.file.url, download: task.file
-        br
+                = link_to task.file, task.file.filename, download: task.file
           #complete_button
             = complete_button_for_show(task.id)
 

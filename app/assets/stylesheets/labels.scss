@@ -11,8 +11,6 @@
 }
 
 #l_side-content {
-  //margin-left: 5px;
-  //margin-right: 15px;
   width: 30%;
   float:right;
   background-color: white;
@@ -26,18 +24,7 @@
   background-color: red;
 }
 
-.mt-100{
-  margin-top: 100px;
-}
-
-.mb-40{
-  margin-bottom: 40px;
-}
-
-.mb-20{
-  margin-bottom: 20px;
-}
-
-.mt-40{
-  margin-top: 40px;
+.label_name {
+  font-size:1.5em;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }

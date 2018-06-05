@@ -6,6 +6,8 @@ class Group < ApplicationRecord
   has_many :group_users, dependent: :destroy
   has_many :users, through: :group_users
 
+  has_many :tasks
+
   attr_accessor :users_name
   after_save :save_users_name
 

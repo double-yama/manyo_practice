@@ -3,7 +3,7 @@ crumb :root do
 end
 
 crumb :my_page do
-  link " マイページ", mypage_tasks_path
+  link " マイページ", my_page_tasks_path
   parent :root
 end
 
@@ -24,6 +24,11 @@ end
 
 crumb :group do
   link "グループ一覧" , groups_path
+  parent :root
+end
+
+crumb :groups_for_user do
+  link "所属グループ一覧" , my_groups_users_path
   parent :root
 end
 
