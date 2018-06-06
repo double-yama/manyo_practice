@@ -2,9 +2,9 @@
   - breadcrumb :my_page
 
 .container
-  .item.col-sm-1
+  .item.col-sm-6
   .item.col-sm-10.well.well-sm
-    .panel-body.mt-20
+    .panel-body
       .my_page_image.architrave_image
         = image_tag(current_user.image.to_s, :size => "100x100", :alt => 'アイコン' )
       .mt-30
@@ -27,11 +27,67 @@
           .tasks_num.col-xs-8
             = current_user.tasks.incomplete.count
           = link_to '編集', edit_user_path(current_user.id), class: "btn btn-primary mt-40"
+  .item.col-sm-6
+  /
+  / .item.col-sm-1
+  / .item.col-sm-11.well.well-sm
+  /   .panel-body
+  /     = render 'search'
+  / .item.col-sm-1
 
-  .item.col-sm-1
-  .item.col-sm-11.well.well-sm
-    .panel-body
-      = render 'search'
-  .item.col-sm-1
+= form_for :q, url: my_page_tasks_path, html: {method: :get} do |f|
+  table.mt-20.mb-20.row-20
+    thead
+      tr
+        th.col-xs-2
+        th.label_search.col-xs-4
+          = t('label.task.search_for_task')
+        th.col-xs-1
+        th.label_search.col-xs-3
+          = t('label.search_for_status')
+        th.col-xs-1
+        th.label_search.col-xs-4
+          = t('label.search_for_label')
+        th.col-xs-1
+        th.col-xs-2
+        th.col-xs-1
+        th.col-xs-2
+        th.col-xs-1
+      tr
+        td.col-xs-3
+        td.form_search.col-xs-4
+          = f.text_field :name, class: "form-control"
+        td.col-xs-1
+        td.form_search.col-xs-2
+          = f.select :status, Task.statuses.map {|k, _v| [t("enums.status.#{k}"), k]}, {include_blank: true}, class: "form-control"
+        td.col-xs-1
+        td.form_search.col-xs-4
+          = f.select :label, Label.all.map {|l| [l.name]}, {include_blank: true}, class: "form-control"
+        td.col-xs-1
+        td.col-xs-2
+          = button_tag fa_icon('search lg', text: t('label.search')), class: 'btn btn-info'
+        td.col-xs-1
+          = button_tag fa_icon('times-circle lg', text: t('label.clear')), type: :reset, class: 'btn btn-warning'
+        td.col-xs-2
 
+  .width80
+    .search_label.mt-20.mb-20
+      .task_search_label
+        = t('label.task.search_for_task')
+      .status_search_label
+        = t('label.search_for_status')
+      .status_search_label
+        = t('label.search_for_label')
+
+    .center.search_label.mt-20.mb-20
+      .task_search_label
+        = f.text_field :name, class: "form-control"
+      .status_search_label
+        = f.select :status, Task.statuses.map {|k, _v| [t("enums.status.#{k}"), k]}, {include_blank: true}, class: "form-control"
+      .status_search_label
+        = f.select :label, Label.all.map {|l| [l.name]}, {include_blank: true}, class: "form-control"
+      .search_button
+        = button_tag fa_icon('search lg', text: t('label.search')), class: 'btn btn-info'
+      .search_button
+        = button_tag fa_icon('times-circle lg', text: t('label.clear')), type: :reset, class: 'btn btn-warning'
 = render 'mypage_table'

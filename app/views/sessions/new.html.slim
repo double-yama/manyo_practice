@@ -1,6 +1,11 @@
 - if flash[:notice]
   javascript:
       toastr.success('#{flash[:notice]}');
+
+- if flash[:error]
+  javascript:
+    toastr.warning('#{flash[:error]}');
+
 .mt-30
 = form_for :session do |f|
   = fa_icon "user"

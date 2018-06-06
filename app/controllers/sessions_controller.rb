@@ -10,6 +10,7 @@ class SessionsController < ApplicationController
       flash[:notice] = t('flash.success_to_login')
       redirect_to tasks_path
     else
+      flash[:error] = 'ログインに失敗しました'
       redirect_to login_path
     end
   end

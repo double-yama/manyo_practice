@@ -68,17 +68,14 @@ class TasksController < ApplicationController
     if params[:q].present?
       @q = Task.new(params_word)
       @my_tasks = my_tasks.search_tasks_by_queries(params_word).page(params[:page]).per(10)
-      # @tasks_count = my_tasks.incomplete.count
     else
       @q = Task.new
       @my_tasks = my_tasks.incomplete.order(sort_column + ' ' + sort_order).include_label.include_users.page(params[:page]).per(10)
-      # @tasks_count = my_tasks.incomplete.count
     end
   end
 
   def my_groups
     @tasks_of_my_group = my_tasks.incomplete.order(sort_column + ' ' + sort_order).include_label.include_user.page(params[:page]).per(10)
-    # @tasks_count = my_tasks.incomplete.count
   end
 
   def tasks_for_group
