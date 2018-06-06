@@ -1,0 +1,19 @@
+current directory: /Users/shunyama/manyo/vendor/bundle/ruby/2.3.0/gems/byebug-10.0.2/ext/byebug
+/Users/shunyama/.rbenv/versions/2.3.3/bin/ruby -r ./siteconf20180527-24303-ak9ijw.rb extconf.rb
+creating Makefile
+
+current directory: /Users/shunyama/manyo/vendor/bundle/ruby/2.3.0/gems/byebug-10.0.2/ext/byebug
+make "DESTDIR=" clean
+
+current directory: /Users/shunyama/manyo/vendor/bundle/ruby/2.3.0/gems/byebug-10.0.2/ext/byebug
+make "DESTDIR="
+compiling locker.c
+compiling byebug.c
+compiling context.c
+compiling breakpoint.c
+compiling threads.c
+linking shared-object byebug/byebug.bundle
+
+current directory: /Users/shunyama/manyo/vendor/bundle/ruby/2.3.0/gems/byebug-10.0.2/ext/byebug
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 byebug.bundle ./.gem.20180527-24303-qdi3pc/byebug
