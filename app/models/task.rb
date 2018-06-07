@@ -31,7 +31,7 @@ class Task < ApplicationRecord
   scope :incomplete, -> { where('status != ? ', 2) }
   scope :include_users, -> { includes(:user) }
   scope :period_expired, -> { where('period < ? ', Date.today) }
-  scope :deadline_closed, -> (days){ where('period >= ? and period < ?', Date.today, Date.today + days.day) }
+  scope :deadline_closed, -> (days){ where('period >= ? and period < ?', Date.today, Date.today + days.day) } # BETWEENを使ったほうがわかりやすい気がする
 
   STATUS = {
     yet_start: 0,

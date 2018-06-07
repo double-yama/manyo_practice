@@ -23,7 +23,7 @@ class UsersController < ApplicationController
 
   def show
     @users_tasks = current_user.tasks.page(params[:page]).per(10)
-    @user_name = User.find(params[:id])
+    @user_name = User.find(params[:id])  #@user_nameでUserを入れてる？？
   end
 
   def edit
@@ -41,13 +41,14 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
-    User.destroy_all_tasks(params[:id])
-    @user.destroy
+    User.destroy_all_tasks(params[:id]) # Userのtasksを全件削除だと思うんだけどdependent: :delete_allいけるのであればこっちがいいかも
+    @user.destroy # 削除失敗したときは？
     redirect_to users_path
   end
 
   def my_groups
-    @user = User.find(current_user.id)
+    @user = User.find(current_user.id) # current_userでいいよ
+    # 自分のグループを検索したいと思うんだけど current_user.groupsでいける
     @my_gu = GroupUser.where(user_id: current_user.id).order('group_id')
   end
 
