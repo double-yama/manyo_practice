@@ -10,7 +10,6 @@ class Task < ApplicationRecord
   mount_uploader :file, FileUploader
 
   belongs_to :user
-  belongs_to :group
 
   has_many :task_labels, dependent: :destroy
   has_many :labels, through: :task_labels
@@ -31,7 +30,7 @@ class Task < ApplicationRecord
   scope :incomplete, -> { where('status != ? ', 2) }
   scope :include_users, -> { includes(:user) }
   scope :period_expired, -> { where('period < ? ', Date.today) }
-  scope :deadline_closed, -> (days){ where('period >= ? and period < ?', Date.today, Date.today + days.day) } # BETWEENを使ったほうがわかりやすい気がする
+  scope :deadline_closed, -> (days){ where(period: Date.today..Date.today + days.day) }
 
   STATUS = {
     yet_start: 0,

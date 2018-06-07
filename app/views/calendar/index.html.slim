@@ -2,7 +2,7 @@
   .breadcrumbs
     - breadcrumb :calendar
   table#calendar.center_table
-    caption.m-10
+    caption.m-20
       = link_to calendar_path(@today.prev_month.strftime('%Y%m')) do
         = fa_icon('fast-backward')
       = @today.strftime('%Y年%m月')

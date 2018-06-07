@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-  before_action :ensure_correct_user, except: :my_groups
+  before_action :ensure_admin_user, except: :my_groups
 
   def index
     @groups = Group.all.page(params[:page]).per(10)

@@ -1,5 +1,5 @@
 class LabelsController < ApplicationController
-  before_action :ensure_correct_user
+  before_action :ensure_admin_user
 
   def index
     @labels = set_for_index

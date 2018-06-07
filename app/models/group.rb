@@ -5,7 +5,6 @@ class Group < ApplicationRecord
 
   has_many :group_users, dependent: :destroy
   has_many :users, through: :group_users
-
   has_many :tasks
 
   attr_accessor :users_name
@@ -17,8 +16,4 @@ class Group < ApplicationRecord
       self.group_users.create(user_id: user.id) if gu.blank?
     end
   end
-
-  # def self.groups_current_user_belongs_to
-  #   joins(:group_users).where('group_users.user_id = ?' ,current_user.id)
-  # end
 end

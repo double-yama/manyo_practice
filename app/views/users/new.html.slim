@@ -1,4 +1,9 @@
+- if flash[:error]
+  javascript:
+    toastr.error('#{flash[:error]}');
+
+
 h3
   = t('label.signup')
 
-= render 'users/form'
+= render 'form'

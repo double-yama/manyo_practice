@@ -1,8 +1,8 @@
 h3
-  = @user_name.username
+  = @user.username
   = 'さんのタスク一覧'
 .mt-40
-  = image_tag(@user_name.image.to_s, :size => "100x100", :alt => 'icon')
+  = image_tag(@user.image.to_s, :size => "100x100", :alt => 'icon')
 
 .mt-40
   table.center_table.table.table-hover.table-striped.users_content
@@ -18,7 +18,7 @@ h3
       th
       th
 
-    - @users_tasks.each do |task|
+    - @user_tasks.each do |task|
       tr
         td
           = link_to task.name, task_path(task.id)
@@ -36,4 +36,4 @@ h3
           = link_to task_path(task.id), method: :delete, data: {confirm: t('flash.confirm')}, class: "btn btn-danger" do
             = fa_icon "trash"
 
-  = paginate @users_tasks
+  = paginate @user_tasks

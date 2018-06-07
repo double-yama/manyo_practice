@@ -17,9 +17,7 @@ class ApplicationController < ActionController::Base
     render template: "errors/error_500", status: 500, layout: 'application'
   end
 
-  def ensure_correct_user
-    # correctじゃわからない
-    # adminとかsuperとか
+  def ensure_admin_user
     unless current_user.super
       flash[:error] = t('flash.no_authority')
       redirect_to tasks_path

@@ -2,15 +2,16 @@ Rails.application.routes.draw do
 
   # collection(集合)はidなし、member(個別)はidあり
 
-  scope :admin do
-    resources :users, :except => [:new, :create, :my_groups] do
-      collection do
+  # scope :admin do
+  #   resources :users, :except => [:new, :create, :my_groups] do
+  resources :users do
+    collection do
         get :my_groups
-      end
     end
+  end
     resources :groups
     resources :labels
-  end
+  # end
 
   root :to => 'tasks#index'
   get "signup" => "users#new"

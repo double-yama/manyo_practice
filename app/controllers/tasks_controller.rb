@@ -133,7 +133,7 @@ class TasksController < ApplicationController
   def set_for_index
     @my_period_expired_tasks = my_tasks.period_expired.include_users.incomplete.order('period ASC')
     @deadline_closed_tasks = my_tasks.deadline_closed(3).include_users.incomplete.order('period ASC')
-    @tasks = Task.all.order(sort_column + ' ' + sort_order).include_label.page(params[:page]).per(10)
+    @tasks = Task.all.include_label.page(params[:page]).per(10)
   end
 
   def my_tasks

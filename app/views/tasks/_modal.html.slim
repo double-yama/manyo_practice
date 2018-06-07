@@ -5,7 +5,7 @@
     .col-xs-16
       = f.text_field :name, class: "form-control"
     .col-xs-4
-    span.label.label-warning.col-xs-2.m-15
+    span.label.label-warning.col-xs-2.m-10
       = t('label.task.must')
   br
   .form-group.mt-30
@@ -13,7 +13,7 @@
     .col-xs-16
       = f.text_area :detail, class: "form-control"
     .col-xs-4
-    span.label.label-warning.col-xs-2.m-15
+    span.label.label-warning.col-xs-2.m-10
       = t('label.task.must')
     br
   .form-group.mt-50
@@ -21,14 +21,14 @@
     .col-xs-16
       = f.select :priority,[%w(高 high), %w(中 middle), %w(低 low)], {}, class: "form-control selectpicker form-inlin"
     .col-xs-4
-    span.label.label-info.col-xs-2.m-15
+    span.label.label-info.col-xs-2.m-10
       = t('label.task.option')
   .form-group.mt-110
     = f.label t('label.period_end_on'),{} ,  class: "control-label col-xs-4"
     .col-xs-16
       = f.date_select :period, {}, class: 'form-control form-inline'
     .col-xs-4
-    span.label.label-info.col-xs-2.m-15
+    span.label.label-info.col-xs-2.m-10
       = t('label.task.option')
   br
   .form-group.mt-110
@@ -36,7 +36,7 @@
     .col-xs-16
       = f.select :status, Task.statuses.map { |k, _v| [t("enums.status.#{k}"), k] }, {}, class: "form-control dropdown-toggle"
     .col-xs-4
-    span.label.label-info.col-xs-2.m-15
+    span.label.label-info.col-xs-2.m-10
       = t('label.task.option')
   .form-group.mt-80
     = f.label t('label.label'), class: "control-label col-xs-4"
@@ -49,7 +49,7 @@
             td
               = l.label class: 'form-check-label'
     .col-xs-4
-    span.label.label-info.col-xs-2.m-15
+    span.label.label-info.col-xs-2.m-10
       = t('label.task.option')
   br
     br
@@ -60,7 +60,7 @@
       = f.collection_select :group_id, Group.joins(:group_users).where('group_users.user_id = ?' ,current_user.id), :id, :name, {include_blank: true}, class: 'form-control'
     .col-xs-4
     .col-xs-4
-    span.label.label-info.col-xs-2.m-15
+    span.label.label-info.col-xs-2.m-10
       = t('label.task.option')
     br
   .form-group.mt-40
@@ -68,11 +68,11 @@
     .col-xs-16
       = f.file_field :file,  class: "form-control col-xs-4"
     .col-xs-4
-    span.label.label-info.col-xs-2.m-15
+    span.label.label-info.col-xs-2.m-10
       = t('label.task.option')
   .mt-80
-  = f.submit t('label.register'), class: "btn btn-primary btn-lg active m-15"
-  = button_tag t('label.clear'), type: :reset, class: 'btn btn-warning btn-lg m-15'
+  = f.submit t('label.register'), class: "btn btn-primary btn-lg active m-10"
+  = button_tag t('label.clear'), type: :reset, class: 'btn btn-warning btn-lg m-10'
 
   - if @task.errors.any?
     - @task.errors.full_messages.each do |message|

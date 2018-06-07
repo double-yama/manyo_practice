@@ -8,21 +8,13 @@
   justify-content: space-around;
 }
 
-.m-15{
+.m-10{
   margin: 10px;
-  // どっちやねん
 }
 
-.m-10{
+.m-20{
   margin-top: 20px;
   margin-bottom: 20px;
-  // 10ってゆって20pxは騙されるね
-}
-
-.m-10-lr{
-  margin-left: 20px;
-  margin-right: 20px;
-  // 10ってゆって20pxは騙されるね
 }
 
 .label_search{
@@ -166,18 +158,14 @@ tr{
    display: inline-block;
    margin: 0 15px;
    font-weight: bold;
-   //width: 130px;
    height: 34px;
-   //padding: 6px 6px;
 }
 
 .status_search_label {
   display: inline-block;
   margin: 0 10px;
   font-weight: bold;
-  //width: 130px;
   height: 34px;
-  //padding: 6px 6px;
 }
 
 select {
@@ -206,9 +194,6 @@ width: 60%;
 display: flex;
 margin-left: auto;
 margin-right: auto;
-//top: 50%;
-//left: 50%;
-//-ms-transform: translate(-50%,-50%);
 }
 
 .status-button{
