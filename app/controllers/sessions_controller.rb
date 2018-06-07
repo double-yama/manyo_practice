@@ -4,8 +4,8 @@ class SessionsController < ApplicationController
   def new; end
 
   def create
-    @user = User.find_by(username: name_params["username"])
-    if @user&.authenticate(password_params["password"])
+    @user = User.find_by(username: name_params[:username])
+    if @user&.authenticate(password_params[:password])
       login @user
       flash[:notice] = t('flash.success_to_login')
       redirect_to tasks_path

@@ -1,4 +1,4 @@
-# frozen_string_literal: true.
+# frozen_string_literal: true
 class TasksController < ApplicationController
   helper_method :sort_column, :sort_order
 
@@ -42,7 +42,7 @@ class TasksController < ApplicationController
 
   def update
     task = Task.find(params[:id])
-    param_label_ids = params[:task][:label_ids].select { |id| id.present? }
+    param_label_ids = params[:task][:label_ids].select(&:present?)
     task.task_labels.delete_all
     param_label_ids.each do |label_id|
       task.task_labels.create(label_id: label_id)
@@ -52,8 +52,10 @@ class TasksController < ApplicationController
       flash[:notice] = t('flash.task_updated')
       redirect_to tasks_path
     else
+      # undertaking
       flash[:notice] = t('flash.task_updated')
       redirect_to tasks_path
+      # undertaking
       # render 'edit'
     end
   end

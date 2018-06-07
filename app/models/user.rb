@@ -1,4 +1,5 @@
-# frozen_string_literal: true.
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   has_secure_password validations: true
   validates :username, presence: true, uniqueness: true
@@ -12,5 +13,4 @@ class User < ApplicationRecord
   def self.destroy_all_tasks(user_id)
     where('users.id = ?', user_id).destroy_all
   end
-
 end

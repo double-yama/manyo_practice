@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   include SessionsHelper
   protect_from_forgery with: :exception
@@ -9,12 +11,12 @@ class ApplicationController < ActionController::Base
 
   def render_404(exception = nil)
     logger.info "Rendering 404 with exception: #{exception.message}" if exception
-    render template: "errors/error_404", status: 404, layout: 'application'
+    render template: 'errors/error_404', status: 404, layout: 'application'
   end
 
   def render_500(exception = nil)
     logger.info "Rendering 500 with exception: #{exception.message}" if exception
-    render template: "errors/error_500", status: 500, layout: 'application'
+    render template: 'errors/error_500', status: 500, layout: 'application'
   end
 
   def ensure_admin_user
@@ -28,7 +30,7 @@ class ApplicationController < ActionController::Base
     User.find(session[:user_id])
   end
 
-private
+  private
 
   def require_login
     redirect_to login_path unless logged_in?

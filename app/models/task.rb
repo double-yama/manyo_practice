@@ -1,4 +1,5 @@
-# frozen_string_literal: true.
+# frozen_string_literal: true
+
 class Task < ApplicationRecord
   include Common
 
@@ -26,28 +27,29 @@ class Task < ApplicationRecord
       desc: 'desc'
   }.freeze
 
-  scope :include_label, -> { includes([ task_labels: :label]) }
+  scope :include_label, -> { includes([task_labels: :label]) }
   scope :incomplete, -> { where('status != ? ', 2) }
   scope :include_users, -> { includes(:user) }
   scope :period_expired, -> { where('period < ? ', Date.today) }
-  scope :deadline_closed, -> (days){ where(period: Date.today..Date.today + days.day) }
+  scope :deadline_closed, ->(days) { where(period: Date.today..Date.today + days.day) }
 
   STATUS = {
     yet_start: 0,
     doing: 1,
     completed: 2
-  }
+  }.freeze
+
   PRIORITY = {
     low: 0,
     middle: 1,
     high: 2
-  }
+  }.freeze
 
   enum status: STATUS
   enum priority: PRIORITY
 
   def validate_previous_day
-    if self.period < Date.today
+    if period < Date.today
       errors[:base] << I18n.t('flash.warn_to_put_date_from_today')
     end if period
   end
@@ -55,7 +57,7 @@ class Task < ApplicationRecord
   def self.search_tasks_by_queries(params)
     tasks = Task.all.include_label
     if params[:name].present?
-    tasks = tasks.where(['tasks.name LIKE ?', "%#{params[:name]}%"]).or(tasks.where(['detail LIKE ?', "%#{params[:name]}%"]))
+      tasks = tasks.where(['tasks.name LIKE ?', "%#{params[:name]}%"]).or(tasks.where(['detail LIKE ?', "%#{params[:name]}%"]))
     end
     tasks = tasks.joins(:labels).where 'labels.name = ?', params[:label] if params[:label].present?
     tasks = tasks.where(status: params[:status]) if params[:status].present?

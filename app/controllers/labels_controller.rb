@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LabelsController < ApplicationController
   before_action :ensure_admin_user
 
@@ -24,17 +26,6 @@ class LabelsController < ApplicationController
 
   def edit
     @label = Label.find(params[:id])
-    # if @label.save
-    #   flash[:notice] = t('flash.new_label_added')
-    #   redirect_to labels_path
-    #   # format.html
-    #   # format.js
-    # else
-    #   @labels = Label.all.order(created_at: :desc).page(params[:page]).per(10)
-    #   render :index
-    # end
-    # ajaxを用いて新規登録するため、編集もajaxでやりたい
-    # UI的に、一覧表示のHTMLタグがfield_tagなのはどうなのか？
   end
 
   def update
