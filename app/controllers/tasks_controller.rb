@@ -70,12 +70,12 @@ class TasksController < ApplicationController
       @my_tasks = my_tasks.search_tasks_by_queries(params_word).page(params[:page]).per(10)
     else
       @q = Task.new
-      @my_tasks = my_tasks.incomplete.order(sort_column + ' ' + sort_order).include_label.include_users.page(params[:page]).per(10)
+      @my_tasks = my_tasks.incomplete.include_label.include_users.page(params[:page]).per(10)
     end
   end
 
   def my_groups
-    @tasks_of_my_group = my_tasks.incomplete.order(sort_column + ' ' + sort_order).include_label.include_user.page(params[:page]).per(10)
+    @tasks_of_my_group = my_tasks.incomplete.include_label.include_user.page(params[:page]).per(10)
   end
 
   def tasks_for_group

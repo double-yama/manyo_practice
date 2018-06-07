@@ -27,6 +27,25 @@ Specの注意点
 
 * control shift dでRSpecデバッグ
 
+###### JavaScriptについて
+
+* 上級者になるのが難しい言語
+
+* coffee script javascriptを生成する言語
+* コンパイルが必要
+
+* JavaScriptを簡単に書ける
+
+* まずはHTML/CSSを勉強すること
+
+* 次にjQuery
+
+* そしてCoffeeScript
+
+* 最後にVue.jsとかのフレームワーク
+
+* vue.js
+
 ###### メモ
 
 * jsでうまう行かなかったら検証→コンソールを見ること

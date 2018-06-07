@@ -5,6 +5,9 @@ class CalendarController < ApplicationController
     @today = Date.today
     @day = @today.at_beginning_of_month.at_beginning_of_week(:sunday)
 
+    first_of_month = @today.at_beginning_of_month.strftime('%-d').to_i
+    end_of_month = @today.at_end_of_month.strftime('%-d').to_i
+    @counts_of_days = end_of_month - first_of_month + 1
 
   end
 

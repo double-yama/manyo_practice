@@ -159,10 +159,33 @@ tr{
   width: 100%;
 }
 
-.task_search_label, .status_search_label {
+.task_search_label {
+   display: inline-block;
+   margin: 0 15px;
+   font-weight: bold;
+   //width: 130px;
+   height: 34px;
+   //padding: 6px 6px;
+}
+
+.status_search_label {
   display: inline-block;
-  margin: 0 30px;
+  margin: 0 10px;
   font-weight: bold;
+  //width: 130px;
+  height: 34px;
+  //padding: 6px 6px;
+}
+
+select {
+  width: 130px;
+  height: 34px;
+  padding: 6px 12px;
+  display: block;
+  font-size: 14px;
+  line-height: 1.428571429;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .search_button{
@@ -170,12 +193,29 @@ tr{
   margin-left: 15px;
 }
 
+.select-label {
+  width: 160px;
+  height: 34px;
+}
+
 .search_label{
-  width: 60%;
-  display: flex;
-  margin-left: auto;
-  margin-right: auto;
-  //top: 50%;
-  //left: 50%;
-  //-ms-transform: translate(-50%,-50%);
+width: 60%;
+display: flex;
+margin-left: auto;
+margin-right: auto;
+//top: 50%;
+//left: 50%;
+//-ms-transform: translate(-50%,-50%);
+}
+
+.status-button{
+  margin: 0 10px;
+}
+
+.label-task-status{
+  margin: 0 25px;
+}
+
+.label-status-label{
+  margin: 0 35px;
 }

@@ -36,56 +36,24 @@
   / .item.col-sm-1
 
 = form_for :q, url: my_page_tasks_path, html: {method: :get} do |f|
-  / table.mt-20.mb-20.row-20
-  /   thead
-  /     tr
-  /       th.col-xs-2
-  /       th.label_search.col-xs-4
-  /         = t('label.task.search_for_task')
-  /       th.col-xs-1
-  /       th.label_search.col-xs-3
-  /         = t('label.search_for_status')
-  /       th.col-xs-1
-  /       th.label_search.col-xs-4
-  /         = t('label.search_for_label')
-  /       th.col-xs-1
-  /       th.col-xs-2
-  /       th.col-xs-1
-  /       th.col-xs-2
-  /       th.col-xs-1
-  /     tr
-  /       td.col-xs-3
-  /       td.form_search.col-xs-4
-  /         = f.text_field :name, class: "form-control"
-  /       td.col-xs-1
-  /       td.form_search.col-xs-2
-  /         = f.select :status, Task.statuses.map {|k, _v| [t("enums.status.#{k}"), k]}, {include_blank: true}, class: "form-control"
-  /       td.col-xs-1
-  /       td.form_search.col-xs-4
-  /         = f.select :label, Label.all.map {|l| [l.name]}, {include_blank: true}, class: "form-control"
-  /       td.col-xs-1
-  /       td.col-xs-2
-  /         = button_tag fa_icon('search lg', text: t('label.search')), class: 'btn btn-info'
-  /       td.col-xs-1
-  /         = button_tag fa_icon('times-circle lg', text: t('label.clear')), type: :reset, class: 'btn btn-warning'
-  /       td.col-xs-2
 
   .width80
-    .search_label.mt-20.mb-20
+    .center.search_label.mt-20.mb-5
       .task_search_label
-        = t('label.task.search_for_task')
-      .status_search_label
-        = t('label.search_for_status')
-      .status_search_label
-        = t('label.search_for_label')
+      = t('label.task.search_for_task')
+      .label-task-status
+      = t('label.search_for_status')
+      .label-status-label
+      = t('label.search_for_label')
 
-    .center.search_label.mt-20.mb-20
-      .task_search_label
-        = f.text_field :name, class: "form-control"
+    .center.search_label.mb-20
       .status_search_label
-        = f.select :status, Task.statuses.map {|k, _v| [t("enums.status.#{k}"), k]}, {include_blank: true}, class: "form-control"
+      = f.text_field :name
       .status_search_label
-        = f.select :label, Label.all.map {|l| [l.name]}, {include_blank: true}, class: "form-control"
+      = f.select :status, Task.statuses.map {|k, _v| [t("enums.status.#{k}"), k]}, {include_blank: true}
+      .status_search_label
+      = f.select :label, Label.all.map {|l| [l.name]}, {include_blank: true}, class: 'select-label'
+      .status-button
       .search_button
         = button_tag fa_icon('search lg', text: t('label.search')), class: 'btn btn-info'
       .search_button

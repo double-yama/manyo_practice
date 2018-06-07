@@ -13,7 +13,6 @@
 
       - 1.upto(5).each do
         tr.week_for_task
-          / 月曜か火曜にしっかりレビューしてもらうこと
           / オブジェクトごとに扱う
           / @dayに、日付情報だけでなくタスクも持たせる
           /
@@ -30,3 +29,11 @@
                   #edit_button_doing
                   = link_to task.name, task_path(task.id), class: 'cal-content'
         - @day = @day + 1.week
+
+      /
+      / = render partial: 'calendar'
+      / - 1.upto(5).each do
+      /   tr
+      /     - 1.upto(@counts_of_days).each do |day|
+      /       td
+      /         - day
