@@ -7,16 +7,16 @@ h3
 .mt-40
   table.center_table.table.table-hover.table-striped.users_content
     tr
-      th
+      th.w20per
         = t('label.task_name')
-      th
+      th.w10per
         =  t('label.priority')
-      th
+      th.w10per
         = t('label.status')
-      th
+      th.w50per
         = t('label.description')
-      th
-      th
+      th.w5per
+      th.w5per
 
     - @user_tasks.each do |task|
       tr
@@ -29,10 +29,10 @@ h3
             = t("column.status.#{task.status}")
         td
           = task.detail
-        td
+        td.w3per
           = link_to edit_task_path(task.id), class: "btn btn-primary" do
             = fa_icon "edit"
-        td
+        td.w3per
           = link_to task_path(task.id), method: :delete, data: {confirm: t('flash.confirm')}, class: "btn btn-danger" do
             = fa_icon "trash"
 

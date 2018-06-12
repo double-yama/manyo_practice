@@ -152,15 +152,15 @@ RSpec.describe Task, type: :model do
     end
 
     describe "period_closed" do
-      context "データの日付が3日後の場合" do
+      context "データの日付が4日後の場合" do
         before do
           @task = FactoryGirl.build(:task,
                                     user_id: user.id,
-                                    period: today + 3.day
+                                    period: today + 4.day
           )
           @task.save(validate: false)
         end
-        it "期限が2日以内でないため, 何も返されない" do
+        it "期限が3日以内でないため, 何も返されない" do
           expect(user.tasks.deadline_closed(3)).to be_empty
         end
       end

@@ -1,14 +1,13 @@
 javascript:
         $(document).ready(function () {
-        // / @task.idにしよう
-        var user_id = #{@id};
+        var user_id = #{@task.id};
         $.ajax({
             url: '#{read_task_path}',
             type: 'POST',
             data: {
                 read_id: user_id
             },
-            timeout: 10000,  // 単位はミリ秒
+            timeout: 10000
             // 送信前
             // beforeSend: function (xhr, settings) {
             // },

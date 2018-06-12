@@ -5,26 +5,28 @@ class GroupsController < ApplicationController
 
   def index
     @groups = Group.all.page(params[:page]).per(10)
+    @group = Group.new
   end
 
   def new
-    @group = Group.new
+    # @group = Group.new
   end
 
   def show; end
 
   def create
-    group = Group.new(group_params)
-    if group.save
+    @group = Group.new(group_params)
+    if @group.save
       flash[:notice] = t('flash.group.new_group_added')
       param_user_ids = params[:group][:user_ids].select(&:present?)
       param_user_ids.push(current_user.id)
       param_user_ids.each do |user_id|
-        group.group_users.create(user_id: user_id)
+        @group.group_users.create(user_id: user_id)
       end
       redirect_to groups_path
     else
-      render 'new'
+      @groups = Group.all.page(params[:page]).per(10)
+      render 'index'
     end
   end
 

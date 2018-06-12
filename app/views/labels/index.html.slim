@@ -15,28 +15,29 @@
         = l.text_field :name, class: 'col-xs-9 label_name'
         .col-xs-4
       .row.mt-40
-        .col-xs-3
-        = l.submit "#{t('label.label_register')}", class: 'btn btn-info col-xs-8'
-        .col-xs-2
-        = button_tag fa_icon('times-circle lg', text: t('label.clear')), type: :reset, class: 'btn btn-warning col-xs-8'
-        .col-xs-3
+        = l.submit "#{t('label.label_register')}", class: 'btn btn-info label-add-button'
+        = button_tag fa_icon('times-circle lg', text: t('label.clear')), type: :reset, class: 'btn btn-warning label-clear-button'
 
-    table.center_table.table-hover.table-striped.table_label.mt-40.mb-40
+    table.center_table.table-hover.table-striped.label_tables.mt-40.mb-40
       tr
-        th.center.col-xs-20
+        th.w200
+          = '作成日時'
+        th.w300
           = t('label.label_name')
-        th.center.col-xs-2
+        th.w20
           = t('title.edit')
-        th.center.col-xs-2
+        th.w20
           = t('label.delete')
       - @labels.each do |label|
         tr#labels
-          td.col-xs-20
+          td
+            = label.created_at.strftime('%Y年%-m月%d日')
+          td
             = link_to label.name, label_path(label.id)
-          td.col-xs-2
+          td
             = link_to edit_label_path(label.id), class: 'btn btn-primary' do
               = fa_icon 'edit'
-          td.col-xs-2
+          td
             = link_to label_path(label.id), method: :delete, data: {confirm: t('label.label_delete_message01') + label.name + t('flash.confirm')}, class: 'btn btn-danger' do
               = fa_icon 'trash'
     = paginate @labels

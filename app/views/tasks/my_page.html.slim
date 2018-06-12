@@ -28,7 +28,6 @@
             = current_user.tasks.incomplete.count
           = link_to '編集', edit_user_path(current_user.id), class: "btn btn-primary mt-40"
   .item.col-sm-6
-  /
   / .item.col-sm-1
   / .item.col-sm-11.well.well-sm
   /   .panel-body
@@ -48,7 +47,7 @@
 
     .center.search_label.mb-20
       .status_search_label
-      = f.text_field :name
+      = f.text_field :name, class: 'text_search'
       .status_search_label
       = f.select :status, Task.statuses.map {|k, _v| [t("enums.status.#{k}"), k]}, {include_blank: true}
       .status_search_label
@@ -59,3 +58,9 @@
       .search_button
         = button_tag fa_icon('times-circle lg', text: t('label.clear')), type: :reset, class: 'btn btn-warning'
 = render 'mypage_table'
+
+
+javascript:
+    $(document).on('turbolinks:load', function() {
+        var len = $('tbody').prop('rows').length;
+    });

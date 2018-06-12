@@ -15,7 +15,6 @@
         tr.week_for_task
           / オブジェクトごとに扱う
           / @dayに、日付情報だけでなくタスクも持たせる
-          /
           - (@day..@day.end_of_week(:sunday)).each do |d|
             td.td-cal class=('td-bg-today' if (d == @today))
               .cal-date

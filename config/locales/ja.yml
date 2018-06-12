@@ -95,16 +95,19 @@ ja:
     new_label_added: "ラベル作成に成功しました"
     task_updated: "タスク更新に成功しました"
     confirm: "」を削除します よろしいですか？"
-    delete_user: "ユーザ「"
-    delete_task: "タスク名｢「"
-    is_added: "｣が追加されました"
     warn_to_put_date_from_today: "今日以降の日付を入力してください"
+
+    task:
+      add_flash: "タスク名「%{task_name}」が追加されました"
+      delete_flash: "タスク名「%{task_name}」を削除します よろしいですか？"
+
+
+    user:
+      delete_alert: "ユーザ「%{user_name}」を削除します よろしいですか？"
 
     group:
       new_group_added: "グループを作成しました"
-      delete_group: "グループ「"
-      group_delete_message01: "」を削除します よろしいですか？"
-
+      delete_alert: "グループ「%{group_name}」を削除します よろしいですか？"
 
   params:
     asc: "asc"

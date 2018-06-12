@@ -1,5 +1,7 @@
 = paginator.render do
   nav
+    / p.txt-center =t('views.pagination.display_entries', total: "{{len}}", first: "{{(pageStart + 1)}}", last: "{{(pageEnd + 1)}}")
+
     ul.pagination
       == first_page_tag unless current_page.first?
       == prev_page_tag unless current_page.first?

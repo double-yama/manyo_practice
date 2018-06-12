@@ -15,11 +15,40 @@
 }
 
 .label_check_box{
-  text-align: left;
+  text-align: center;
 }
 
 .table_group{
-  width:75%;
-  margin-top: 30px;
+  width:600px;
   margin-bottom: 20px;
+}
+
+.group_name{
+  width: 70%;
+  height: 34px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.group_detail{
+  width: 70%;
+  height: 34px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.group_add_button{
+  margin-right: 15px;
+}
+
+.group_index{
+  width: 48%;
+  float:left;
+}
+
+.group_new{
+  width: 50%;
+  float:right;
 }

@@ -8,8 +8,8 @@ class NoticeMailer < ApplicationMailer
   #
   def sendmail_confirm
     @greeting = "元気ー？"
-
-    mail to: "m.seino@ashita-team.com"
+    mail to: "k.sakimura@ashita-team.com"
+    # mail to: "m.seino@ashita-team.com"
   end
 
   def sendmail_confirm_task(task)

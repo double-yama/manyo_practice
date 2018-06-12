@@ -2,12 +2,9 @@
   .breadcrumbs
     - breadcrumb :group
 
-  .mt-60
-    .col-xs-18
-    .col-xs-2
-      = link_to '新規グループ作成' ,new_group_path , class: "btn btn-info mb-40"
-    .col-xs-4
-  table.center_table.table-hover.table-striped.mt-60.table_group
+.group_index
+  h4.mt-30 グループ一覧
+  table.center_table.table-hover.table-striped.mt-30.table_group
     tr
       th.center
         = t('label.group.group_name')
@@ -19,18 +16,42 @@
         = t('label.delete')
     - @groups.each do |group|
       tr
-        td.col-xs-5
+        td.w25per
           = link_to group.name, tasks_for_group_task_path(group.id)
-        td.col-xs-17
+        td.w55per
           - group.group_users.each do |g|
-            = g.user.username + ' '
-        td.col-xs-1
+            = '・' + g.user.username
+        td.w8per
           = link_to edit_group_path(group.id), class: "btn btn-primary" do
             = fa_icon "edit"
-        td.col-xs-1
-          = link_to group_path(group.id), method: :delete, data: {confirm: t('flash.group.delete_group') + group.name + t('flash.group.group_delete_message01')}, class: "btn btn-danger" do
+        td.w8per
+          = link_to group_path(group.id), method: :delete, data: {confirm: I18n.t('flash.group.delete_alert', :group_name => group.name)}, class: "btn btn-danger" do
             = fa_icon "trash"
   = paginate @groups
+
+.group_new
+  h4.mt-30 新規作成
+  = form_for(@group) do |l|
+    - if @group.errors.any?
+      - @group.errors.full_messages.each do |message|
+        javascript:
+            toastr.error("#{message}");
+    .mt-40
+      = l.text_field :name, class: "group_name", placeholder: t('label.group.group_name')
+    br
+    .mt-30
+      = l.text_field :description, class: "group_detail",placeholder: t('label.group.description')
+    .mt-40
+      .label_check_box
+        = l.collection_check_boxes(:user_ids, User.where.not(username: current_user.username), :id, :username) do |u|
+          tr
+            td
+              = u.check_box class: 'form-check-input'
+            td
+              = u.label class: 'form-check-label'
+    .mt-50
+      = l.submit "#{t('label.label_register')}", class: "btn btn-primary group_add_button"
+      = button_tag fa_icon('times-circle lg', text: t('label.clear')), type: :reset, class: 'btn btn-warning'
 
 - if flash[:notice]
   javascript:

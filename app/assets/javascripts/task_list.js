@@ -1,7 +1,7 @@
 $(document).on('turbolinks:load', function() {
     var b1 = $('#expired_task_list');
     var b2 = $('#more_btn_expired');
-    b1.find("tr:gt(25)").each(function () {
+    b1.find("tr:gt(20)").each(function () {
             $(this).hide();
         });
     b2.find('.open_expired').nextAll().hide();
@@ -19,7 +19,7 @@ $(document).on('turbolinks:load', function() {
         b2.find('.open_expired').show();
         b2.find('.open_expired').nextAll().hide();
         // console.log(b1.find("tr:gt(21)"));
-        b1.find("tr:gt(21)").each(function () {
+        b1.find("tr:gt(20)").each(function () {
             $(this).hide();
         });
         return false;

@@ -9,9 +9,11 @@
   .mt-30
     = f.label :password , t('label.password_again')
     = f.password_field :password_confirmation
+  / .mt-30
+  /   = f.select :super, User.superes.map {|k, _v| [t("column.role.#{k}"), k]}, {include_blank: true}
   .mt-30
     = f.label :image, 'プロフィール画像'
     .center
       = f.file_field :image
 
-    = f.submit t('label.register'), class: "btn btn-primary btn-lg active m-10"
+    = f.submit t('label.register'), class: 'btn btn-primary btn-lg active m-10'

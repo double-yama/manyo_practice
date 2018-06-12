@@ -32,7 +32,7 @@ class TasksController < ApplicationController
     @task.user_id = current_user.id
     if @task.save
       NoticeMailer.sendmail_confirm_task(@task.name).deliver
-      flash[:notice] = t('flash.delete_task') + @task.name + t('flash.is_added')
+      flash[:notice] = I18n.t('flash.task.add_flash', :task_name => @task.name)
       redirect_to tasks_path
     else
       set_for_index
